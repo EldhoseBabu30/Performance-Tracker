@@ -103,18 +103,25 @@ const HrProfile = () => {
           />
           {/* Update button */}
           <button
-            type='submit'
-            className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80 relative'
-            disabled={isLoading}
+              type='submit'
+              className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80 relative'
+              disabled={isLoading}
           >
              {isLoading ? "Updating..." : "Update"}
-            {successMessage && (
-              <span className='absolute top-0 right-0 bg-green-500 text-white px-2 py-1 rounded-full'>
-                {successMessage}
-              </span>
-            )}
           </button>
         </form>
+
+{/* Success message */}
+{successMessage && (
+  <span className='text-green-500 mt-2'>
+    {successMessage}
+  </span>
+)}
+
+<div className='flex justify-between mt-5'>
+  {/* ... (other elements) ... */}
+</div>
+        
         <div className='flex justify-between mt-5'>
           {/* Delete account link */}
           <span className='text-red-700 cursor-pointer'>Delete account</span>
