@@ -114,7 +114,6 @@ const RegisterPage = () => {
               <option value="">Select an option</option>
               <option value="hr">HR</option>
               <option value="teamLead">Team Lead</option>
-              <option value="employee">Employee</option>
             </select>
           </div>
           <div>
