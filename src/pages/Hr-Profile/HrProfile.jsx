@@ -109,7 +109,7 @@ const HrProfile = () => {
           >
              {isLoading ? "Updating..." : "Update"}
             {successMessage && (
-              <span className='absolute top-0 right-0 bg-green-500 text-white px-2 py-1 rounded-full'>
+              <span className='absolute top-0 right-0  text-green rounded-full'>
                 {successMessage}
               </span>
             )}
