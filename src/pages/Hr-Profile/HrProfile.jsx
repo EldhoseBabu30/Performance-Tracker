@@ -4,16 +4,44 @@ const HrProfile = () => {
   const [username, setUsername] = useState(localStorage.getItem("userName") || "");
   const [email, setEmail] = useState(localStorage.getItem("email") || "");
   const [password, setPassword] = useState(localStorage.getItem("password") || "");
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    // Update values in local storage
-    localStorage.setItem("userName", username);
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
-    // Show success message or perform any other action
-    console.log("Profile updated successfully!");
+
+    // Set loading state
+    setIsLoading(true);
+
+    try {
+      // Simulate an asynchronous update process
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // Update values in local storage
+      localStorage.setItem("userName", username);
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+
+      // Show success message
+      setSuccessMessage("Profile updated successfully!");
+
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    } finally {
+      // Reset loading state
+      setIsLoading(false);
+    }
   }
+
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   // Update values in local storage
+  //   localStorage.setItem("userName", username);
+  //   localStorage.setItem("email", email);
+  //   localStorage.setItem("password", password);
+  //   // Show success message or perform any other action
+  //   console.log("Profile updated successfully!");
+  // }
 
   function handleChange(e) {
     const { id, value } = e.target;
@@ -76,9 +104,15 @@ const HrProfile = () => {
           {/* Update button */}
           <button
             type='submit'
-            className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
+            className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80 relative'
+            disabled={isLoading}
           >
-            Update
+             {isLoading ? "Updating..." : "Update"}
+            {successMessage && (
+              <span className='absolute top-0 right-0 bg-green-500 text-white px-2 py-1 rounded-full'>
+                {successMessage}
+              </span>
+            )}
           </button>
         </form>
         <div className='flex justify-between mt-5'>
