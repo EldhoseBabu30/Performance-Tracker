@@ -6,7 +6,7 @@ const HrHome = () => {
   // Set isLoggedIn to true if the user is logged in
   const isLoggedIn = true; // You need to set this based on whether the user is logged in or not
   // Retrieve HR name from local storage
-  const userName = localStorage.getItem('name');
+  const userName = localStorage.getItem('userName');
 
   return (
     <div className="flex flex-col h-screen justify-between">
