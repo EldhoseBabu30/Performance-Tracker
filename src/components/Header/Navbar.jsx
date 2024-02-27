@@ -1,16 +1,18 @@
-// Navbar.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = ({ isLoggedIn }) => {
-  const [hrName, setHrName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     if (isLoggedIn) {
-      const hrNameFromLocalStorage = localStorage.getItem("hrName");
-      if (hrNameFromLocalStorage) {
-        setHrName(hrNameFromLocalStorage);
+      const storedUserName = localStorage.getItem("userName");
+      const storedRole = localStorage.getItem("role");
+      if (storedUserName && storedRole) {
+        setUserName(storedUserName);
+        setRole(storedRole);
       }
     }
   }, [isLoggedIn]);
@@ -95,11 +97,11 @@ const Navbar = ({ isLoggedIn }) => {
                 Contact
               </Link>
             </li>
-            {isLoggedIn && hrName && (
+            {isLoggedIn && (
               <li>
-                <Link to="/hr-profile">
+                <Link to={`/${role}-profile`}>
                   <span className="block py-2 cursor-pointer px-20 text-gray-900 rounded dark:text-white md:hover:bg-gray-700 md:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                    {hrName}
+                    {userName}
                   </span>
                 </Link>
               </li>

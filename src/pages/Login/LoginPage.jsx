@@ -11,11 +11,11 @@ const LoginPage = () => {
     e.preventDefault();
     const storedEmail = localStorage.getItem('email');
     const storedPassword = localStorage.getItem('password');
-    const storedHrName = localStorage.getItem('userName');
+    const storedName = localStorage.getItem('userName');
     const storedRole = localStorage.getItem('role');
   
     if (email === storedEmail && password === storedPassword) {
-      localStorage.setItem('hrName', storedHrName);
+      localStorage.setItem('name', storedName);
   
       const roleNavigationMap = {
         hr: '/hr-home',
