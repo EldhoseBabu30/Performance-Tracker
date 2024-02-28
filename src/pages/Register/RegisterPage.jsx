@@ -9,9 +9,9 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   function registerHr(e) {
@@ -24,10 +24,10 @@ const RegisterPage = () => {
       setErrorMessage("");
     }
 
-    localStorage.setItem("userName", name);
+    localStorage.setItem("userName", name); // Store username
     localStorage.setItem("email", email);
     localStorage.setItem("password", password);
-    localStorage.setItem("role", role); 
+    localStorage.setItem("role", role);
 
     Swal.fire({
       icon: "success",
@@ -113,7 +113,7 @@ const RegisterPage = () => {
             >
               <option value="">Select an option</option>
               <option value="hr">HR</option>
-              <option value="teamLead">Team Lead</option>
+              <option value="tl">Team Lead</option>
             </select>
           </div>
           <div>

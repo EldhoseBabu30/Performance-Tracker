@@ -19,7 +19,7 @@ const LoginPage = () => {
   
       const roleNavigationMap = {
         hr: '/hr-home',
-        teamLead: '/tl-home',
+        tl: '/tl-home',
         employee: '/emp-home',
       };
   
@@ -34,7 +34,6 @@ const LoginPage = () => {
           navigate(targetRoute);
         });
       } else {
-        // Handle invalid role
         alert('Invalid role');
       }
     } else {
@@ -42,12 +41,10 @@ const LoginPage = () => {
     }
   };
   
-  
-
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
-        <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-8">Sign in to your account</h2>
+      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg overflow-hidden">
+        <h2 className="text-3xl font-extrabold text-gray-900 text-center">Sign in to your account</h2>
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>

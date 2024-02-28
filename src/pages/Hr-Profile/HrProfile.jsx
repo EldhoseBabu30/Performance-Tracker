@@ -58,23 +58,23 @@ const HrProfile = () => {
   return (
     <div>
       <h1>Profile</h1>
-      {/* Profile */}
+     
       <div className='p-6 max-w-lg mx-auto'>
         <h1 className='text-3xl font-semibold text-center my-12'>Profile</h1>
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-          {/* File input */}
+       
           <input
             type='file'
             hidden
             accept='image/*'
           />
-          {/* Profile picture */}
+        
           <img
             src='/path/to/default/profile/image'
             alt='profile'
             className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'
           />
-          {/* Username input */}
+         
           <input
             type='text'
             placeholder='Username'
@@ -83,7 +83,7 @@ const HrProfile = () => {
             className='border p-3 rounded-lg'
             onChange={handleChange}
           />
-          {/* Email input */}
+         
           <input
             type='email'
             placeholder='Email'
@@ -92,7 +92,7 @@ const HrProfile = () => {
             className='border p-3 rounded-lg'
             onChange={handleChange}
           />
-          {/* Password input */}
+      
           <input
             type='password'
             placeholder='Password'
@@ -101,12 +101,14 @@ const HrProfile = () => {
             className='border p-3 rounded-lg'
             onChange={handleChange}
           />
-          {/* Update button */}
+         
           <button
               type='submit'
               className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80 relative'
               disabled={isLoading}
+            
           >
+            Update
              
 
            
