@@ -10,25 +10,25 @@ const HrProfile = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // Set loading state
+
     setIsLoading(true);
 
     try {
-      // Simulate an asynchronous update process
+      
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Update values in local storage
+     
       localStorage.setItem("userName", username);
       localStorage.setItem("email", email);
       localStorage.setItem("password", password);
 
-      // Show success message
+      
       setSuccessMessage("Profile updated successfully!");
 
     } catch (error) {
       console.error("Error updating profile:", error);
     } finally {
-      // Reset loading state
+      
       setIsLoading(false);
     }
   }
@@ -45,7 +45,7 @@ const HrProfile = () => {
 
   function handleChange(e) {
     const { id, value } = e.target;
-    // Update corresponding state based on input field ID
+    
     if (id === "username") {
       setUsername(value);
     } else if (id === "email") {
