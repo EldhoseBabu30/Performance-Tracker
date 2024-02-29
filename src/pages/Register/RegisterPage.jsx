@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Swal from "sweetalert2";
-import axios from 'axios';
+
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -13,53 +13,37 @@ const RegisterPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const registerUser = async (e) => {
-    e.preventDefault();
-    try {
-      if (password !== confirmPassword) {
-        setErrorMessage("Passwords do not match.");
-        return;
-      }
-      
-      const response = await axios.post('http://localhost:5173/register', { name, email, password, role });
-      
-      if (response.status === 200) {
-        localStorage.setItem('name', name);
-        localStorage.setItem('email', email);
-        localStorage.setItem('role', role);
-  
-        
-        console.log('User data stored in local storage:', localStorage.getItem('name'), localStorage.getItem('email'), localStorage.getItem('role'));
-        
-        Swal.fire({
-          icon: "success",
-          title: "Registration Successful",
-          text: "You have successfully registered.",
-        }).then(() => {
-    
-          navigate("/");
-        });
-      }
-    } catch (error) {
-      if (error.response) {
-        setErrorMessage(error.response.data.message);
-      } else if (error.request) {
-        setErrorMessage("Registration failed. Please try again later.");
-      } else {
-        console.error('Error during registration:', error.message);
-        setErrorMessage("Registration failed. Please try again later.");
-      }
-    }
-  };
-  
 
+  function registerHr(e) {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords do not match.");
+      return;
+    } else {
+      setErrorMessage("");
+    }
+
+    localStorage.setItem("userName", name); // Store username
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
+    localStorage.setItem("role", role);
+
+    Swal.fire({
+      icon: "success",
+      title: "Registration Successful",
+      text: "You have successfully registered.",
+    }).then(() => {
+      navigate("/");
+    });
+  }
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">
           Register to your account
         </h2>
-        <form onSubmit={registerUser} className="space-y-6">
+        <form onSubmit={registerHr} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-900">
               User name
