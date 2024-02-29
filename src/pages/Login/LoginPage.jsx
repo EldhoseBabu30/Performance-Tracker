@@ -1,43 +1,51 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const storedEmail = localStorage.getItem('email');
-    const storedPassword = localStorage.getItem('password');
-    const storedName = localStorage.getItem('userName');
-    const storedRole = localStorage.getItem('role');
-  
-    if (email === storedEmail && password === storedPassword) {
-      localStorage.setItem('name', storedName);
-  
-      const roleNavigationMap = {
-        hr: '/hr-home',
-        tl: '/tl-home',
-        employee: '/emp-home',
-      };
-  
-      const targetRoute = roleNavigationMap[storedRole];
-  
-      if (targetRoute) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Login Successful',
-          text: 'You have successfully logged in.',
-        }).then(() => {
-          navigate(targetRoute);
-        });
+    
+    try {
+      const response = await axios.post('http://localhost:5173/', { email, password });
+      
+      if (response.status === 200) {
+        const { name, role } = response.data;
+        
+        localStorage.setItem('name', name);
+        localStorage.setItem('email', email);
+        localStorage.setItem('role', role);
+        
+        const roleNavigationMap = {
+          hr: '/hr-home',
+          tl: '/tl-home',
+          employee: '/emp-home',
+        };
+        
+        const targetRoute = roleNavigationMap[role];
+        
+        if (targetRoute) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Login Successful',
+            text: 'You have successfully logged in.',
+          }).then(() => {
+            navigate(targetRoute);
+          });
+        } else {
+          alert('Invalid role');
+        }
       } else {
-        alert('Invalid role');
+        alert('Login failed');
       }
-    } else {
-      alert('Incorrect email or password');
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('Login failed');
     }
   };
   

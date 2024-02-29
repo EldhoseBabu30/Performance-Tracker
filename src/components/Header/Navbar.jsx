@@ -14,9 +14,12 @@ const Navbar = ({ isLoggedIn }) => {
         setUserName(storedUserName);
         setRole(storedRole);
       }
+    } else {
+      
+      setUserName("");
+      setRole("");
     }
   }, [isLoggedIn]);
-
 
 
   return (
@@ -99,7 +102,7 @@ const Navbar = ({ isLoggedIn }) => {
                 Contact
               </Link>
             </li>
-            {isLoggedIn && (
+            {isLoggedIn && ( 
               <li>
                 <Link to={`/${role}-profile`}>
                   <span className="block py-2 cursor-pointer px-20 text-gray-900 rounded dark:text-white md:hover:bg-gray-700 md:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
