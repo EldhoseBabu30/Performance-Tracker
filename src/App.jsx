@@ -8,6 +8,7 @@ import TeamLeadHome from './pages/TL-Home/TeamLeadHome';
 import EmployeeHome from './pages/Emp-Home/EmployeeHome';
 import HrProfile from './pages/Hr-Profile/HrProfile';
 import TeamLeadProfile from './pages/TL-Profile/TeamLeadProfile';
+import EmpRegister from './pages/Register/EmpRegister';
 import './App.css';
 
 const App = () => {
@@ -25,6 +26,8 @@ const App = () => {
           <Route path="/emp-home" element={<EmployeeHome />} />
           <Route path="/hr-profile" element={<HrProfile />} />
           <Route path="/tl-profile" element={<TeamLeadProfile />} />
+          <Route path="/emp-register" element={<EmpRegister />} />
+
         </Routes>
       </BrowserRouter>
     </div>

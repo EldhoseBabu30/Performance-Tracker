@@ -1,7 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const HrHome = () => {
   const name = localStorage.getItem("userName");
+  const navigate= useNavigate();
+
+  const handleRegisterClick=()=>{
+    navigate('/emp-register')
+  }
+
 
   return (
     <div className="flex flex-col h-screen">
@@ -59,9 +66,13 @@ const HrHome = () => {
               </p>
               <button
                 type="button"
+                onClick={handleRegisterClick}
                 className="mt-4 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 text-white font-medium rounded-lg text-sm flex items-center px-6 py-2.5"
               >
-                <span>Register</span>
+                
+                  <span>Register</span>
+
+
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

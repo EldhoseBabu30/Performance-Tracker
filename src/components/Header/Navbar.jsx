@@ -15,7 +15,6 @@ const Navbar = ({ isLoggedIn }) => {
         setRole(storedRole);
       }
     } else {
-      
       setUserName("");
       setRole("");
     }
