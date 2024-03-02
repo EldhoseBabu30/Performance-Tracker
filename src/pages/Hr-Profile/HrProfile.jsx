@@ -57,7 +57,7 @@ const HrProfile = () => {
 
   return (
     <div>
-      <h1>Profile</h1>
+    
      
       <div className='p-6 max-w-lg mx-auto'>
         <h1 className='text-3xl font-semibold text-center my-12'>Profile</h1>

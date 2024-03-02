@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const EmpRegister = () => {
-  // State to store employee registration data
+ 
   const [employeeData, setEmployeeData] = useState({
     firstName: '',
     lastName: '',
@@ -9,7 +9,7 @@ const EmpRegister = () => {
     position: '',
   });
 
-  // Function to handle form input changes
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEmployeeData({
@@ -18,13 +18,12 @@ const EmpRegister = () => {
     });
   };
 
-  // Function to handle form submission
+  
   const handleRegistration = (e) => {
     e.preventDefault();
-    // Perform registration logic, e.g., send data to server
+   
     console.log('Employee Registration Data:', employeeData);
-    // You can add logic here to send the data to your server or perform any other actions
-    // Reset the form after registration
+    
     setEmployeeData({
       firstName: '',
       lastName: '',
@@ -33,7 +32,6 @@ const EmpRegister = () => {
     });
   };
 
-  // JSX for the registration form
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
         <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
