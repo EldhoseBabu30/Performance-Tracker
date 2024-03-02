@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import Swal from "sweetalert2";
 
 const ProjectRegister = () => {
   const [selectedTeamLead, setSelectedTeamLead] = useState(null);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
 
-  
   const teamLeadOptions = [
     { value: "John", label: "John" },
     { value: "Jane", label: "Jane" },
     { value: "Doe", label: "Doe" }
   ];
 
-  
   const employeeOptions = [
     { value: "Alice", label: "Alice" },
     { value: "Bob", label: "Bob" },
@@ -24,15 +23,33 @@ const ProjectRegister = () => {
     setSelectedTeamLead(selectedOption);
   };
 
-
   const handleEmployeeChange = (selectedOptions) => {
     setSelectedEmployees(selectedOptions);
   };
 
- 
   const handleSubmit = (event) => {
     event.preventDefault();
-   
+
+    const formData = {
+      projectTitle: event.target.elements.projectTitle.value,
+      fromDate: event.target.elements.from.value,
+      dueDate: event.target.elements.due.value,
+      teamLead: selectedTeamLead,
+      employees: selectedEmployees,
+      projectDescription: event.target.elements.projectDescription.value
+    };
+
+    const formDataJson = JSON.stringify(formData);
+
+    localStorage.setItem("formData", formDataJson);
+    Swal.fire({
+      icon: "success",
+      title: "Project Registered Successfully",
+      text: "You have successfully registered.",
+    }).then(() => {
+      navigate("/hr-home");
+    });
+
     console.log("Form submitted!");
   };
 
@@ -43,6 +60,8 @@ const ProjectRegister = () => {
         <div className="mb-4">
           <input
             type="text"
+            id="projectTitle"
+            name="projectTitle"
             placeholder="Project Title"
             className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
           />
@@ -55,7 +74,8 @@ const ProjectRegister = () => {
             <input
               type="date"
               id="from"
-              className="w-32 px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
+              name="from"
+              className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
             />
           </div>
           <div>
@@ -65,7 +85,8 @@ const ProjectRegister = () => {
             <input
               type="date"
               id="due"
-              className="w-32 px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
+              name="due"
+              className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
             />
           </div>
         </div>
@@ -96,13 +117,18 @@ const ProjectRegister = () => {
         </div>
         <div>
           <textarea
+            id="projectDescription"
+            name="projectDescription"
             placeholder="Project Description"
             className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
             rows="5"
           ></textarea>
         </div>
-        <button type="submit" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-          Submit
+        <button
+          type="submit"
+          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        >
+          Register
         </button>
       </form>
     </div>
