@@ -10,6 +10,7 @@ import HrProfile from './pages/Hr-Profile/HrProfile';
 import TeamLeadProfile from './pages/TL-Profile/TeamLeadProfile';
 import EmpRegister from './pages/Register/EmpRegister';
 import './App.css';
+import ProjectRegister from './pages/Register/ProjectRegister';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/hr-profile" element={<HrProfile />} />
           <Route path="/tl-profile" element={<TeamLeadProfile />} />
           <Route path="/emp-register" element={<EmpRegister />} />
+          <Route path="/register-project" element={<ProjectRegister />} />
 
         </Routes>
       </BrowserRouter>
