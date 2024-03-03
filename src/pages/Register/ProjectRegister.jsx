@@ -1,20 +1,19 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import Swal from 'sweetalert2';
 
 const ProjectRegister = () => {
-
   const [selectedTeamLead, setSelectedTeamLead] = useState(null);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
+  const navigate = useNavigate();
 
-  
   const teamLeadOptions = [
     { value: "John", label: "John" },
     { value: "Jane", label: "Jane" },
     { value: "Doe", label: "Doe" }
   ];
 
-  
   const employeeOptions = [
     { value: "Alice", label: "Alice" },
     { value: "Bob", label: "Bob" },
@@ -26,16 +25,45 @@ const ProjectRegister = () => {
     setSelectedTeamLead(selectedOption);
   };
 
-
   const handleEmployeeChange = (selectedOptions) => {
     setSelectedEmployees(selectedOptions);
   };
 
- 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const formData = {
+      projectTitle: event.target.elements.projectTitle.value,
+      from: event.target.elements.from.value,
+      due: event.target.elements.due.value,
+      teamLead: selectedTeamLead,
+      employees: selectedEmployees,
+      description: event.target.elements.description.value
+    };
 
+    try {
+      await registerProject(formData);
+     
+      Swal.fire({
+        icon: "success",
+        title: "Project Registered Successfully",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      navigate("/project-details");
+    } catch (error) {
+      console.error("Project registration failed:", error);
+    }
+  };
+
+  const registerProject = async (formData) => {
+    return new Promise((resolve, reject) => {
+      // Simulating async operation with setTimeout
+      setTimeout(() => {
+        console.log("Project registered successfully:", formData);
+        resolve();
+      }, 1000);
+    });
   };
 
   return (
@@ -45,6 +73,7 @@ const ProjectRegister = () => {
         <div className="mb-4">
           <input
             type="text"
+            id="projectTitle"
             placeholder="Project Title"
             className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
           />
@@ -98,6 +127,7 @@ const ProjectRegister = () => {
         </div>
         <div>
           <textarea
+            id="description"
             placeholder="Project Description"
             className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
             rows="5"

@@ -1,3 +1,4 @@
+// App.js (assuming projects data is managed here or passed from a parent component)
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Header/Navbar';
@@ -15,6 +16,8 @@ import ProjectDetails from './pages/Project/ProjectDetails';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+ 
+  const projects = []; 
 
   return (
     <div>
@@ -30,8 +33,8 @@ const App = () => {
           <Route path="/tl-profile" element={<TeamLeadProfile />} />
           <Route path="/emp-register" element={<EmpRegister />} />
           <Route path="/register-project" element={<ProjectRegister />} />
-          <Route path="/project-details" element={<ProjectDetails />} />
-
+          
+          <Route path="/project-details" element={<ProjectDetails projects={projects} />} />
         </Routes>
       </BrowserRouter>
     </div>
