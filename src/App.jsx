@@ -11,6 +11,7 @@ import TeamLeadProfile from './pages/TL-Profile/TeamLeadProfile';
 import EmpRegister from './pages/Register/EmpRegister';
 import './App.css';
 import ProjectRegister from './pages/Register/ProjectRegister';
+import ProjectDetails from './pages/Project/ProjectDetails';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/tl-profile" element={<TeamLeadProfile />} />
           <Route path="/emp-register" element={<EmpRegister />} />
           <Route path="/register-project" element={<ProjectRegister />} />
+          <Route path="/project-details" element={<ProjectDetails />} />
 
         </Routes>
       </BrowserRouter>

@@ -33,7 +33,7 @@ const EmpRegister = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md border border-gray-300">
         <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">Employee Registration</h2>
       <form onSubmit={handleRegistration} className="space-y-6">

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+
 import Select from "react-select";
 
 const ProjectRegister = () => {
+
   const [selectedTeamLead, setSelectedTeamLead] = useState(null);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
 
@@ -32,8 +34,8 @@ const ProjectRegister = () => {
  
   const handleSubmit = (event) => {
     event.preventDefault();
-   
-    console.log("Form submitted!");
+
+
   };
 
   return (
