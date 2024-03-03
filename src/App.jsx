@@ -13,6 +13,8 @@ import EmpRegister from './pages/Register/EmpRegister';
 import './App.css';
 import ProjectRegister from './pages/Register/ProjectRegister';
 import ProjectDetails from './pages/Project/ProjectDetails';
+import { ProjectDataProvider } from './pages/Register/ProjectDataContext';
+
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -21,6 +23,7 @@ const App = () => {
 
   return (
     <div>
+      <ProjectDataProvider>
       <BrowserRouter>
         <Navbar isLoggedIn={isLoggedIn} />
         <Routes>
@@ -37,6 +40,7 @@ const App = () => {
           <Route path="/project-details" element={<ProjectDetails projects={projects} />} />
         </Routes>
       </BrowserRouter>
+      </ProjectDataProvider>
     </div>
   );
 };

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { useProjectData } from "./ProjectDataContext";
 import Swal from 'sweetalert2';
 
 const ProjectRegister = () => {
   const [selectedTeamLead, setSelectedTeamLead] = useState(null);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
   const navigate = useNavigate();
+  const { addProjectData } = useProjectData();
 
   const teamLeadOptions = [
     { value: "John", label: "John" },
@@ -50,6 +52,7 @@ const ProjectRegister = () => {
         showConfirmButton: false,
         timer: 1500
       });
+      addProjectData(formData); // Add formData to context
       navigate("/project-details");
     } catch (error) {
       console.error("Project registration failed:", error);

@@ -1,11 +1,12 @@
-
 import React from "react";
+import { useProjectData } from "../Register/ProjectDataContext";
+const ProjectDetails = () => {
+  const { projectData } = useProjectData();
 
-const ProjectDetails = ({ projects }) => {
   return (
     <div className="mt-8">
       <h1 className="text-2xl font-semibold mb-4">Registered Projects</h1>
-      {projects.length > 0 ? (
+      {projectData.length > 0 ? (
         <table className="min-w-full bg-white border border-gray-300">
           <thead>
             <tr>
@@ -18,9 +19,9 @@ const ProjectDetails = ({ projects }) => {
             </tr>
           </thead>
           <tbody>
-            {projects.map((project, index) => (
+            {projectData.map((project, index) => (
               <tr key={index}>
-                <td className="py-2 px-4 border-b">{project.title}</td>
+                <td className="py-2 px-4 border-b">{project.projectTitle}</td>
                 <td className="py-2 px-4 border-b">{project.from}</td>
                 <td className="py-2 px-4 border-b">{project.due}</td>
                 <td className="py-2 px-4 border-b">{project.teamLead.label}</td>
@@ -39,4 +40,4 @@ const ProjectDetails = ({ projects }) => {
   );
 };
 
-export default ProjectDetails;
+export default ProjectDetails;
