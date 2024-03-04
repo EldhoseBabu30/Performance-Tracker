@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { useProjectData } from "./ProjectDataContext";
+import { useEmployeeData } from './EmployeeDataContext';
+
 import Swal from 'sweetalert2';
 
 const ProjectRegister = () => {
@@ -9,19 +11,13 @@ const ProjectRegister = () => {
   const [selectedEmployees, setSelectedEmployees] = useState([]);
   const navigate = useNavigate();
   const { addProjectData } = useProjectData();
+  const { employeeData } = useEmployeeData();
 
-  const teamLeadOptions = [
-    { value: "John", label: "John" },
-    { value: "Jane", label: "Jane" },
-    { value: "Doe", label: "Doe" }
-  ];
-
-  const employeeOptions = [
-    { value: "Alice", label: "Alice" },
-    { value: "Bob", label: "Bob" },
-    { value: "Charlie", label: "Charlie" },
-    { value: "David", label: "David" }
-  ];
+  // Dynamically generate options from employeeData for both team leads and employees
+  const options = employeeData.map(employee => ({
+    value: `${employee.firstName} ${employee.lastName}`,
+    label: `${employee.firstName} ${employee.lastName}`
+  }));
 
   const handleTeamLeadChange = (selectedOption) => {
     setSelectedTeamLead(selectedOption);
@@ -109,7 +105,7 @@ const ProjectRegister = () => {
           </label>
           <Select
             id="teamLead"
-            options={teamLeadOptions}
+            // options={options} 
             value={selectedTeamLead}
             onChange={handleTeamLeadChange}
             className="w-full"
@@ -121,7 +117,7 @@ const ProjectRegister = () => {
           </label>
           <Select
             id="employees"
-            options={employeeOptions}
+            options={options} 
             value={selectedEmployees}
             onChange={handleEmployeeChange}
             isMulti

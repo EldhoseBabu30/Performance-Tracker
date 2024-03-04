@@ -14,6 +14,8 @@ import './App.css';
 import ProjectRegister from './pages/Register/ProjectRegister';
 import ProjectDetails from './pages/Project/ProjectDetails';
 import { ProjectDataProvider } from './pages/Register/ProjectDataContext';
+import { EmployeeDataProvider } from './pages/Register/EmployeeDataContext';
+
 
 
 const App = () => {
@@ -23,6 +25,7 @@ const App = () => {
 
   return (
     <div>
+       <EmployeeDataProvider>
       <ProjectDataProvider>
       <BrowserRouter>
         <Navbar isLoggedIn={isLoggedIn} />
@@ -41,6 +44,7 @@ const App = () => {
         </Routes>
       </BrowserRouter>
       </ProjectDataProvider>
+      </EmployeeDataProvider>
     </div>
   );
 };

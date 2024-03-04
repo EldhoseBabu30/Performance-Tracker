@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
+import { useEmployeeData } from './EmployeeDataContext';
 
 const EmpRegister = () => {
   const [employeeData, setEmployeeData] = useState({
@@ -8,7 +9,8 @@ const EmpRegister = () => {
     email: '',
     position: '',
   });
-  console.log(employeeData);
+
+  const { addEmployeeData } = useEmployeeData();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -20,11 +22,9 @@ const EmpRegister = () => {
 
   const handleRegistration = (e) => {
     e.preventDefault();
+    const employee = { ...employeeData };
+    addEmployeeData(employee);
 
-    
-    localStorage.setItem('employeeData', JSON.stringify(employeeData));
-
-   
     setEmployeeData({
       firstName: '',
       lastName: '',
@@ -32,7 +32,6 @@ const EmpRegister = () => {
       position: '',
     });
 
-  
     Swal.fire({
       icon: 'success',
       title: 'Employee Registered Successfully',
@@ -40,7 +39,6 @@ const EmpRegister = () => {
       timer: 1500
     });
   };
-
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md border border-gray-300">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
