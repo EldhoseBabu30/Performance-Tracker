@@ -16,7 +16,7 @@ import ProjectDetails from './pages/Project/ProjectDetails';
 import { ProjectDataProvider } from './pages/Register/ProjectDataContext';
 import { EmployeeDataProvider } from './pages/Register/EmployeeDataContext';
 import { TeamLeadDataProvider } from './pages/Register/TeamLeadDataContext';
-
+import ProjectStatusReport from './pages/TL-Home/EmployeeAssign';
 
 
 
@@ -45,6 +45,8 @@ const App = () => {
           <Route path="/register-project" element={<ProjectRegister />} />
           
           <Route path="/project-details" element={<ProjectDetails projects={projects} />} />
+          <Route path="/emp-assign" element={<ProjectStatusReport/>} />
+
         </Routes>
       </BrowserRouter>
       </TeamLeadDataProvider>
