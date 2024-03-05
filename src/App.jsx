@@ -15,6 +15,8 @@ import ProjectRegister from './pages/Register/ProjectRegister';
 import ProjectDetails from './pages/Project/ProjectDetails';
 import { ProjectDataProvider } from './pages/Register/ProjectDataContext';
 import { EmployeeDataProvider } from './pages/Register/EmployeeDataContext';
+import { TeamLeadDataProvider } from './pages/Register/TeamLeadDataContext';
+
 
 
 
@@ -25,8 +27,10 @@ const App = () => {
 
   return (
     <div>
+      
        <EmployeeDataProvider>
       <ProjectDataProvider>
+      <TeamLeadDataProvider> 
       <BrowserRouter>
         <Navbar isLoggedIn={isLoggedIn} />
         <Routes>
@@ -43,6 +47,7 @@ const App = () => {
           <Route path="/project-details" element={<ProjectDetails projects={projects} />} />
         </Routes>
       </BrowserRouter>
+      </TeamLeadDataProvider>
       </ProjectDataProvider>
       </EmployeeDataProvider>
     </div>

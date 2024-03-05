@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+// ProjectRegister.jsx
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { useProjectData } from "./ProjectDataContext";
 import { useEmployeeData } from './EmployeeDataContext';
-
+import { useTeamLeadData } from './TeamLeadDataContext'; // Import the new context
 import Swal from 'sweetalert2';
 
 const ProjectRegister = () => {
@@ -12,14 +13,27 @@ const ProjectRegister = () => {
   const navigate = useNavigate();
   const { addProjectData } = useProjectData();
   const { employeeData } = useEmployeeData();
+  const { teamLeadData } = useTeamLeadData(); // Access the team lead data
 
- 
-  const options = employeeData.map(employee => ({
-    value: `${employee.firstName} ${employee.lastName}`,
-    label: `${employee.firstName} ${employee.lastName}`
+  // Options for team lead
+  const teamLeadOptions = teamLeadData.map(teamLead => ({
+    value: teamLead.id,
+    label: `${teamLead.name} (Team Lead)`
   }));
 
-  
+  // Options for employees
+  const options = employeeData.map(employee => ({
+    value: employee.id,
+    label: `${employee.firstName} ${employee.lastName} (${employee.role})`
+  }));
+
+  useEffect(() => {
+    // Retrieve teamLead from local storage
+    const storedTeamLead = localStorage.getItem('teamLead');
+    if (storedTeamLead) {
+      setSelectedTeamLead(JSON.parse(storedTeamLead));
+    }
+  }, []);
 
   const handleTeamLeadChange = (selectedOption) => {
     setSelectedTeamLead(selectedOption);
@@ -59,7 +73,6 @@ const ProjectRegister = () => {
 
   const registerProject = async (formData) => {
     return new Promise((resolve, reject) => {
-      
       setTimeout(() => {
         console.log("Project registered successfully:", formData);
         resolve();
@@ -107,7 +120,7 @@ const ProjectRegister = () => {
           </label>
           <Select
             id="teamLead"
-            options={options} 
+            options={teamLeadOptions} 
             value={selectedTeamLead}
             onChange={handleTeamLeadChange}
             className="w-full"

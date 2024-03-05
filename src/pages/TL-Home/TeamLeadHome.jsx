@@ -17,7 +17,7 @@ const TeamLeadHome = () => {
       <div className="flex justify-start items-start h-5/6 px-6">
         {/* Cards container */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full px-4">
-          {/* Card 1 */}
+        
           <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -56,11 +56,11 @@ const TeamLeadHome = () => {
           <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Employee Performance Report
+                Employee Performance Tracking
               </h5>
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
+                so far, in reverse 
               </p>
 
               <Link to="/">
@@ -96,18 +96,20 @@ const TeamLeadHome = () => {
           <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Employee Performance Tracking
+                Employee Performance Report
               </h5>
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 Here are the biggest enterprise technology acquisitions of 2021
                 so far, in reverse chronological order.
               </p>
-              <button
-                type="button"
-                className="mt-4 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 text-white font-medium rounded-lg text-sm flex items-center px-6 py-2.5"
-              >
-                <span>View</span>
-                <svg
+
+              <Link to="/">
+                <button
+                  type="button"
+                  className="mt-4 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 text-white font-medium rounded-lg text-sm flex items-center px-6 py-2.5"
+                >
+                  <span>View</span>
+                  <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -126,7 +128,8 @@ const TeamLeadHome = () => {
                     d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                   />
                 </svg>
-              </button>
+                </button>
+              </Link>
             </div>
           </div>
           {/* Add more cards here if needed */}
