@@ -13,11 +13,13 @@ const ProjectRegister = () => {
   const { addProjectData } = useProjectData();
   const { employeeData } = useEmployeeData();
 
-  // Dynamically generate options from employeeData for both team leads and employees
+ 
   const options = employeeData.map(employee => ({
     value: `${employee.firstName} ${employee.lastName}`,
     label: `${employee.firstName} ${employee.lastName}`
   }));
+
+  
 
   const handleTeamLeadChange = (selectedOption) => {
     setSelectedTeamLead(selectedOption);
@@ -48,7 +50,7 @@ const ProjectRegister = () => {
         showConfirmButton: false,
         timer: 1500
       });
-      addProjectData(formData); // Add formData to context
+      addProjectData(formData); 
       navigate("/project-details");
     } catch (error) {
       console.error("Project registration failed:", error);
@@ -57,7 +59,7 @@ const ProjectRegister = () => {
 
   const registerProject = async (formData) => {
     return new Promise((resolve, reject) => {
-      // Simulating async operation with setTimeout
+      
       setTimeout(() => {
         console.log("Project registered successfully:", formData);
         resolve();
@@ -105,7 +107,7 @@ const ProjectRegister = () => {
           </label>
           <Select
             id="teamLead"
-            // options={options} 
+            options={options} 
             value={selectedTeamLead}
             onChange={handleTeamLeadChange}
             className="w-full"
