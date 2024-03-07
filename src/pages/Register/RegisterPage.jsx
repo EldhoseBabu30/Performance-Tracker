@@ -1,49 +1,75 @@
-import  { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Swal from "sweetalert2";
-
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [phoneno, setPhoneNo] = useState("");
+  const [username, setUserName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  function registerHr(e) {
-    e.preventDefault();
-
-    if (password !== confirmPassword) {
-      setErrorMessage("Passwords do not match.");
-      return;
-    } else {
-      setErrorMessage("");
+  const registerUser = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8001/hrapi/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          phoneno,
+          username,
+          password,
+        }),
+      });
+  
+      if (!response.ok) {
+        const data = await response.json();
+        if (
+          response.status === 400 &&
+          data.name &&
+          data.name[0] === "A user with that username already exists."
+        ) {
+          setErrorMessage("A user with that username already exists.");
+        } else if (data.message) {
+          throw new Error(data.message);
+        } else {
+          throw new Error("Registration failed");
+        }
+      } else {
+        Swal.fire({
+          icon: "success",
+          title: "Registration Successful",
+          text: "You have successfully registered.",
+        }).then(() => {
+          navigate("/");
+        });
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      setErrorMessage(error.message || "Registration failed");
     }
+  };
+  
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setErrorMessage(""); 
+    await registerUser();
+  };
 
-    localStorage.setItem("userName", name); // Store username
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
-    localStorage.setItem("role", role);
-
-    Swal.fire({
-      icon: "success",
-      title: "Registration Successful",
-      text: "You have successfully registered.",
-    }).then(() => {
-      navigate("/");
-    });
-  }
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">
           Register to your account
         </h2>
-        <form onSubmit={registerHr} className="space-y-6">
+        <form onSubmit={handleRegister} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-900">
               User name
@@ -87,13 +113,13 @@ const RegisterPage = () => {
             </label>
           </div>
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-900">
-              Confirm Password
+            <label htmlFor="phoneno" className="block text-sm font-medium text-gray-900">
+             Phone Number
             </label>
             <input
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              type="password"
+              value={phoneno}
+              onChange={(e) => setPhoneNo(e.target.value)}
+              type="tel"
               required
               className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
@@ -102,19 +128,16 @@ const RegisterPage = () => {
             )}
           </div>
           <div>
-            <label htmlFor="role" className="block text-sm font-medium text-gray-900">
+            <label htmlFor="username" className="block text-sm font-medium text-gray-900">
               Role
             </label>
-            <select
-              id="role"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
+            <input
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
+              type="text"
+              required
               className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              <option value="">Select an option</option>
-              <option value="hr">HR</option>
-              <option value="tl">Team Lead</option>
-            </select>
+            />
           </div>
           <div>
             <button
