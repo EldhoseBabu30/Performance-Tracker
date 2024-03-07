@@ -1,5 +1,4 @@
-// App.js (assuming projects data is managed here or passed from a parent component)
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Header/Navbar';
 import HrHome from './pages/Hr-Home/HrHome';
@@ -19,44 +18,81 @@ import { TeamLeadDataProvider } from './pages/Register/TeamLeadDataContext';
 import ProjectStatusReport from './pages/TL-Home/EmployeeAssign';
 import { AuthProvider } from './components/Controllers/AuthContext';
 
-
-
-
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
- 
-  const projects = []; 
-
   return (
     <div>
-       <AuthProvider> 
-       <EmployeeDataProvider>
-      <ProjectDataProvider>
-      <TeamLeadDataProvider> 
-      <BrowserRouter>
-        <Navbar isLoggedIn={isLoggedIn} />
-        <Routes>
-          <Route path="/" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/hr-home" element={<HrHome />} />
-          <Route path="/tl-home" element={<TeamLeadHome />} />
-          <Route path="/emp-home" element={<EmployeeHome />} />
-          <Route path="/hr-profile" element={<HrProfile />} />
-          <Route path="/tl-profile" element={<TeamLeadProfile />} />
-          <Route path="/emp-register" element={<EmpRegister />} />
-          <Route path="/register-project" element={<ProjectRegister />} />
-          
-          <Route path="/project-details" element={<ProjectDetails projects={projects} />} />
-          <Route path="/emp-assign" element={<ProjectStatusReport/>} />
-
-        </Routes>
-      </BrowserRouter>
-      </TeamLeadDataProvider>
-      </ProjectDataProvider>     
-      </EmployeeDataProvider>
-      </AuthProvider> 
+      <AuthProvider>
+        <EmployeeDataProvider>
+          <ProjectDataProvider>
+            <TeamLeadDataProvider>
+              <BrowserRouter>
+                <Navbar />
+                <Routes>
+                  <Route
+                    path="/"
+                    element={<LoginPage />}
+                  />
+                  <Route
+                    path="/register"
+                    element={<RegisterPage />}
+                  />
+                  <Route
+                    path="/hr-home"
+                    element={<PrivateRoute component={<HrHome />} />}
+                  />
+                  <Route
+                    path="/tl-home"
+                    element={<PrivateRoute component={<TeamLeadHome />} />}
+                  />
+                  <Route
+                    path="/emp-home"
+                    element={<PrivateRoute component={<EmployeeHome />} />}
+                  />
+                  <Route
+                    path="/hr-profile"
+                    element={<PrivateRoute component={<HrProfile />} />}
+                  />
+                  <Route
+                    path="/tl-profile"
+                    element={<PrivateRoute component={<TeamLeadProfile />} />}
+                  />
+                  <Route
+                    path="/emp-register"
+                    element={<PrivateRoute component={<EmpRegister />} />}
+                  />
+                  <Route
+                    path="/register-project"
+                    element={<PrivateRoute component={<ProjectRegister />} />}
+                  />
+                  <Route
+                    path="/project-details"
+                    element={<PrivateRoute component={<ProjectDetails />} />}
+                  />
+                  <Route
+                    path="/emp-assign"
+                    element={<PrivateRoute component={<ProjectStatusReport />} />}
+                  />
+                </Routes>
+              </BrowserRouter>
+            </TeamLeadDataProvider>
+          </ProjectDataProvider>
+        </EmployeeDataProvider>
+      </AuthProvider>
     </div>
   );
+};
+
+const PrivateRoute = ({ component }) => {
+  const { token } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/');
+    }
+  }, [token, navigate]);
+
+  return token ? component : null;
 };
 
 export default App;

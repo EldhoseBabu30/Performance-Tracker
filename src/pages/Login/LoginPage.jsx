@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -16,12 +16,15 @@ const LoginPage = () => {
       const response = await axios.post('http://127.0.0.1:8001/hrapi/token/', {
         username,
         password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
-  
+
       const { token } = response.data;
-  
-      setToken(token); 
-  
+      setToken(token);
+
       Swal.fire({
         icon: 'success',
         title: 'Login Successful',
@@ -34,9 +37,9 @@ const LoginPage = () => {
       if (error.response) {
         const { data } = error.response;
         if (data && data.non_field_errors && data.non_field_errors.length > 0) {
-          alert(data.non_field_errors[0]); // Display the error message from the server
+          alert(data.non_field_errors[0]);
         } else {
-          alert('Invalid username or password. Please try again.'); // Generic error message
+          alert('Invalid username or password. Please try again.');
         }
       } else if (error.request) {
         console.error('No response received:', error.request);
@@ -47,7 +50,7 @@ const LoginPage = () => {
       }
     }
   };
-  
+
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg overflow-hidden">
