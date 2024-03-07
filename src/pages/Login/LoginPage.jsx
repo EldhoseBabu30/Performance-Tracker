@@ -1,43 +1,50 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import axios from 'axios';
+import { useAuth } from '../../components/Controllers/AuthContext';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const { setToken } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const storedEmail = localStorage.getItem('email');
-    const storedPassword = localStorage.getItem('password');
-    const storedName = localStorage.getItem('userName');
-    const storedRole = localStorage.getItem('role');
+    try {
+      const response = await axios.post('http://127.0.0.1:8001/hrapi/token/', {
+        username,
+        password
+      });
   
-    if (email === storedEmail && password === storedPassword) {
-      localStorage.setItem('name', storedName);
+      const { token } = response.data;
   
-      const roleNavigationMap = {
-        hr: '/hr-home',
-        tl: '/tl-home',
-        employee: '/emp-home',
-      };
+      setToken(token); 
   
-      const targetRoute = roleNavigationMap[storedRole];
-  
-      if (targetRoute) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Login Successful',
-          text: 'You have successfully logged in.',
-        }).then(() => {
-          navigate(targetRoute);
-        });
+      Swal.fire({
+        icon: 'success',
+        title: 'Login Successful',
+        text: 'You have successfully logged in.',
+      }).then(() => {
+        navigate('/hr-home');
+      });
+    } catch (error) {
+      console.error('Error occurred:', error);
+      if (error.response) {
+        const { data } = error.response;
+        if (data && data.non_field_errors && data.non_field_errors.length > 0) {
+          alert(data.non_field_errors[0]); // Display the error message from the server
+        } else {
+          alert('Invalid username or password. Please try again.'); // Generic error message
+        }
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+        alert('No response received from the server. Please try again later.');
       } else {
-        alert('Invalid role');
+        console.error('Error setting up request:', error.message);
+        alert('An error occurred while logging in. Please try again later.');
       }
-    } else {
-      alert('Incorrect email or password');
     }
   };
   
@@ -47,15 +54,15 @@ const LoginPage = () => {
         <h2 className="text-3xl font-extrabold text-gray-900 text-center">Sign in to your account</h2>
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email address</label>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700">User Name</label>
             <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
+              id="username"
+              name="username"
+              type="text"
+              autoComplete="username"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
               className="appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
@@ -95,31 +102,4 @@ const LoginPage = () => {
   );
 };
 
-
-
 export default LoginPage;
-
-// src/components/ProjectStatusReport.js
-// import React from 'react';
-// import Spreadsheet from 'react-spreadsheet';
-
-// const ProjectStatusReport = () => {
-//   // Initial data for the spreadsheet
-//   const initialData = [
-//     [{ value: 'Task', readOnly: true }, { value: 'Status', readOnly: true }],
-//     ['Task 1', 'In Progress'],
-//     ['Task 2', 'Completed'],
-//     // Add more rows as needed
-//   ];
-
-//   return (
-//     <div className="container mx-auto my-8">
-//       <Spreadsheet
-//         data={initialData}
-//         onChange={(data) => console.log(data)}
-//       />
-//     </div>
-//   );
-// };
-
-// export default ProjectStatusReport;

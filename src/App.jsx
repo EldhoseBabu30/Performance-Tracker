@@ -17,6 +17,8 @@ import { ProjectDataProvider } from './pages/Register/ProjectDataContext';
 import { EmployeeDataProvider } from './pages/Register/EmployeeDataContext';
 import { TeamLeadDataProvider } from './pages/Register/TeamLeadDataContext';
 import ProjectStatusReport from './pages/TL-Home/EmployeeAssign';
+import { AuthProvider } from './components/Controllers/AuthContext';
+
 
 
 
@@ -27,7 +29,7 @@ const App = () => {
 
   return (
     <div>
-      
+       <AuthProvider> 
        <EmployeeDataProvider>
       <ProjectDataProvider>
       <TeamLeadDataProvider> 
@@ -50,8 +52,9 @@ const App = () => {
         </Routes>
       </BrowserRouter>
       </TeamLeadDataProvider>
-      </ProjectDataProvider>
+      </ProjectDataProvider>     
       </EmployeeDataProvider>
+      </AuthProvider> 
     </div>
   );
 };
