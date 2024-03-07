@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Swal from "sweetalert2";
+import axios from 'axios'; // Import Axios library
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -15,30 +16,19 @@ const RegisterPage = () => {
 
   const registerUser = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8001/hrapi/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          phoneno,
-          username,
-          password,
-        }),
+      const response = await axios.post("http://127.0.0.1:8001/hrapi/register", {
+        name,
+        email,
+        phoneno,
+        username,
+        password,
       });
-  
-      if (!response.ok) {
-        const data = await response.json();
-        if (
-          response.status === 400 &&
-          data.name &&
-          data.name[0] === "A user with that username already exists."
-        ) {
+
+      if (response.status !== 200) {
+        if (response.data.name && response.data.name[0] === "A user with that username already exists.") {
           setErrorMessage("A user with that username already exists.");
-        } else if (data.message) {
-          throw new Error(data.message);
+        } else if (response.data.message) {
+          throw new Error(response.data.message);
         } else {
           throw new Error("Registration failed");
         }
@@ -56,7 +46,7 @@ const RegisterPage = () => {
       setErrorMessage(error.message || "Registration failed");
     }
   };
-  
+
   const handleRegister = async (e) => {
     e.preventDefault();
     setErrorMessage(""); 
