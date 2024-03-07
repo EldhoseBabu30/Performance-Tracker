@@ -16,7 +16,7 @@ const RegisterPage = () => {
 
   const registerUser = async () => {
     try {
-      const response = await axios.post("http://127.0.0.1:8001/hrapi/register", {
+      const response = await axios.post("http://127.0.0.1:8001/hrapi/register/", {
         name,
         email,
         phoneno,
