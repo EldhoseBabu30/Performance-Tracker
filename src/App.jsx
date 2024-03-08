@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Navbar from './components/Header/Navbar';
 import HrHome from './pages/Hr-Home/HrHome';
 import RegisterPage from './pages/Register/RegisterPage';
@@ -16,7 +16,8 @@ import { ProjectDataProvider } from './pages/Register/ProjectDataContext';
 import { EmployeeDataProvider } from './pages/Register/EmployeeDataContext';
 import { TeamLeadDataProvider } from './pages/Register/TeamLeadDataContext';
 import ProjectStatusReport from './pages/TL-Home/EmployeeAssign';
-import { AuthProvider } from './components/Controllers/AuthContext';
+import { AuthProvider, useAuth } from './components/Controllers/AuthContext';
+
 
 const App = () => {
   return (
