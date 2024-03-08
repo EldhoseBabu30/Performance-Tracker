@@ -6,7 +6,7 @@ import axios from 'axios'; // Import Axios library
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email_address, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [phoneno, setPhoneNo] = useState("");
   const [username, setUserName] = useState("");
@@ -18,7 +18,7 @@ const RegisterPage = () => {
     try {
       const response = await axios.post("http://127.0.0.1:8001/hrapi/register/", {
         name,
-        email,
+        email_address,
         phoneno,
         username,
         password,
@@ -77,8 +77,8 @@ const RegisterPage = () => {
               Email address
             </label>
             <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={email_address}
+              onChange={(e) => setEmailAddress(e.target.value)}
               type="email"
               required
               className="block w-full py-2 pl-3 pr-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

@@ -21,17 +21,24 @@ const LoginPage = () => {
           'Content-Type': 'application/json'
         }
       });
+      console.log(response);
 
       const { token } = response.data;
-      setToken(token);
+      if(response.status == 200){
+        setToken(token);
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Login Successful',
-        text: 'You have successfully logged in.',
-      }).then(() => {
-        navigate('/hr-home');
-      });
+        Swal.fire({
+          icon: 'success',
+          title: 'Login Successful',
+          text: 'You have successfully logged in.',
+        }).then(() => {
+          navigate('/hr-home');
+          localStorage.setItem("userData", JSON.stringify(response.data))
+        });
+
+
+      }
+    
     } catch (error) {
       console.error('Error occurred:', error);
       if (error.response) {

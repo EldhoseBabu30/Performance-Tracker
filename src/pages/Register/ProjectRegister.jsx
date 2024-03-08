@@ -23,7 +23,7 @@ const ProjectRegister = () => {
     try {
       const response = await registerProject(formData);
       if (response && response.data) {
-        addProjectData(response.data); // Add registered project data to context
+        addProjectData(response.data); 
       }
       Swal.fire({
         icon: "success",
@@ -65,7 +65,7 @@ const ProjectRegister = () => {
     try {
       const response = await axios.post('http://127.0.0.1:8001/hrapi/projects/', formData, {
         headers: {
-          'Authorization': `Bearer ${token}`, 
+          'Authorization': `Token ${token}`, 
           'Content-Type': 'application/json'
         }
       });
