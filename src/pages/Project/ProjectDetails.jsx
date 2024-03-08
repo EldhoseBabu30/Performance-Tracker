@@ -31,11 +31,14 @@ const ProjectDetails = () => {
     <div className="mt-8">
       <h1 className="text-2xl font-semibold mb-4">Registered Projects</h1>
       {projectData.length > 0 ? (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto overflow-y-auto">
           <table className="min-w-full bg-white rounded-md overflow-scroll shadow-md">
             <thead className="bg-gray-200">
               <tr>
                 <th className="py-3 px-4 border-b border-gray-300">Project Title</th>
+                <th className="py-3 px-4 border-b border-gray-300">Project Description</th>
+                <th className="py-3 px-4 border-b border-gray-300">Due Date</th>
+                <th className="py-3 px-4 border-b border-gray-300">Project Status</th>
               
               </tr>
             </thead>
