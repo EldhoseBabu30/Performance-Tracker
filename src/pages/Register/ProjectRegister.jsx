@@ -1,83 +1,82 @@
-// ProjectRegister.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Select from "react-select";
-import { useProjectData } from "./ProjectDataContext";
-import { useEmployeeData } from './EmployeeDataContext';
-import { useTeamLeadData } from './TeamLeadDataContext'; // Import the new context
 import Swal from 'sweetalert2';
+import axios from 'axios';
+import { useAuth } from '../../components/Controllers/AuthContext'; 
+import { useProjectData } from "./ProjectDataContext";
 
 const ProjectRegister = () => {
-  const [selectedTeamLead, setSelectedTeamLead] = useState(null);
-  const [selectedEmployees, setSelectedEmployees] = useState([]);
   const navigate = useNavigate();
+  const { token } = useAuth(); 
   const { addProjectData } = useProjectData();
-  const { employeeData } = useEmployeeData();
-  const { teamLeadData } = useTeamLeadData(); // Access the team lead data
-
-  // Options for team lead
-  const teamLeadOptions = teamLeadData.map(teamLead => ({
-    value: teamLead.id,
-    label: `${teamLead.name} (Team Lead)`
-  }));
-
-  // Options for employees
-  const options = employeeData.map(employee => ({
-    value: employee.id,
-    label: `${employee.firstName} ${employee.lastName} (${employee.role})`
-  }));
-
-  useEffect(() => {
-    // Retrieve teamLead from local storage
-    const storedTeamLead = localStorage.getItem('teamLead');
-    if (storedTeamLead) {
-      setSelectedTeamLead(JSON.parse(storedTeamLead));
-    }
-  }, []);
-
-  const handleTeamLeadChange = (selectedOption) => {
-    setSelectedTeamLead(selectedOption);
-  };
-
-  const handleEmployeeChange = (selectedOptions) => {
-    setSelectedEmployees(selectedOptions);
-  };
+  const [errorMessages, setErrorMessages] = useState({});
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const formData = {
-      projectTitle: event.target.elements.projectTitle.value,
-      from: event.target.elements.from.value,
-      due: event.target.elements.due.value,
-      teamLead: selectedTeamLead,
-      employees: selectedEmployees,
-      description: event.target.elements.description.value
+      topic: event.target.elements.topic.value,
+      description: event.target.elements.description.value,
+      end_date: event.target.elements.due.value
     };
 
     try {
-      await registerProject(formData);
-     
+      const response = await registerProject(formData);
+      if (response && response.data) {
+        addProjectData(response.data); // Add registered project data to context
+      }
       Swal.fire({
         icon: "success",
         title: "Project Registered Successfully",
         showConfirmButton: false,
         timer: 1500
       });
-      addProjectData(formData); 
       navigate("/project-details");
     } catch (error) {
       console.error("Project registration failed:", error);
+      if (error.response && error.response.data && error.response.data.detail === "Authentication credentials were not provided.") {
+        Swal.fire({
+          icon: "error",
+          title: "Authentication Error",
+          text: "Authentication credentials were not provided. Please login again."
+        });
+      } else if (error.response && error.response.data) {
+        const { data } = error.response;
+        if (data.topic) {
+          setErrorMessages(data); 
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Registration Error",
+            text: "Failed to register project. Please try again later."
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Registration Error",
+          text: "An unexpected error occurred. Please try again later."
+        });
+      }
     }
   };
-
+  
   const registerProject = async (formData) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log("Project registered successfully:", formData);
-        resolve();
-      }, 1000);
-    });
+    try {
+      const response = await axios.post('http://127.0.0.1:8001/hrapi/projects/', formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`, 
+          'Content-Type': 'application/json'
+        }
+      });
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setErrorMessages(error.response.data);
+      } else {
+        throw error;
+      }
+    }
   };
 
   return (
@@ -87,65 +86,37 @@ const ProjectRegister = () => {
         <div className="mb-4">
           <input
             type="text"
-            id="projectTitle"
+            id="topic"
+            name="topic" 
             placeholder="Project Title"
             className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
+            required
           />
-        </div>
-        <div className="flex items-center mb-4 space-x-4">
-          <div>
-            <label htmlFor="from" className="block text-sm font-medium text-gray-700">
-              From
-            </label>
-            <input
-              type="date"
-              id="from"
-              className="w-32 px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
-            />
-          </div>
-          <div>
-            <label htmlFor="due" className="block text-sm font-medium text-gray-700">
-              Due
-            </label>
-            <input
-              type="date"
-              id="due"
-              className="w-32 px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
-            />
-          </div>
+          {errorMessages.topic && <p className="text-red-500">{errorMessages.topic[0]}</p>}
         </div>
         <div className="mb-4">
-          <label htmlFor="teamLead" className="block text-sm font-medium text-gray-700">
-            Team Lead
-          </label>
-          <Select
-            id="teamLead"
-            options={teamLeadOptions} 
-            value={selectedTeamLead}
-            onChange={handleTeamLeadChange}
-            className="w-full"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="employees" className="block text-sm font-medium text-gray-700">
-            Employees
-          </label>
-          <Select
-            id="employees"
-            options={options} 
-            value={selectedEmployees}
-            onChange={handleEmployeeChange}
-            isMulti
-            className="w-full"
-          />
-        </div>
-        <div>
           <textarea
             id="description"
+            name="description"
             placeholder="Project Description"
             className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
             rows="5"
+            required
           ></textarea>
+          {errorMessages.description && <p className="text-red-500">{errorMessages.description[0]}</p>}
+        </div>
+        <div className="mb-4">
+          <label htmlFor="due" className="block text-sm font-medium text-gray-700">
+            Due
+          </label>
+          <input
+            type="date"
+            id="due"
+            name="due" 
+            className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500"
+            required
+          />
+          {errorMessages.end_date && <p className="text-red-500">{errorMessages.end_date[0]}</p>}
         </div>
         <button type="submit" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
           Submit

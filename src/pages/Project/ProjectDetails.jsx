@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from 'axios';
 import { useProjectData } from "../Register/ProjectDataContext";
 
 const ProjectDetails = () => {
-  const { projectData } = useProjectData();
+  const { projectData, setProjectData } = useProjectData();
+
+  useEffect(() => {
+    const fetchProjectDetails = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8001/hrapi/projects/', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming token is stored in localStorage
+          }
+        });
+        setProjectData(response.data);
+      } catch (error) {
+        console.error("Failed to fetch project details:", error);
+        // Handle error
+      }
+    };
+
+    fetchProjectDetails();
+  }, [setProjectData]);
 
   return (
     <div className="mt-8">
@@ -13,24 +32,14 @@ const ProjectDetails = () => {
             <thead className="bg-gray-200">
               <tr>
                 <th className="py-3 px-4 border-b border-gray-300">Project Title</th>
-                <th className="py-3 px-4 border-b border-gray-300">From</th>
-                <th className="py-3 px-4 border-b border-gray-300">Due</th>
-                <th className="py-3 px-4 border-b border-gray-300">Team Lead</th>
-                <th className="py-3 px-4 border-b border-gray-300">Employees</th>
-                <th className="py-3 px-4 border-b border-gray-300">Description</th>
+                {/* Add other table headers */}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {projectData.map((project, index) => (
                 <tr key={index}>
                   <td className="py-3 px-4 border whitespace-nowrap">{project.projectTitle}</td>
-                  <td className="py-3 px-4 border whitespace-nowrap">{project.from}</td>
-                  <td className="py-3 px-4 border whitespace-nowrap">{project.due}</td>
-                  <td className="py-3 px-4 border whitespace-nowrap">{project.teamLead.label}</td>
-                  <td className="py-3 px-4 border whitespace-nowrap">
-                    {project.employees.map((employee) => employee.label).join(", ")}
-                  </td>
-                  <td className="py-3 px-4 border whitespace-nowrap">{project.description}</td>
+                  {/* Add other project details */}
                 </tr>
               ))}
             </tbody>
