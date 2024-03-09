@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Navbar from './components/Header/Navbar';
 import HrHome from './pages/Hr-Home/HrHome';
-import HRRegisterPage from './pages/Register/HRRegisterPage';
+import HrRegisterPage from './pages/Register/HRRegisterPage';
 import TLRegisterPage from './pages/Register/TLRegisterPage';
 import HRLoginPage from './pages/Login/HRLoginPage';
 import TeamLeadHome from './pages/TL-Home/TeamLeadHome';
@@ -46,7 +46,7 @@ const App = () => {
                   />
                   <Route
                     path="/hr-register"
-                    element={<HRRegisterPage />}
+                    element={<HrRegisterPage />}
                   />
                   <Route
                     path="/tl-register"

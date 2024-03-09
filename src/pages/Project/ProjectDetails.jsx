@@ -20,7 +20,6 @@ const ProjectDetails = () => {
         setProjectData(response.data);
       } catch (error) {
         console.error("Failed to fetch project details:", error);
-        // Handle error
       }
     };
 

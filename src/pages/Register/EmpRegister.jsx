@@ -4,10 +4,12 @@ import { useEmployeeData } from './EmployeeDataContext';
 
 const EmpRegister = () => {
   const [employeeData, setEmployeeData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
+    Firstname: '',
+    lastname: '',
+    email_address: '',
     position: '',
+    phoneno:'',
+
   });
 
   const { addEmployeeData } = useEmployeeData();
@@ -28,8 +30,9 @@ const EmpRegister = () => {
     setEmployeeData({
       firstName: '',
       lastName: '',
-      email: '',
+      email_address: '',
       position: '',
+      phoneno:'',
     });
 
     Swal.fire({
@@ -49,7 +52,7 @@ const EmpRegister = () => {
             <input
               type="text"
               name="firstName"
-              value={employeeData.firstName}
+              value={employeeData.Firstname}
               onChange={handleInputChange}
               required
               className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -61,7 +64,7 @@ const EmpRegister = () => {
             <input
               type="text"
               name="lastName"
-              value={employeeData.lastName}
+              value={employeeData.lastname}
               onChange={handleInputChange}
               required
               className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -73,7 +76,20 @@ const EmpRegister = () => {
             <input
               type="email"
               name="email"
-              value={employeeData.email}
+              value={employeeData.email_address}
+              onChange={handleInputChange}
+              required
+              className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </label>
+          <br />
+          <br />
+          <label className="block text-sm font-medium text-gray-900">
+            Phone No
+            <input
+              type="tel"
+              name="phoneno"
+              value={employeeData.phoneno}
               onChange={handleInputChange}
               required
               className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

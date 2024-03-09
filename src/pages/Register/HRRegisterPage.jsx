@@ -4,7 +4,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import Swal from "sweetalert2";
 import axios from 'axios'; // Import Axios library
 
-const HRRegisterPage = () => {
+const HrRegisterPage = () => {
   const [name, setName] = useState("");
   const [email_address, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
@@ -152,4 +152,4 @@ const HRRegisterPage = () => {
   );
 };
 
-export default HRRegisterPage;
+export default HrRegisterPage;
