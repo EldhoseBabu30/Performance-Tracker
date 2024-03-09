@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useAuth } from '../../components/Controllers/AuthContext';
 
-const LoginPage = () => {
+const TLLoginPage = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const { setToken } = useAuth();
@@ -13,7 +13,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8001/hrapi/token/', {
+      const response = await axios.post('http://127.0.0.1:8001/teamleadapi/token/', {
         username,
         password
       }, {
@@ -32,7 +32,7 @@ const LoginPage = () => {
           title: 'Login Successful',
           text: 'You have successfully logged in.',
         }).then(() => {
-          navigate('/hr-home');
+          navigate('/tl-home');
           localStorage.setItem("userData", JSON.stringify(response.data))
         });
 
@@ -103,7 +103,7 @@ const LoginPage = () => {
 
         <p className="text-center text-sm font-medium text-gray-500 mt-4">
           Not a member?{' '}
-          <Link to={'/register'} className="text-indigo-600 hover:text-indigo-500">
+          <Link to={'/tl-register'} className="text-indigo-600 hover:text-indigo-500">
             Register
           </Link>
         </p>
@@ -112,4 +112,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default TLLoginPage;

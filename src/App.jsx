@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Navbar from './components/Header/Navbar';
 import HrHome from './pages/Hr-Home/HrHome';
-import RegisterPage from './pages/Register/RegisterPage';
-import LoginPage from './pages/Login/LoginPage';
+import HRRegisterPage from './pages/Register/HRRegisterPage';
+import TLRegisterPage from './pages/Register/TLRegisterPage';
+import HRLoginPage from './pages/Login/HRLoginPage';
 import TeamLeadHome from './pages/TL-Home/TeamLeadHome';
 import EmployeeHome from './pages/Emp-Home/EmployeeHome';
 import HrProfile from './pages/Hr-Profile/HrProfile';
@@ -17,6 +18,8 @@ import { EmployeeDataProvider } from './pages/Register/EmployeeDataContext';
 import { TeamLeadDataProvider } from './pages/Register/TeamLeadDataContext';
 import ProjectStatusReport from './pages/TL-Home/EmployeeAssign';
 import { AuthProvider, useAuth } from './components/Controllers/AuthContext';
+import Login from './pages/Login/Login';
+import TLLoginPage from './pages/Login/TLLoginPage';
 
 
 const App = () => {
@@ -31,11 +34,23 @@ const App = () => {
                 <Routes>
                   <Route
                     path="/"
-                    element={<LoginPage />}
+                    element={<Login />}
+                  />
+                   <Route
+                    path="/hr-login"
+                    element={<HRLoginPage />}
+                  />
+                   <Route
+                    path="/tl-login"
+                    element={<TLLoginPage />}
                   />
                   <Route
-                    path="/register"
-                    element={<RegisterPage />}
+                    path="/hr-register"
+                    element={<HRRegisterPage />}
+                  />
+                  <Route
+                    path="/tl-register"
+                    element={<TLRegisterPage />}
                   />
                   <Route
                     path="/hr-home"
