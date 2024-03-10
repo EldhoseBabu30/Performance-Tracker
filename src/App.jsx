@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Navbar from './components/Header/Navbar';
 import HrHome from './pages/Hr-Home/HrHome';
-import HrRegisterPage from './pages/Register/HRRegisterPage';
+import HrRegisterPage from './pages/Register/HrRegisterPage';
 import TLRegisterPage from './pages/Register/TLRegisterPage';
 import HRLoginPage from './pages/Login/HRLoginPage';
 import TeamLeadHome from './pages/TL-Home/TeamLeadHome';
@@ -22,6 +22,8 @@ import Login from './pages/Login/Login';
 import TLLoginPage from './pages/Login/TLLoginPage';
 import EmployeeLogin from './pages/Login/EmployeeLogin';
 import TeamCreation from './pages/TL-Home/TeamCreation';
+import ViewEmployees from './pages/TL-Home/ViewEmployees';
+
 
 
 
@@ -122,6 +124,10 @@ const App = () => {
                     <Route
                     path="/team-create"
                     element={<PrivateRoute component={<TeamCreation />} />}
+                  />
+                   <Route
+                    path="/view-employees"
+                    element={<PrivateRoute component={<ViewEmployees />} />}
                   />
                 </Routes>
                 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from 'axios'; // Import Axios library
+import axios from 'axios'; 
 
 function TeamCreation() {
     const [name, setName] = useState("");
@@ -36,8 +36,8 @@ function TeamCreation() {
             });
           }
         } catch (error) {
-          console.error("Registration error:", error);
-          setErrorMessage(error.message || "Registration failed");
+          console.error("Creation error:", error);
+          setErrorMessage(error.message || "Creation failed");
         }
       };
     
@@ -51,7 +51,7 @@ function TeamCreation() {
         <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">
-          Register to your account
+          Create a Team
         </h2>
         <form onSubmit={handleRegister} className="space-y-6">
           <div>
@@ -73,7 +73,7 @@ function TeamCreation() {
             <input
               value={member}
               onChange={(e) => setMember(e.target.value)}
-              type="email"
+              type="text"
               required
               className="block w-full py-2 pl-3 pr-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
@@ -86,7 +86,7 @@ function TeamCreation() {
             <input
               value={members}
               onChange={(e) => setMembers(e.target.value)}
-              type="tel"
+              type="text"
               required
               className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
