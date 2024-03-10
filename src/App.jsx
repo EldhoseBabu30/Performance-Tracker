@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Navbar from './components/Header/Navbar';
 import HrHome from './pages/Hr-Home/HrHome';
-import HrRegisterPage from './pages/Register/HRRegisterPage';
+import HrRegisterPage from './pages/Register/HrRegisterPage';
 import TLRegisterPage from './pages/Register/TLRegisterPage';
 import HRLoginPage from './pages/Login/HRLoginPage';
 import TeamLeadHome from './pages/TL-Home/TeamLeadHome';
