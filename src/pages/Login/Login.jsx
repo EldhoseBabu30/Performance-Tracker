@@ -12,6 +12,9 @@ const Login = () => {
     } else if (role === "Team Lead") {
       navigate("/tl-login");
     }
+    else if (role === 'Employee'){
+      navigate("/emp-login")
+    }
   };
 
   return (
@@ -32,11 +35,19 @@ const Login = () => {
 
           <button
             onClick={() => handleButtonClick("Team Lead")}
-            className={`w-full p-8 bg-green-500 text-white rounded ${
+            className={`w-full mb-8 p-8 bg-green-500 text-white rounded ${
               selectedRole === "Team Lead" && "bg-green-700"
             }`}
           >
             Team Lead
+          </button>
+          <button
+            onClick={() => handleButtonClick("Employee")}
+            className={`w-full p-8 bg-red-500 text-white rounded ${
+              selectedRole === "Employee" && "bg-red-700"
+            }`}
+          >
+            Employee
           </button>
         </div>
 

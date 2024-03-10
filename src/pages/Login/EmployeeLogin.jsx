@@ -6,7 +6,7 @@ import { useAuth } from '../../components/Controllers/AuthContext';
 
 
 
-const HRLoginPage = () => {
+const EmployeeLogin = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const { token,setToken } = useAuth();
@@ -22,7 +22,7 @@ const HRLoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8001/hrapi/token/', {
+      const response = await axios.post('http://127.0.0.1:8001/empapi/token/', {
         username,
         password
       }, {
@@ -42,7 +42,7 @@ const HRLoginPage = () => {
           title: 'Login Successful',
           text: 'You have successfully logged in.',
         }).then(() => {
-          navigate('/hr-home');
+          navigate('/emp-home');
           localStorage.setItem("userData", JSON.stringify(response.data))
         });
 
@@ -111,15 +111,10 @@ const HRLoginPage = () => {
           </div>
         </form>
 
-        <p className="text-center text-sm font-medium text-gray-500 mt-4">
-          Not a member?{' '}
-          <Link to={'/hr-register'} className="text-indigo-600 hover:text-indigo-500">
-            Register
-          </Link>
-        </p>
+      
       </div>
     </div>
   );
 };
 
-export default HRLoginPage;
+export default EmployeeLogin;

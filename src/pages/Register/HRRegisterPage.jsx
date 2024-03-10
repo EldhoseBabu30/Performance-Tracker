@@ -38,7 +38,7 @@ const HrRegisterPage = () => {
           title: "Registration Successful",
           text: "You have successfully registered.",
         }).then(() => {
-          navigate("/");
+          navigate("/hr-login");
         });
       }
     } catch (error) {
@@ -62,11 +62,23 @@ const HrRegisterPage = () => {
         <form onSubmit={handleRegister} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-900">
-              User name
+              Full name
             </label>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
+              type="text"
+              required
+              className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-900">
+              User Name
+            </label>
+            <input
+              value={username}
+              onChange={(e) => setUserName(e.target.value)}
               type="text"
               required
               className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -117,18 +129,7 @@ const HrRegisterPage = () => {
               <p className="text-red-500 text-sm mt-1">{errorMessage}</p>
             )}
           </div>
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-900">
-              Role
-            </label>
-            <input
-              value={username}
-              onChange={(e) => setUserName(e.target.value)}
-              type="text"
-              required
-              className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
+          
           <div>
             <button
               type="submit"
