@@ -38,7 +38,7 @@ const TLRegisterPage = () => {
           title: "Registration Successful",
           text: "You have successfully registered.",
         }).then(() => {
-          navigate("/");
+          navigate("/tl-login");
         });
       }
     } catch (error) {
