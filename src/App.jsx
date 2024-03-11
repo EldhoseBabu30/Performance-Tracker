@@ -24,6 +24,9 @@ import EmployeeLogin from './pages/Login/EmployeeLogin';
 import TeamCreation from './pages/TL-Home/TeamCreation';
 import ViewEmployees from './pages/TL-Home/ViewEmployees';
 import ViewTeam from './pages/TL-Home/ViewTeam';
+import ViewTeams from './pages/Hr-Home/ViewTeams';
+import ProjectAssign from './pages/TL-Home/ProjectAssign';
+
 
 
 
@@ -135,6 +138,15 @@ const App = () => {
                     path="/view-team"
                     element={<PrivateRoute component={<ViewTeam />} />}
                   />
+                  <Route
+                    path="/view-teams"
+                    element={<PrivateRoute component={<ViewTeams />} />}
+                  />
+                  <Route
+                    path="/project-assign"
+                    element={<PrivateRoute component={<ProjectAssign />} />}
+                  />
+                  
                 </Routes>
                 
               </BrowserRouter>

@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useAuth } from '../../components/Controllers/AuthContext';
 
-
-
 const EmployeeLogin = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const { token,setToken } = useAuth();
+  const { setToken } = useAuth();
   const navigate = useNavigate();
- 
+
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
@@ -33,10 +31,8 @@ const EmployeeLogin = () => {
       console.log(response);
 
       const { token } = response.data;
-      if(response.status == 200){
+      if(response.status === 200){
         setToken(token);
-        localStorage.setItem('token', token);
-
         Swal.fire({
           icon: 'success',
           title: 'Login Successful',
@@ -45,8 +41,6 @@ const EmployeeLogin = () => {
           navigate('/emp-home');
           localStorage.setItem("userData", JSON.stringify(response.data))
         });
-
-
       }
     
     } catch (error) {
@@ -110,8 +104,6 @@ const EmployeeLogin = () => {
             </button>
           </div>
         </form>
-
-      
       </div>
     </div>
   );

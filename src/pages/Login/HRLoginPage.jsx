@@ -4,20 +4,18 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useAuth } from '../../components/Controllers/AuthContext';
 
-
-
 const HRLoginPage = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const { token,setToken } = useAuth();
+  const { token, setToken } = useAuth();
   const navigate = useNavigate();
- 
+
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(storedToken);
     }
-  }, []);
+  }, [setToken]); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,13 +28,10 @@ const HRLoginPage = () => {
           'Content-Type': 'application/json'
         }
       });
-      console.log(response);
-
+      
       const { token } = response.data;
-      if(response.status == 200){
+      if(response.status === 200){
         setToken(token);
-        localStorage.setItem('token', token);
-
         Swal.fire({
           icon: 'success',
           title: 'Login Successful',
@@ -45,8 +40,6 @@ const HRLoginPage = () => {
           navigate('/hr-home');
           localStorage.setItem("userData", JSON.stringify(response.data))
         });
-
-
       }
     
     } catch (error) {

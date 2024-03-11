@@ -1,97 +1,73 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { useAuth } from '../../components/Controllers/AuthContext';
+import { useAuth } from "../../components/Controllers/AuthContext";
 
-function TeamCreation() {
-  const [name, setName] = useState('');
-  const [members, setMembers] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate();
-  const { token } = useAuth();
+const ViewTeam = () => {
+  const { token } = useAuth(); 
+  const [loading, setLoading] = useState(true);
+  const [teamData, setTeamData] = useState([]);
+  const [error, setError] = useState(null);
 
-  const createTeam = async () => {
-    try {
-      const response = await axios.post(
-        'http://127.0.0.1:8001/teamleadapi/team/',
-        {
-          name,
-          members: members.split(',').map(member => parseInt(member.trim())), 
-        },
-        {
+  useEffect(() => {
+    const fetchTeamDetails = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8001/teamleadapi/team/', {
           headers: {
-            Authorization: `Token ${token}`,
-          },
-        }
-      );
-
-      if (response.status === 201) {
-        Swal.fire({
-          icon: "success",
-          title: "Creation Successful",
-          text: "You have successfully Created.",
-        }).then(() => {
-          navigate("/tl-home");
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`, 
+          }
         });
-      } else {
-        setErrorMessage("Creation failed");
+        console.log("Team data response:", response.data);
+        setTeamData(response.data);
+      } catch (error) {
+        console.error("Failed to fetch team details:", error);
+        setError("Failed to fetch team details");
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Creation error:', error);
-      setErrorMessage(error.message || 'Creation failed');
-    }
-  };
+    };
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setErrorMessage('');
-    await createTeam();
-  };
+    fetchTeamDetails();
+  }, [token]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">Create a Team</h2>
-        <form onSubmit={handleRegister} className="space-y-6">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-900">
-              Team Name
-            </label>
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              type="text"
-              required
-              className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
+    <div className="mt-8 h-96 overflow-y-auto">
+      <h1 className="text-2xl font-semibold mb-4">My Team</h1>
+      {teamData.length > 0 ? (
+        <div className="relative">
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white rounded-md shadow-md">
+              <thead className="bg-gray-200 sticky top-0">
+                <tr>
+                  <th className="py-3 px-4 border-b border-gray-300">Id</th>
+                  <th className="py-3 px-4 border-b border-gray-300">Team Lead Name</th>
+                  <th className="py-3 px-4 border-b border-gray-300">Team Name</th>
+                  <th className="py-3 px-4 border-b border-gray-300">Is Approved</th>
+                  <th className="py-3 px-4 border-b border-gray-300">Members Count</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {teamData.map((team, index) => (
+                  <tr key={index}>
+                    <td className="py-3 px-4 border whitespace-nowrap">{team.id}</td>
+                    <td className="py-3 px-4 border whitespace-nowrap">{team.teamlead}</td>
+                    <td className="py-3 px-4 border whitespace-nowrap">{team.name}</td>
+                    <td className="py-3 px-4 border whitespace-nowrap">{team.is_approved ? 'Yes' : 'No'}</td>   
+                    <td className="py-3 px-4 border whitespace-nowrap">{team.members.length}</td>             
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-
-          <div>
-            <label htmlFor="phoneno" className="block text-sm font-medium text-gray-900">
-              Members
-            </label>
-            <input
-              value={members}
-              onChange={(e) => setMembers(e.target.value)}
-              type="text"
-              required
-              className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Create
-            </button>
-          </div>
-        </form>
-      </div>
+        </div>
+      ) : (
+        <p className="mt-4">No Teams.</p>
+      )}
     </div>
   );
-}
+};
 
-export default TeamCreation;
+export default ViewTeam;

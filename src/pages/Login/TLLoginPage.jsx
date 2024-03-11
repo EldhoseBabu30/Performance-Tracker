@@ -21,12 +21,10 @@ const TLLoginPage = () => {
           'Content-Type': 'application/json'
         }
       });
-      console.log(response);
-
+      
       const { token } = response.data;
-      if(response.status == 200){
+      if(response.status === 200){
         setToken(token);
-
         Swal.fire({
           icon: 'success',
           title: 'Login Successful',
@@ -35,8 +33,6 @@ const TLLoginPage = () => {
           navigate('/tl-home');
           localStorage.setItem("userData", JSON.stringify(response.data))
         });
-
-
       }
     
     } catch (error) {
