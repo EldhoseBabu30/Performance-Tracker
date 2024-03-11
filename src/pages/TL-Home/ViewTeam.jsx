@@ -15,6 +15,7 @@ const ViewTeam = () => {
             'Authorization': `Token ${token}`, 
           }
         });
+        console.log("Team data response:", response.data);
         setTeamData(response.data);
       } catch (error) {
         console.error("Failed to fetch team details:", error);
