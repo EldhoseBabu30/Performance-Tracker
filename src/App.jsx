@@ -23,6 +23,7 @@ import TLLoginPage from './pages/Login/TLLoginPage';
 import EmployeeLogin from './pages/Login/EmployeeLogin';
 import TeamCreation from './pages/TL-Home/TeamCreation';
 import ViewEmployees from './pages/TL-Home/ViewEmployees';
+import ViewTeam from './pages/TL-Home/ViewTeam';
 
 
 
@@ -125,9 +126,14 @@ const App = () => {
                     path="/team-create"
                     element={<PrivateRoute component={<TeamCreation />} />}
                   />
-                   <Route
+                    <Route
                     path="/view-employees"
                     element={<PrivateRoute component={<ViewEmployees />} />}
+                  />
+
+                   <Route
+                    path="/view-team"
+                    element={<PrivateRoute component={<ViewTeam />} />}
                   />
                 </Routes>
                 
