@@ -1,4 +1,22 @@
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+// import {
+//   Card,
+//   Typography,
+//   List,
+//   ListItem,
+//   ListItemPrefix,
+//   ListItemSuffix,
+//   Chip,
+// } from "@material-tailwind/react";
+// import {
+//   PresentationChartBarIcon,
+//   ShoppingBagIcon,
+//   UserCircleIcon,
+//   Cog6ToothIcon,
+//   InboxIcon,
+//   PowerIcon,
+// } from "@heroicons/react/24/solid";
 
 const HrHome = () => {
   const name = localStorage.getItem("userName");
@@ -10,15 +28,71 @@ const HrHome = () => {
 
   return (
     <div className="flex flex-col h-screen">
-      {/* Welcome message */}
+      {/* Sidebar
+      <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+        <div className="mb-2 p-4">
+          <Typography variant="h5" color="blue-gray">
+            Sidebar
+          </Typography>
+        </div>
+        <List>
+          <ListItem>
+            <ListItemPrefix>
+              <PresentationChartBarIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Dashboard
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <ShoppingBagIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            E-Commerce
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <InboxIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Inbox
+            <ListItemSuffix>
+              <Chip
+                value="14"
+                size="sm"
+                variant="ghost"
+                color="blue-gray"
+                className="rounded-full"
+              />
+            </ListItemSuffix>
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <UserCircleIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Profile
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <Cog6ToothIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Settings
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <PowerIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Log Out
+          </ListItem>
+        </List>
+      </Card> */}
+
+      {/* Content */}
       <div className="flex justify-center items-center h-1/6">
         <h3 className="text-3xl font-medium leading-tight text-center text-primary">
           Welcome, {name}
         </h3>
       </div>
-      {/* Content */}
+
+      {/* Cards container */}
       <div className="flex justify-start items-start h-5/6 px-6">
-        {/* Cards container */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full px-4">
           {/* Card 1 */}
           <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -30,7 +104,6 @@ const HrHome = () => {
                 Here are the biggest enterprise technology acquisitions of 2021
                 so far, in reverse chronological order.
               </p>
-
               <Link to="/register-project">
                 <button
                   type="button"
@@ -55,6 +128,7 @@ const HrHome = () => {
               </Link>
             </div>
           </div>
+
           {/* Card 2 */}
           <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6">
@@ -89,6 +163,7 @@ const HrHome = () => {
               </button>
             </div>
           </div>
+
           {/* Card 3 */}
           <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6">
@@ -126,6 +201,7 @@ const HrHome = () => {
               </button>
             </div>
           </div>
+
           {/* Add more cards here if needed */}
           <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6">
@@ -165,6 +241,7 @@ const HrHome = () => {
               </Link>
             </div>
           </div>
+
           <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
