@@ -12,7 +12,7 @@ const ViewTeam = () => {
       try {
         const response = await axios.get('http://127.0.0.1:8001/teamleadapi/team/', {
           headers: {
-            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/json',
             'Authorization': `Token ${token}`, 
           }
         });
@@ -25,6 +25,7 @@ const ViewTeam = () => {
 
     fetchTeamDetails();
   }, []);
+  console.log(token);
 
   return (
     <div className="mt-8 h-96 overflow-y-auto">
@@ -49,7 +50,7 @@ const ViewTeam = () => {
                     <td className="py-3 px-4 border whitespace-nowrap">{team.teamlead}</td>
                     <td className="py-3 px-4 border whitespace-nowrap">{team.name}</td>
                     <td className="py-3 px-4 border whitespace-nowrap">{team.is_approved ? 'Yes' : 'No'}</td>   
-                    <td className="py-3 px-4 border whitespace-nowrap">{team.members}</td>             
+                    <td className="py-3 px-4 border whitespace-nowrap">{team.members.length}</td>             
                   </tr>
                 ))}
               </tbody>
