@@ -124,9 +124,10 @@ const App = () => {
                     path="/project-assign"
                     element={<PrivateRoute component={<ProjectAssign />} />}
                   />
+                  
 
                   <Route
-                    path="/tl-home/assign_to_emp"
+                    path="/tl-home/assign_to_emp/:id"
                     element={<PrivateRoute component={<AssignProjectEmployees />} /> }
                   />
                 </Routes>

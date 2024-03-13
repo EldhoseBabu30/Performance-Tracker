@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAuth } from "../../components/Controllers/AuthContext";
 
 
+
 const ViewTeam = () => {
   const { token } = useAuth(); 
   const [teamData, setTeamData] = useState([]);
@@ -50,7 +51,17 @@ const ViewTeam = () => {
                     <td className="py-3 px-4 border whitespace-nowrap">{team.teamlead}</td>
                     <td className="py-3 px-4 border whitespace-nowrap">{team.name}</td>
                     <td className="py-3 px-4 border whitespace-nowrap">{team.is_approved ? 'Yes' : 'No'}</td>   
-                    <td className="py-3 px-4 border whitespace-nowrap">{team.members.length}</td>             
+                    <td className="py-3 px-4 border whitespace-nowrap">{team.members.length}</td>   
+                    {/* <td className="py-3 px-4 border whitespace-nowrap">
+                    <Link to={`/tl-home/assign_to_emp/${project.id}`}>
+                      <button
+                        type="submit"
+                        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      >
+                        Assign
+                      </button>
+                    </Link>
+                  </td>           */}
                   </tr>
                 ))}
               </tbody>
