@@ -6,6 +6,14 @@ const ProjectDetails = () => {
   const { token } = useAuth();
   const [projectData, setProjectData] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProjectData, setSelectedProjectData] = useState({
+    project_id:'',
+    project_name:'',
+    project_description:'',
+    due_date:''
+  })
+
+ 
 
   useEffect(() => {
     const fetchProjectDetails = async () => {
@@ -27,11 +35,33 @@ const ProjectDetails = () => {
     fetchProjectDetails();
   }, []);
 
-  const handleSelectProject = (projectId) => {
-    // If the clicked project is already selected, unselect it
-    setSelectedProject(selectedProject === projectId ? null : projectId);
-  };
+  // const handleSelectedProjectDetails = (projectData) => {
+  //   setSelectedProjectData({
+  //     ...selectedProjectData,
+  //     project_id:projectData.id,
+  //     project_name:projectData.name,
+  //     project_description:projectData.description,
+  //     due_date:projectData.end_date
 
+
+
+      
+  //   })
+ 
+
+  // }
+  console.log("Data",selectedProjectData);
+  console.log(projectData);
+
+  const handleSelectProject = (projectId, projectData) => {
+    setSelectedProject(selectedProject === projectId ? null : projectId);
+    setSelectedProjectData({
+      project_id: projectData.id,
+      project_name: projectData.topic,
+      project_description: projectData.description,
+      due_date: projectData.end_date
+    });
+  };
   return (
     <div className="mt-8 h-96 overflow-y-auto">
       <h1 className="text-2xl font-semibold mb-4">Registered Projects</h1>
@@ -80,7 +110,7 @@ const ProjectDetails = () => {
 
                     <button
                       type="button"
-                      onClick={() => handleSelectProject(project.id)}
+                      onClick={() => handleSelectProject(project.id, project)}
                       disabled={selectedProject !== null && selectedProject !== project.id}
 
                       className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${

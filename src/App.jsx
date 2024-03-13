@@ -27,6 +27,7 @@ import ViewTeam from "./pages/TL-Home/ViewTeam";
 import ViewTeams from "./pages/Hr-Home/ViewTeams";
 import ProjectAssign from "./pages/TL-Home/ProjectAssign";
 import AssignProjectEmployees from "./pages/TL-Home/AssignProjectEmployees";
+import HrInbox from "./pages/Hr-Home/HrInbox";
 
 const App = () => {
   useEffect(() => {
@@ -129,6 +130,10 @@ const App = () => {
                   <Route
                     path="/tl-home/assign_to_emp/:id"
                     element={<PrivateRoute component={<AssignProjectEmployees />} /> }
+                  />
+                   <Route
+                    path="/hr-home/hr-inbox"
+                    element={<PrivateRoute component={<HrInbox />} /> }
                   />
                 </Routes>
               </BrowserRouter>

@@ -71,7 +71,8 @@ const HrHome = () => {
             </ListItemPrefix>
             E-Commerce
           </ListItem>
-          <ListItem>
+          <Link to='hr-inbox'>
+          <ListItem >
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
@@ -86,6 +87,7 @@ const HrHome = () => {
               />
             </ListItemSuffix>
           </ListItem>
+          </Link>
           <ListItem>
             <ListItemPrefix>
               <UserCircleIcon className="h-5 w-5" />
