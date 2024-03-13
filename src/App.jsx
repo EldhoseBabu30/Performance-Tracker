@@ -1,58 +1,53 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
-import Navbar from './components/Header/Navbar';
-import HrHome from './pages/Hr-Home/HrHome';
-import HrRegisterPage from './pages/Register/HrRegisterPage';
-import TLRegisterPage from './pages/Register/TLRegisterPage';
-import HRLoginPage from './pages/Login/HRLoginPage';
-import TeamLeadHome from './pages/TL-Home/TeamLeadHome';
-import EmployeeHome from './pages/Emp-Home/EmployeeHome';
-import HrProfile from './pages/Hr-Profile/HrProfile';
-import TeamLeadProfile from './pages/TL-Profile/TeamLeadProfile';
-import EmpRegister from './pages/Register/EmpRegister';
-import './App.css';
-import ProjectRegister from './pages/Register/ProjectRegister';
-import ProjectDetails from './pages/Project/ProjectDetails';
-import { ProjectDataProvider } from './pages/Register/ProjectDataContext';
-import { EmployeeDataProvider } from './pages/Register/EmployeeDataContext';
-import { TeamLeadDataProvider } from './pages/Register/TeamLeadDataContext';
-import ProjectStatusReport from './pages/TL-Home/EmployeeAssign';
-import { AuthProvider, useAuth } from './components/Controllers/AuthContext';
-import Login from './pages/Login/Login';
-import TLLoginPage from './pages/Login/TLLoginPage';
-import EmployeeLogin from './pages/Login/EmployeeLogin';
-import TeamCreation from './pages/TL-Home/TeamCreation';
-import ViewEmployees from './pages/TL-Home/ViewEmployees';
-import ViewTeam from './pages/TL-Home/ViewTeam';
-import ViewTeams from './pages/Hr-Home/ViewTeams';
-import ProjectAssign from './pages/TL-Home/ProjectAssign';
-
-
-
-
+import React, { useEffect } from "react";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import Navbar from "./components/Header/Navbar";
+import HrHome from "./pages/Hr-Home/HrHome";
+import HrRegisterPage from "./pages/Register/HrRegisterPage";
+import TLRegisterPage from "./pages/Register/TLRegisterPage";
+import HRLoginPage from "./pages/Login/HRLoginPage";
+import TeamLeadHome from "./pages/TL-Home/TeamLeadHome";
+import EmployeeHome from "./pages/Emp-Home/EmployeeHome";
+import HrProfile from "./pages/Hr-Profile/HrProfile";
+import TeamLeadProfile from "./pages/TL-Profile/TeamLeadProfile";
+import EmpRegister from "./pages/Register/EmpRegister";
+import "./App.css";
+import ProjectRegister from "./pages/Register/ProjectRegister";
+import ProjectDetails from "./pages/Project/ProjectDetails";
+import { ProjectDataProvider } from "./pages/Register/ProjectDataContext";
+import { EmployeeDataProvider } from "./pages/Register/EmployeeDataContext";
+import { TeamLeadDataProvider } from "./pages/Register/TeamLeadDataContext";
+import ProjectStatusReport from "./pages/TL-Home/EmployeeAssign";
+import { AuthProvider, useAuth } from "./components/Controllers/AuthContext";
+import Login from "./pages/Login/Login";
+import TLLoginPage from "./pages/Login/TLLoginPage";
+import EmployeeLogin from "./pages/Login/EmployeeLogin";
+import TeamCreation from "./pages/TL-Home/TeamCreation";
+import ViewEmployees from "./pages/TL-Home/ViewEmployees";
+import ViewTeam from "./pages/TL-Home/ViewTeam";
+import ViewTeams from "./pages/Hr-Home/ViewTeams";
+import ProjectAssign from "./pages/TL-Home/ProjectAssign";
+import AssignProjectEmployees from "./pages/TL-Home/AssignProjectEmployees";
 
 const App = () => {
   useEffect(() => {
-    // Prevent navigation back when refreshing
     const handleBeforeUnload = (e) => {
       e.preventDefault();
-      e.returnValue = '';  // For Chrome
+      e.returnValue = "";
     };
 
     window.history.replaceState(null, null, window.location.href);
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
   useEffect(() => {
-    const storedPage = localStorage.getItem('currentPage');
+    const storedPage = localStorage.getItem("currentPage");
     if (storedPage) {
       navigate(storedPage);
     }
   }, []);
-
 
   return (
     <div>
@@ -63,32 +58,13 @@ const App = () => {
               <BrowserRouter>
                 <Navbar />
                 <Routes>
-                  <Route
-                    path="/"
-                    element={<Login />}
-                  />
-                   <Route
-                    path="/hr-login"
-                    element={<HRLoginPage />}
-                  />
-                   <Route
-                    path="/tl-login"
-                    element={<TLLoginPage />}
-                  />
-                   <Route
-                    path="/emp-login"
-                    element={<EmployeeLogin />}
-                  />
-                
+                  <Route path="/" element={<Login />} />
+                  <Route path="/hr-login" element={<HRLoginPage />} />
+                  <Route path="/tl-login" element={<TLLoginPage />} />
+                  <Route path="/emp-login" element={<EmployeeLogin />} />
 
-                  <Route
-                    path="/hr-register"
-                    element={<HrRegisterPage />}
-                  />
-                  <Route
-                    path="/tl-register"
-                    element={<TLRegisterPage />}
-                  />
+                  <Route path="/hr-register" element={<HrRegisterPage />} />
+                  <Route path="/tl-register" element={<TLRegisterPage />} />
                   <Route
                     path="/hr-home"
                     element={<PrivateRoute component={<HrHome />} />}
@@ -123,18 +99,20 @@ const App = () => {
                   />
                   <Route
                     path="/emp-assign"
-                    element={<PrivateRoute component={<ProjectStatusReport />} />}
+                    element={
+                      <PrivateRoute component={<ProjectStatusReport />} />
+                    }
                   />
-                    <Route
+                  <Route
                     path="/team-create"
                     element={<PrivateRoute component={<TeamCreation />} />}
                   />
-                    <Route
+                  <Route
                     path="/view-employees"
                     element={<PrivateRoute component={<ViewEmployees />} />}
                   />
 
-                   <Route
+                  <Route
                     path="/view-team"
                     element={<PrivateRoute component={<ViewTeam />} />}
                   />
@@ -146,9 +124,12 @@ const App = () => {
                     path="/project-assign"
                     element={<PrivateRoute component={<ProjectAssign />} />}
                   />
-                  
+
+                  <Route
+                    path="/tl-home/assign_to_emp"
+                    element={<PrivateRoute component={<AssignProjectEmployees />} /> }
+                  />
                 </Routes>
-                
               </BrowserRouter>
             </TeamLeadDataProvider>
           </ProjectDataProvider>
@@ -164,7 +145,7 @@ const PrivateRoute = ({ component }) => {
 
   useEffect(() => {
     if (!token) {
-      navigate('/');
+      navigate("/");
     }
   }, [token, navigate]);
 

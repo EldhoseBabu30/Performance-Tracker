@@ -17,7 +17,7 @@ const ViewTeam = () => {
           }
         });
         console.log("Team data response:", response.data);
-        setTeamData(response.data);
+        setTeamData([response.data]);
       } catch (error) {
         console.error("Failed to fetch team details:", error);
       }
@@ -57,9 +57,9 @@ const ViewTeam = () => {
             </table>
           </div>
         </div>
-      ) : (
-        <p className="mt-4">No Teams.</p>
-      )}
+        ) : (
+         <p className="mt-4">No Teams.</p>
+       )} 
     </div>
   );
 };
