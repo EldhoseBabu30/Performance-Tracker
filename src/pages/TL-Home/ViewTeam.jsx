@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../components/Controllers/AuthContext";
-import ProjectDetails from "../Project/ProjectDetails";
+import ProjectDetails from "../Project/TLProjectDetails";
 
 
 const ViewTeam = () => {

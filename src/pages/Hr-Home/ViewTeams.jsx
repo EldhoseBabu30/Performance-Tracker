@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../components/Controllers/AuthContext";
-import ProjectDetails from "../Project/ProjectDetails"; // Import the ProjectDetails component
 
 const ViewTeam = () => {
   const { token } = useAuth();
   const [teamData, setTeamData] = useState([]);
-  const [teamLeadName, setTeamLeadName] = useState(""); // State to store the team lead name
 
   useEffect(() => {
     const fetchTeamDetails = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8001/teamleadapi/team/', {
+        const response = await axios.get('http://127.0.0.1:8001/hrapi/teams/', {
           headers: {
             'Authorization': `Token ${token}`, 
           }
         });
         setTeamData(response.data);
-        // Assuming the team lead name is available in the response
-        if (response.data.length > 0) {
-          setTeamLeadName(response.data[0].teamlead); // Set the team lead name from the response
-        }
+       
       } catch (error) {
         console.error("Failed to fetch team details:", error);
       }
@@ -39,7 +34,7 @@ const ViewTeam = () => {
               <thead className="bg-gray-200 sticky top-0">
                 <tr>
                   <th className="py-3 px-4 border-b border-gray-300">Id</th>
-                  <th className="py-3 px-4 border-b border-gray-300">Team Lead Name</th>
+                  <th className="py-3 px-4 border-b border-gray-300">Team Lead </th>
                   <th className="py-3 px-4 border-b border-gray-300">Team Name</th>
                   <th className="py-3 px-4 border-b border-gray-300">Is Approved</th>
                   <th className="py-3 px-4 border-b border-gray-300">Members Count</th>
@@ -52,7 +47,7 @@ const ViewTeam = () => {
                     <td className="py-3 px-4 border whitespace-nowrap">{team.teamlead}</td>
                     <td className="py-3 px-4 border whitespace-nowrap">{team.name}</td>
                     <td className="py-3 px-4 border whitespace-nowrap">{team.is_approved ? 'Yes' : 'No'}</td>   
-                    <td className="py-3 px-4 border whitespace-nowrap">{team.members.length}</td>   
+                    <td className="py-3 px-4 border whitespace-nowrap">{team.members.join(", ")}</td>
                   </tr>
                 ))}
               </tbody>
@@ -63,7 +58,7 @@ const ViewTeam = () => {
         <p className="mt-4">No Teams.</p>
       )}
       {/* Pass the team lead name as a prop to ProjectDetails component */}
-      <ProjectDetails teamLeadName={teamLeadName} />
+  
     </div>
   );
 };

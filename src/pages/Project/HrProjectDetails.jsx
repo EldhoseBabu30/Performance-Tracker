@@ -2,38 +2,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../components/Controllers/AuthContext";
 
-const ProjectDetails = ({ teamLeadName }) => {
+const HrProjectDetails = ( ) => {
   const { token } = useAuth();
   const [projectData, setProjectData] = useState([]);
-  const [selectedProject, setSelectedProject] = useState(null);
 
-  const sendRequestToHR = (projectId, projectName, teamLeadName) => {
-    const requests = JSON.parse(localStorage.getItem('hrRequests')) || [];
-    requests.push({ projectId, projectName, teamLeadName });
-    localStorage.setItem('hrRequests', JSON.stringify(requests));
-    console.log(`Request for project ${projectId} (${projectName}) sent to HR inbox by ${teamLeadName}`);
-  };
+  
 
-  const handleRemoveSelected = (projectId) => {
-    const updatedRequests = requests.filter(request => request.projectId !== projectId);
-    localStorage.setItem('hrRequests', JSON.stringify(updatedRequests));
-  };
-
-  const handleSelectProject = (projectId, projectData) => {
-    if (selectedProject !== projectId) {
-      setSelectedProject(projectId);
-      sendRequestToHR(projectId, projectData.topic, teamLeadName);
-    } else {
-      setSelectedProject(null);
-      handleRemoveSelected(projectId); // Remove the project ID from HR inbox
-    }
-  };
 
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8001/teamleadapi/projects/",
+          "http://127.0.0.1:8001/hrapi/projects/",
           {
             headers: {
               Authorization: `Token ${token}`,
@@ -48,6 +28,7 @@ const ProjectDetails = ({ teamLeadName }) => {
 
     fetchProjectDetails();
   }, [token]);
+  console.log(projectData);
 
   return (
     <div className="mt-8 h-96 overflow-y-auto">
@@ -62,7 +43,6 @@ const ProjectDetails = ({ teamLeadName }) => {
                 <th className="py-3 px-4 border-b border-gray-300">Project Description</th>
                 <th className="py-3 px-4 border-b border-gray-300">Due Date</th>
                 <th className="py-3 px-4 border-b border-gray-300">Project Status</th>
-                <th className="py-3 px-4 border-b border-gray-300">Select a Project</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -73,20 +53,7 @@ const ProjectDetails = ({ teamLeadName }) => {
                   <td className="py-3 px-4 border whitespace-nowrap">{project.description}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{project.end_date}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{project.project_status}</td>
-                  <td className="py-3 px-4 border whitespace-nowrap">
-                    <button
-                      type="button"
-                      onClick={() => handleSelectProject(project.id, project)}
-                      disabled={selectedProject === project.id}
-                      className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
-                        selectedProject === project.id
-                          ? "bg-green-600"
-                          : "bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      }`}
-                    >
-                      {selectedProject === project.id ? "Selected" : "Select"}
-                    </button>
-                  </td>
+                 
                 </tr>
               ))}
             </tbody>
@@ -99,4 +66,4 @@ const ProjectDetails = ({ teamLeadName }) => {
   );
 };
 
-export default ProjectDetails;
+export default HrProjectDetails;

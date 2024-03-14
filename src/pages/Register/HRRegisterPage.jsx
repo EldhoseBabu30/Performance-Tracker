@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Swal from "sweetalert2";
-import axios from 'axios'; // Import Axios library
+import axios from 'axios'; 
 
 const HrRegisterPage = () => {
   const [name, setName] = useState("");

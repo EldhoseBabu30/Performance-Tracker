@@ -211,7 +211,7 @@ const TeamLeadHome = () => {
                 Here are the biggest enterprise technology acquisitions of 2021
                 so far, in reverse chronological order.
               </p>
-              <Link to="/project-details">
+              <Link to="/tl-project-details">
                 <button
                   type="button"
                   className="mt-4 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 text-white font-medium rounded-lg text-sm flex items-center px-6 py-2.5"

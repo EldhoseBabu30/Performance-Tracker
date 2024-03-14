@@ -12,7 +12,7 @@ import TeamLeadProfile from "./pages/TL-Profile/TeamLeadProfile";
 import EmpRegister from "./pages/Register/EmpRegister";
 import "./App.css";
 import ProjectRegister from "./pages/Register/ProjectRegister";
-import ProjectDetails from "./pages/Project/ProjectDetails";
+import HrProjectDetails from "./pages/Project/HrProjectDetails";
 import { ProjectDataProvider } from "./pages/Register/ProjectDataContext";
 import { EmployeeDataProvider } from "./pages/Register/EmployeeDataContext";
 import { TeamLeadDataProvider } from "./pages/Register/TeamLeadDataContext";
@@ -28,6 +28,7 @@ import ViewTeams from "./pages/Hr-Home/ViewTeams";
 import ProjectAssign from "./pages/TL-Home/ProjectAssign";
 import AssignProjectEmployees from "./pages/TL-Home/AssignProjectEmployees";
 import HrInbox from "./pages/Hr-Home/HrInbox";
+import TLProjectDetails from "./pages/Project/TLProjectDetails";
 
 const App = () => {
   return (
@@ -75,9 +76,14 @@ const App = () => {
                     element={<PrivateRoute component={<ProjectRegister />} />}
                   />
                   <Route
-                    path="/project-details"
-                    element={<PrivateRoute component={<ProjectDetails />} />}
+                    path="/hr-project-details"
+                    element={<PrivateRoute component={<HrProjectDetails />} />}
                   />
+                    <Route
+                    path="/tl-project-details"
+                    element={<PrivateRoute component={<TLProjectDetails />} />}
+                  />
+                  
                   <Route
                     path="/emp-assign"
                     element={

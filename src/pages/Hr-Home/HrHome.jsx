@@ -16,6 +16,7 @@ import {
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
+  EyeIcon,
 } from "@heroicons/react/24/solid";
 
 const HrHome = () => {
@@ -68,15 +69,15 @@ const HrHome = () => {
           <Link to=''>
           <ListItem>
             <ListItemPrefix>
-              <ShoppingBagIcon className="h-5 w-5" />
+              <EyeIcon className="h-5 w-5" />
             </ListItemPrefix>
             View Project Report
           </ListItem> 
           </Link>
-          <Link to='/project-details'>
+          <Link to='/hr-project-details'>
           <ListItem>
             <ListItemPrefix>
-              <ShoppingBagIcon className="h-5 w-5" />
+              <EyeIcon className="h-5 w-5" />
             </ListItemPrefix>
             View Project Details
           </ListItem>
@@ -84,7 +85,7 @@ const HrHome = () => {
           <Link to='/view-teams'>
            <ListItem>
             <ListItemPrefix>
-              <ShoppingBagIcon className="h-5 w-5" />
+              <EyeIcon className="h-5 w-5" />
             </ListItemPrefix>
             View Teams
           </ListItem>
