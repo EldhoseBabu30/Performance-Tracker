@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../components/Controllers/AuthContext";
+import ProjectDetails from "../Project/ProjectDetails";
+
 
 const ViewTeam = () => {
   const { token } = useAuth();
   const [teamData, setTeamData] = useState([]);
-  const [teamLeadName, setTeamLeadName] = useState(""); // State to store the team lead name
+  const [teamLeadName, setTeamLeadName] = useState(""); 
 
   useEffect(() => {
     const fetchTeamDetails = async () => {
@@ -15,10 +17,12 @@ const ViewTeam = () => {
             'Authorization': `Token ${token}`, 
           }
         });
-        setTeamData(response.data);
-        // Assuming the team lead name is available in the response
+        setTeamData([response.data]);
+       
         if (response.data.length > 0) {
-          setTeamLeadName(response.data[0].teamlead); // Set the team lead name from the response
+          setTeamLeadName(response.data[0].teamlead);
+          
+        
         }
       } catch (error) {
         console.error("Failed to fetch team details:", error);
@@ -27,7 +31,7 @@ const ViewTeam = () => {
 
     fetchTeamDetails();
   }, [token]);
-
+  
   return (
     <div className="mt-8 h-96 overflow-y-auto">
       <h1 className="text-2xl font-semibold mb-4">My Team</h1>
@@ -62,7 +66,7 @@ const ViewTeam = () => {
         <p className="mt-4">No Teams.</p>
       )}
       {/* Pass the team lead name as a prop to ProjectDetails component */}
-      <ProjectDetails teamLeadName={teamLeadName} />
+      {/* <ProjectDetails teamLeadName={teamLeadName} /> */}
     </div>
   );
 };
