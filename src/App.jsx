@@ -30,26 +30,6 @@ import AssignProjectEmployees from "./pages/TL-Home/AssignProjectEmployees";
 import HrInbox from "./pages/Hr-Home/HrInbox";
 
 const App = () => {
-  useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      e.preventDefault();
-      e.returnValue = "";
-    };
-
-    window.history.replaceState(null, null, window.location.href);
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
-  useEffect(() => {
-    const storedPage = localStorage.getItem("currentPage");
-    if (storedPage) {
-      navigate(storedPage);
-    }
-  }, []);
-
   return (
     <div>
       <AuthProvider>
@@ -125,13 +105,11 @@ const App = () => {
                     path="/project-assign"
                     element={<PrivateRoute component={<ProjectAssign />} />}
                   />
-                  
-
                   <Route
                     path="/tl-home/assign_to_emp/:id"
                     element={<PrivateRoute component={<AssignProjectEmployees />} /> }
                   />
-                   <Route
+                  <Route
                     path="/hr-home/hr-inbox"
                     element={<PrivateRoute component={<HrInbox />} /> }
                   />
