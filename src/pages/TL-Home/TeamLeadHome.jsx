@@ -1,15 +1,114 @@
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  Card,
+  Typography,
+  List,
+  ListItem,
+  ListItemPrefix,
+  ListItemSuffix,
+  Chip,
+} from "@material-tailwind/react";
+import {
+  PresentationChartBarIcon,
+  ShoppingBagIcon,
+  UserCircleIcon,
+  Cog6ToothIcon,
+  InboxIcon,
+  PowerIcon,
+} from "@heroicons/react/24/solid";
 
 const TeamLeadHome = () => {
   const navigate = useNavigate();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const name = localStorage.getItem("userName");
-  const handleRegisterClick = () => {
-    navigate("/");
+  
+  
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
-    <div className="flex flex-col h-screen">
-      <div className="flex justify-center items-center h-1/6">
+
+    <div className="flex flex-row h-screen">
+      {/* Toggle button for sidebar */}
+      <button onClick={toggleSidebar} className="text-gray-500 fixed top-4 left-4 z-50">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
+
+      {/* Sidebar */}
+      <Card
+        className={`w-64 p-4 shadow-xl shadow-blue-gray-900/5 ${isSidebarOpen ? "block" : "hidden"}`}
+      >
+        <div className="mb-2 p-4">
+          <Typography variant="h5" color="blue-gray">Sidebar Content</Typography>
+        </div>
+        <List>
+          <ListItem>
+            <ListItemPrefix>
+              <PresentationChartBarIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Dashboard
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <ShoppingBagIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            E-Commerce
+          </ListItem>
+          <Link to='hr-inbox'>
+          <ListItem >
+            <ListItemPrefix>
+              <InboxIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Inbox
+            <ListItemSuffix>
+              <Chip
+                value="14"
+                size="sm"
+                variant="ghost"
+                color="blue-gray"
+                className="rounded-full"
+              />
+            </ListItemSuffix>
+          </ListItem>
+          </Link>
+          <ListItem>
+            <ListItemPrefix>
+              <UserCircleIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Profile
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <Cog6ToothIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Settings
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <PowerIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Log Out
+          </ListItem>
+        </List>
+      </Card>
+
+      <div className="flex flex-col flex-grow">
+    <div className="flex justify-center items-center h-1/6">
         <h3 className="text-3xl font-medium leading-tight text-center text-primary">
           Welcome, {name}
         </h3>
@@ -272,7 +371,8 @@ const TeamLeadHome = () => {
       </div>
 
     </div>
-
+    </div>
+   
   );
 };
 

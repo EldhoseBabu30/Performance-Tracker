@@ -1,4 +1,3 @@
-// ProjectDetails.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../components/Controllers/AuthContext";
@@ -15,14 +14,18 @@ const ProjectDetails = ({ teamLeadName }) => {
     console.log(`Request for project ${projectId} (${projectName}) sent to HR inbox by ${teamLeadName}`);
   };
 
+  const handleRemoveSelected = (projectId) => {
+    const updatedRequests = requests.filter(request => request.projectId !== projectId);
+    localStorage.setItem('hrRequests', JSON.stringify(updatedRequests));
+  };
+
   const handleSelectProject = (projectId, projectData) => {
     if (selectedProject !== projectId) {
       setSelectedProject(projectId);
       sendRequestToHR(projectId, projectData.topic, teamLeadName);
     } else {
       setSelectedProject(null);
-      const updatedRequests = requests.filter(request => request.projectId !== projectId);
-      localStorage.setItem('hrRequests', JSON.stringify(updatedRequests));
+      handleRemoveSelected(projectId); // Remove the project ID from HR inbox
     }
   };
 
