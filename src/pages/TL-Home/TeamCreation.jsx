@@ -6,10 +6,12 @@ import axios from 'axios';
 function TeamCreation() {
   const [name, setName] = useState('');
   const [member, setMember] = useState('');
-  const [members, setMembers] = useState('');
+  const [members, setMembers] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const token = localStorage.getItem('TlToken');
+  const membersList = members.split(',').map(member => member.trim()); // Split the input string into an array
+
 
   const createTeam = async () => {
     try {
@@ -17,7 +19,9 @@ function TeamCreation() {
         'http://127.0.0.1:8001/teamleadapi/team/',
         {
           name,
-          members: members.split(',').map(member => member.trim()), 
+          member,
+          
+          members:membersList
         },
         {
           headers: {
@@ -66,26 +70,26 @@ function TeamCreation() {
               className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-900">
-              Member 1
+          {/* <div>
+            <label htmlFor="employee1" className="block text-sm font-medium text-gray-900">
+              Employee 1
             </label>
             <input
               value={member}
               onChange={(e) => setMember(e.target.value)}
-              type="text"
+              type="tel"
               required
               className="block w-full py-2 pl-3 pr-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
-          </div>
+          </div> */}
           <div>
-            <label htmlFor="phoneno" className="block text-sm font-medium text-gray-900">
-              Members (Separate with commas)
+            <label htmlFor="employee2" className="block text-sm font-medium text-gray-900">
+              Employee 2
             </label>
             <input
               value={members}
               onChange={(e) => setMembers(e.target.value)}
-              type="text"
+              type="tel"
               required
               className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />

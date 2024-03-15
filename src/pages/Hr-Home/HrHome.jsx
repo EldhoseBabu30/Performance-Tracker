@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
@@ -11,18 +11,22 @@ import {
 } from "@material-tailwind/react";
 import {
   PresentationChartBarIcon,
-  ShoppingBagIcon,
-  UserCircleIcon,
-  Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
   EyeIcon,
 } from "@heroicons/react/24/solid";
+import HrInbox from "./HrInbox";
 
 const HrHome = () => {
   const name = localStorage.getItem("userName");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const navigate = useNavigate();
+  const [requestsCount, setRequestsCount] = useState(0); // State to hold the count of requests
+
+  useEffect(() => {
+    const storedRequests = JSON.parse(localStorage.getItem('hrRequests')) || [];
+    setRequestsCount(storedRequests.length); // Update the count of requests
+  }, []);
 
   const handleRegisterClick = () => {
     navigate("/emp-register");
@@ -66,59 +70,39 @@ const HrHome = () => {
             </ListItemPrefix>
             Dashboard
           </ListItem>
-          <Link to=''>
-          <ListItem>
-            <ListItemPrefix>
-              <EyeIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            View Project Report
-          </ListItem> 
-          </Link>
           <Link to='/hr-project-details'>
-          <ListItem>
-            <ListItemPrefix>
-              <EyeIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            View Project Details
-          </ListItem>
+            <ListItem>
+              <ListItemPrefix>
+                <EyeIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              View Project Details
+            </ListItem>
           </Link>
           <Link to='/view-teams'>
-           <ListItem>
-            <ListItemPrefix>
-              <EyeIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            View Teams
-          </ListItem>
+            <ListItem>
+              <ListItemPrefix>
+                <EyeIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              View Teams
+            </ListItem>
           </Link>
           <Link to='hr-inbox'>
-          <ListItem >
-            <ListItemPrefix>
-              <InboxIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Inbox
-            <ListItemSuffix>
-              <Chip
-                value="14"
-                size="sm"
-                variant="ghost"
-                color="blue-gray"
-                className="rounded-full"
-              />
-            </ListItemSuffix>
-          </ListItem>
+            <ListItem >
+              <ListItemPrefix>
+                <InboxIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Inbox
+              <ListItemSuffix>
+                <Chip
+                  value={requestsCount} // Pass the count of requests
+                  size="sm"
+                  variant="ghost"
+                  color="blue-gray"
+                  className="flex items-center justify-center rounded-full w-6 h-6 bg-red-500 text-white text-xs mx-1"
+                />
+              </ListItemSuffix>
+            </ListItem>
           </Link>
-          <ListItem>
-            <ListItemPrefix>
-              <UserCircleIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Profile
-          </ListItem>
-          <ListItem>
-            <ListItemPrefix>
-              <Cog6ToothIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Settings
-          </ListItem>
           <ListItem>
             <ListItemPrefix>
               <PowerIcon className="h-5 w-5" />
@@ -208,8 +192,6 @@ const HrHome = () => {
                 </button>
               </div>
             </div>
-
-            
           </div>
         </div>
       </div>

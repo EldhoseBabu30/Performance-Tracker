@@ -15,7 +15,7 @@ const ViewTeam = () => {
             'Authorization': `Token ${token}`, 
           }
         });
-        setTeamData(response.data);
+        setTeamData([response.data]);
         setError(null); 
       } catch (error) {
         console.error("Failed to fetch team details:", error);
@@ -25,6 +25,7 @@ const ViewTeam = () => {
 
     fetchTeamDetails();
   }, []);
+  console.log(teamData);
 
   return (
     <div className="mt-8 h-96 overflow-y-auto">
@@ -41,7 +42,7 @@ const ViewTeam = () => {
                   <th className="py-3 px-4 border-b border-gray-300">Team Lead Name</th>
                   <th className="py-3 px-4 border-b border-gray-300">Team Name</th>
                   <th className="py-3 px-4 border-b border-gray-300">Is Approved</th>
-                  <th className="py-3 px-4 border-b border-gray-300">Members Count</th>
+                  <th className="py-3 px-4 border-b border-gray-300">Members Id</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -51,7 +52,7 @@ const ViewTeam = () => {
                     <td className="py-3 px-4 border whitespace-nowrap">{team.teamlead}</td>
                     <td className="py-3 px-4 border whitespace-nowrap">{team.name}</td>
                     <td className="py-3 px-4 border whitespace-nowrap">{team.is_approved ? 'Yes' : 'No'}</td>   
-                    <td className="py-3 px-4 border whitespace-nowrap">{team.members.length}</td>   
+                    <td className="py-3 px-4 border whitespace-nowrap">{team.members.join(', ')}</td>
                   </tr>
                 ))}
               </tbody>
