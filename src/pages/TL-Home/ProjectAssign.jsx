@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { useAuth } from '../../components/Controllers/AuthContext';
 
 function ProjectAssign() {
   const [project, setProject] = useState('');
@@ -10,7 +9,9 @@ function ProjectAssign() {
   const [team, setTeam] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-  const { token } = useAuth();
+
+ 
+  const token = localStorage.getItem('TlToken');
 
   const createTeam = async () => {
     try {
@@ -18,7 +19,7 @@ function ProjectAssign() {
         'http://127.0.0.1:8001/teamleadapi/projects/23/project_assign/',
         {
           project,
-          teamlead, 
+          teamlead,
           team
         },
         {
@@ -30,14 +31,14 @@ function ProjectAssign() {
 
       if (response.status === 200) {
         Swal.fire({
-          icon: "success",
-          title: "Creation Successful",
-          text: "You have successfully Created.",
+          icon: 'success',
+          title: 'Creation Successful',
+          text: 'You have successfully Created.',
         }).then(() => {
-          navigate("/tl-home");
+          navigate('/tl-home');
         });
       } else {
-        setErrorMessage("Creation failed");
+        setErrorMessage('Creation failed');
       }
     } catch (error) {
       console.error('Creation error:', error);
@@ -58,7 +59,7 @@ function ProjectAssign() {
         <form onSubmit={handleAssign} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-900">
-             Project
+              Project
             </label>
             <input
               value={project}

@@ -1,41 +1,37 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../../components/Controllers/AuthContext";
-import ProjectDetails from "../Project/TLProjectDetails";
-
 
 const ViewTeam = () => {
-  const { token } = useAuth();
   const [teamData, setTeamData] = useState([]);
-  const [teamLeadName, setTeamLeadName] = useState(""); 
+  const [error, setError] = useState(null);
+  const token = localStorage.getItem("TlToken");
 
   useEffect(() => {
     const fetchTeamDetails = async () => {
       try {
+        
         const response = await axios.get('http://127.0.0.1:8001/teamleadapi/team/', {
           headers: {
             'Authorization': `Token ${token}`, 
           }
         });
-        setTeamData([response.data]);
-       
-        if (response.data.length > 0) {
-          setTeamLeadName(response.data[0].teamlead);
-          
-        
-        }
+        setTeamData(response.data);
+        setError(null); 
       } catch (error) {
         console.error("Failed to fetch team details:", error);
+        setError("Failed to fetch team details. Please try again.");
       }
     };
 
     fetchTeamDetails();
-  }, [token]);
-  
+  }, []);
+
   return (
     <div className="mt-8 h-96 overflow-y-auto">
       <h1 className="text-2xl font-semibold mb-4">My Team</h1>
-      {teamData.length > 0 ? (
+      {error ? (
+        <p className="mt-4 text-red-500">{error}</p>
+      ) : teamData.length > 0 ? (
         <div className="relative">
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white rounded-md shadow-md">
@@ -65,8 +61,6 @@ const ViewTeam = () => {
       ) : (
         <p className="mt-4">No Teams.</p>
       )}
-      {/* Pass the team lead name as a prop to ProjectDetails component */}
-      {/* <ProjectDetails teamLeadName={teamLeadName} /> */}
     </div>
   );
 };

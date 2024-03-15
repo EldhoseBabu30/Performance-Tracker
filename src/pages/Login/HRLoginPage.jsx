@@ -2,22 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { useAuth } from '../../components/Controllers/AuthContext';
 
 const HRLoginPage = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const { token, setToken } = useAuth();
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, [setToken]); 
+  
 
   const handleLogin = async (e) => {
+    
+
     e.preventDefault();
     try {
       const response = await axios.post('http://127.0.0.1:8001/hrapi/token/', {
@@ -28,17 +24,19 @@ const HRLoginPage = () => {
           'Content-Type': 'application/json'
         }
       });
+      console.log(response);
+    localStorage.setItem('HRtoken', response.data.token);
+    console.log(response.data.token);
+
       
-      const { token } = response.data;
+      
       if(response.status === 200){
-        setToken(token);
         Swal.fire({
           icon: 'success',
           title: 'Login Successful',
           text: 'You have successfully logged in.',
         }).then(() => {
           navigate('/hr-home');
-          localStorage.setItem("userData", JSON.stringify(response.data))
         });
       }
     

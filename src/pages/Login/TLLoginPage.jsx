@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { useAuth } from '../../components/Controllers/AuthContext';
 
 const TLLoginPage = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const { setToken } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -22,9 +20,8 @@ const TLLoginPage = () => {
         }
       });
       
-      const { token } = response.data;
+     localStorage.setItem('TlToken', response.data.token)
       if(response.status === 200){
-        setToken(token);
         Swal.fire({
           icon: 'success',
           title: 'Login Successful',

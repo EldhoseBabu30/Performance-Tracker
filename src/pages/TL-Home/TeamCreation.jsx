@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { useAuth } from '../../components/Controllers/AuthContext';
 
 function TeamCreation() {
   const [name, setName] = useState('');
@@ -10,7 +9,7 @@ function TeamCreation() {
   const [members, setMembers] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-  const { token } = useAuth();
+  const token = localStorage.getItem('TlToken');
 
   const createTeam = async () => {
     try {

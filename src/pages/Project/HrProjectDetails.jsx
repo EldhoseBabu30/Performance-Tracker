@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../../components/Controllers/AuthContext";
+// import { useAuth } from "../../components/Controllers/AuthContext";
 
 const HrProjectDetails = ( ) => {
-  const { token } = useAuth();
+  
   const [projectData, setProjectData] = useState([]);
+  const token = localStorage.getItem('HRtoken')
 
   
 

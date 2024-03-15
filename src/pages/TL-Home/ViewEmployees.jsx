@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { useAuth } from "../../components/Controllers/AuthContext";
 
 
 const ViewEmployees = () => {
-  const { token } = useAuth(); 
+  const token = localStorage.getItem('TlToken') 
   const [employeeData, setEmployeeData] = useState([]);
 
   console.log(employeeData);

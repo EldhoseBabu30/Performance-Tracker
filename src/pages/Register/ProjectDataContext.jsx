@@ -1,19 +1,19 @@
-import React, { createContext, useContext, useState } from 'react';
+// import React, { createContext, useContext, useState } from 'react';
 
-const ProjectDataContext = createContext();
+// const ProjectDataContext = createContext();
 
-export const ProjectDataProvider = ({ children }) => {
-  const [projectData, setProjectData] = useState([]);
+// export const ProjectDataProvider = ({ children }) => {
+//   const [projectData, setProjectData] = useState([]);
 
-  const addProjectData = (data) => {
-    setProjectData([...projectData, data]);
-  };
+//   const addProjectData = (data) => {
+//     setProjectData([...projectData, data]);
+//   };
 
-  return (
-    <ProjectDataContext.Provider value={{ projectData, addProjectData }}>
-      {children}
-    </ProjectDataContext.Provider>
-  );
-};
+//   return (
+//     <ProjectDataContext.Provider value={{ projectData, addProjectData }}>
+//       {children}
+//     </ProjectDataContext.Provider>
+//   );
+// };
 
-export const useProjectData = () => useContext(ProjectDataContext);
+// export const useProjectData = () => useContext(ProjectDataContext);

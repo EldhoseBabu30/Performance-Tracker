@@ -2,21 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { useAuth } from '../../components/Controllers/AuthContext';
+// import { useAuth } from '../../components/Controllers/AuthContext';
 
 const EmployeeLogin = () => {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const { setToken } = useAuth();
+  
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
-
+ 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -29,10 +23,11 @@ const EmployeeLogin = () => {
         }
       });
       console.log(response);
+      localStorage.setItem('Emp-token', response.data.token)
 
-      const { token } = response.data;
+      
       if(response.status === 200){
-        setToken(token);
+        
         Swal.fire({
           icon: 'success',
           title: 'Login Successful',

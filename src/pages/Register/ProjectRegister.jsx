@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { useAuth } from '../../components/Controllers/AuthContext'; 
-import { useProjectData } from "./ProjectDataContext";
 
-const ProjectRegister = () => {
+const ProjectRegister = ({ projectData, setProjectData }) => {
   const navigate = useNavigate();
-  const { token } = useAuth(); 
-  const { addProjectData } = useProjectData();
   const [errorMessages, setErrorMessages] = useState({});
+  const token = localStorage.getItem('HRtoken')
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,7 +20,7 @@ const ProjectRegister = () => {
     try {
       const response = await registerProject(formData);
       if (response && response.data) {
-        addProjectData(response.data); 
+        setProjectData([...projectData, response.data]); 
       }
       Swal.fire({
         icon: "success",
@@ -31,7 +28,7 @@ const ProjectRegister = () => {
         showConfirmButton: false,
         timer: 1500
       });
-      navigate("/project-details");
+      navigate("/hr-project-details");
     } catch (error) {
       console.error("Project registration failed:", error);
       if (error.response && error.response.data && error.response.data.detail === "Authentication credentials were not provided.") {

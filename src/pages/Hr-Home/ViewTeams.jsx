@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../../components/Controllers/AuthContext";
 
 const ViewTeam = () => {
-  const { token } = useAuth();
   const [teamData, setTeamData] = useState([]);
-
+  
   useEffect(() => {
+    const token = localStorage.getItem("HRtoken"); 
+
     const fetchTeamDetails = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8001/hrapi/teams/', {
@@ -21,8 +21,10 @@ const ViewTeam = () => {
       }
     };
 
-    fetchTeamDetails();
-  }, [token]);
+    if (token) { 
+      fetchTeamDetails();
+    }
+  }, []);
 
   return (
     <div className="mt-8 h-96 overflow-y-auto">
