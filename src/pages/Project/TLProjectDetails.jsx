@@ -4,20 +4,12 @@ import axios from "axios";
 const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
   const token = localStorage.getItem('TlToken');
   const [projectData, setProjectData] = useState([]);
+  const [requests, setRequests] = useState([]);
+
   const [selectedProject, setSelectedProject] = useState(() => {
     return localStorage.getItem('selectedProject') || null;
   });
 
-
-
-  
-
-const fetchProjectId = () => {
-  const project_id = localStorage.getItem('selectedProject')
-  
-  setSelectedProject(project_id)
-} 
-console.log(selectedProject);
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
@@ -33,13 +25,9 @@ console.log(selectedProject);
       } catch (error) {
         console.error("Failed to fetch project details:", error);
       }
-
     };
 
-    console.log(selectedProject);
-
     fetchProjectDetails();
-    fetchProjectId();
   }, [token]);
 
   const handleSelectProject = (projectId) => {
@@ -50,16 +38,19 @@ console.log(selectedProject);
 
   const handleRemoveSelected = () => {
     setSelectedProject(null);
-    localStorage.removeItem('selectedProject', projectId);
+    localStorage.removeItem('selectedProject');
+    // Remove the selected project from hrRequests
+    const updatedRequests = requests.filter(request => request.projectId !== selectedProject);
+    localStorage.setItem('hrRequests', JSON.stringify(updatedRequests));
+    // Call updateRequests to update requests in HrInbox
+    updateRequests(updatedRequests);
   };
-
   const sendRequestToHR = (projectId) => {
     const requests = JSON.parse(localStorage.getItem('hrRequests')) || [];
     const selectedProject = projectData.find(project => project.id === projectId);
     requests.push({ projectId, projectName: selectedProject.topic, teamLeadName });
     localStorage.setItem('hrRequests', JSON.stringify(requests));
     console.log(`Request for project ${projectId} sent to HR inbox by ${teamLeadName}`);
-    updateRequests(requests);
   };
 
   return (

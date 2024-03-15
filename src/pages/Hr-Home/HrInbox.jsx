@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const HrInbox = () => {
+const HrInbox = ({ updateRequests }) => {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
@@ -13,6 +13,7 @@ const HrInbox = () => {
     const updatedRequests = requests.filter(request => request.projectId !== projectId);
     setRequests(updatedRequests);
     localStorage.setItem('hrRequests', JSON.stringify(updatedRequests));
+    updateRequests(updatedRequests); // Update requests in TLProjectDetails
   };
   
   const handleDecline = (projectId) => {
@@ -20,6 +21,7 @@ const HrInbox = () => {
     const updatedRequests = requests.filter(request => request.projectId !== projectId);
     setRequests(updatedRequests);
     localStorage.setItem('hrRequests', JSON.stringify(updatedRequests));
+    updateRequests(updatedRequests); // Update requests in TLProjectDetails
   };
   
   return (

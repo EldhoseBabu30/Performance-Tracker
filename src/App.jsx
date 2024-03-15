@@ -25,9 +25,15 @@ import ProjectAssign from "./pages/TL-Home/ProjectAssign";
 import AssignProjectEmployees from "./pages/TL-Home/AssignProjectEmployees";
 import HrInbox from "./pages/Hr-Home/HrInbox";
 
-
 const App = () => {
   const [projectData, setProjectData] = useState([]);
+  const [requests, setRequests] = useState([]);
+
+  // Define the updateRequests function
+  const updateRequests = (updatedRequests) => {
+    setRequests(updatedRequests);
+  };
+
   return (
     <div>
       <BrowserRouter>
@@ -47,11 +53,13 @@ const App = () => {
           <Route path="/tl-profile" element={<TeamLeadProfile />} />
           <Route path="/emp-register" element={<EmpRegister />} />
           <Route
-          path="/register-project"
-          element={<ProjectRegister projectData={projectData} setProjectData={setProjectData} />}
-        />
+            path="/register-project"
+            element={<ProjectRegister projectData={projectData} setProjectData={setProjectData} />}
+          />
           <Route path="/hr-project-details" element={<HrProjectDetails />} />
-          <Route path="/tl-project-details" element={<TLProjectDetails />} />
+          {/* Pass the updateRequests function to HrInbox */}
+          <Route path="/hr-home/hr-inbox" element={<HrInbox updateRequests={updateRequests} />} />
+          <Route path="/tl-project-details" element={<TLProjectDetails updateRequests={updateRequests} />} />
           <Route path="/emp-assign" element={<ProjectStatusReport />} />
           <Route path="/team-create" element={<TeamCreation />} />
           <Route path="/view-employees" element={<ViewEmployees />} />
@@ -59,7 +67,6 @@ const App = () => {
           <Route path="/view-teams" element={<ViewTeams />} />
           <Route path="/project-assign" element={<ProjectAssign />} />
           <Route path="/tl-home/assign_to_emp/:id" element={<AssignProjectEmployees />} />
-          <Route path="/hr-home/hr-inbox" element={<HrInbox />} />
         </Routes>
       </BrowserRouter>
     </div>
