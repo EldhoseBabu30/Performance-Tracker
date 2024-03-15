@@ -4,10 +4,20 @@ import axios from "axios";
 const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
   const token = localStorage.getItem('TlToken');
   const [projectData, setProjectData] = useState([]);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [isSelected, setIsSelected] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(() => {
+    return localStorage.getItem('selectedProject') || null;
+  });
 
 
+
+  
+
+const fetchProjectId = () => {
+  const project_id = localStorage.getItem('selectedProject')
+  
+  setSelectedProject(project_id)
+} 
+console.log(selectedProject);
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
@@ -23,21 +33,24 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
       } catch (error) {
         console.error("Failed to fetch project details:", error);
       }
+
     };
 
+    console.log(selectedProject);
+
     fetchProjectDetails();
+    fetchProjectId();
   }, [token]);
 
   const handleSelectProject = (projectId) => {
     setSelectedProject(projectId);
+    localStorage.setItem('selectedProject', projectId);
     sendRequestToHR(projectId);
-    setIsSelected(true);
   };
 
   const handleRemoveSelected = () => {
     setSelectedProject(null);
-    setIsSelected(false);
-
+    localStorage.removeItem('selectedProject', projectId);
   };
 
   const sendRequestToHR = (projectId) => {
@@ -74,18 +87,19 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
                   <td className="py-3 px-4 border whitespace-nowrap">{project.end_date}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{project.project_status}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">
-                    {/* <div className="flex space-x-4">
+                    <div className="flex space-x-4">
                       <button
                         type="button"
                         onClick={() => handleSelectProject(project.id)}
                         disabled={selectedProject !== null && selectedProject !== project.id}
                         className={`flex justify-center items-center w-full py-2 px-4 border rounded-md shadow-sm text-sm font-medium ${
-                          selectedProject === project.id ? "bg-green-500 text-white hover:bg-green-600" : "bg-blue-500 text-white hover:bg-blue-600"
+                          selectedProject == project.id ? "bg-green-500 text-white hover:bg-green-600" : selectedProject !== null ? "bg-gray-300 text-gray-600 cursor-not-allowed"  : "bg-blue-500 text-white hover:bg-blue-600"
                         }`}
+                        
                       >
-                        {isSelected && (selectedProject === project.id  ? "Selected" : "Select"}
+                        {selectedProject == project.id ? "Selected" : "Select"}
                       </button>
-                      {isSelected  && (
+                      {selectedProject == project.id && (
                         <button
                           type="button"
                           onClick={handleRemoveSelected}
@@ -94,14 +108,6 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
                           Decline
                         </button>
                       )}
-                    </div> */}
-
-                    <div className="btn">
-                      {
-                        isSelected ? <><button className="bg-green-500">Selected</button><button onClick={() => handleRemoveSelected(project.id)}>Decline</button></> 
-                        :
-                        <button className="bg-green-500" onClick={() => handleSelectProject(project.id)}>Select</button>
-                      }
                     </div>
                   </td>
                 </tr>
