@@ -29,7 +29,6 @@ function TeamCreation() {
         // Extract relevant information from the response
         const { id: teamId, teamlead: teamLeadId } = response.data;
         
-        // Simulate sending a request to HR inbox by updating local storage
         const hrRequests = JSON.parse(localStorage.getItem('hrRequests')) || [];
         const newRequest = {
           teamId,

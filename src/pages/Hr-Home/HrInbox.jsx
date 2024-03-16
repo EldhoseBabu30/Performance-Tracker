@@ -1,20 +1,61 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const HrInbox = ({ updateRequests }) => {
   const [requests, setRequests] = useState([]);
+  const [formData, setFormData] = useState([{
+    id:''
+
+  }]);
+  const token = localStorage.getItem('TlToken');
 
   useEffect(() => {
     const storedRequests = JSON.parse(localStorage.getItem('hrRequests')) || [];
     setRequests(storedRequests);
   }, []);
 
-  const handleAccept = (teamId) => {
-    console.log(`Request for team ${teamId} accepted`);
-    const updatedRequests = requests.filter(request => request.teamId !== teamId);
-    setRequests(updatedRequests);
-    localStorage.setItem('hrRequests', JSON.stringify(updatedRequests));
-    updateRequests(updatedRequests); // Update requests in TLProjectDetails
+
+ 
+  
+
+  const handleAccept = async () => {
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8001/hrapi/teams/${formData.id}/team_approval/`,
+        {},
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          }
+        }
+      );
+      
+      if (response.status === 200) {
+        alert('Approval successful');
+      }
+    } catch (error) {
+      console.error("Failed to fetch project details:", error);
+    }
   };
+  handleAccept();
+  
+
+    console.log(formData.id);
+
+ 
+
+  // const handleAccept = (teamId) => {
+  //   console.log(`Request for team ${teamId} accepted`);
+  //   const updatedRequests = requests.filter(request => request.teamId !== teamId);
+  //   setRequests(updatedRequests);
+  //   localStorage.setItem('hrRequests', JSON.stringify(updatedRequests));
+  //   updateRequests(updatedRequests); 
+  // };
+  const handleAcceptButtonClick = (teamId) => {
+    setFormData({ id: teamId }); 
+    
+  };
+
   
   const handleDecline = (teamId) => {
     console.log(`Request for team ${teamId} declined`);
@@ -43,7 +84,7 @@ const HrInbox = ({ updateRequests }) => {
                     <span className="block text-gray-600">{request.teamLeadId}</span>
                   </div>
                   <div className="space-x-4">
-                    <button onClick={() => handleAccept(request.teamId)} className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">Accept</button>
+                    <button onClick={() => handleAcceptButtonClick(request.teamId)} className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">Accept</button>
                     <button onClick={() => handleDecline(request.teamId)} className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded">Decline</button>
                   </div>
                 </div>
