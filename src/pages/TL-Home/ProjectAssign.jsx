@@ -16,7 +16,7 @@ function ProjectAssign() {
   const createTeam = async () => {
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8001/teamleadapi/projects/23/project_assign/',
+        'http://127.0.0.1:8001/teamleadapi/projects/20/project_assign/',
         {
           project,
           teamlead,

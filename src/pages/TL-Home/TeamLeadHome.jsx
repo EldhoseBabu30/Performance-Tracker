@@ -77,14 +77,15 @@ const TeamLeadHome = () => {
           <Link to='hr-inbox'>
          
           </Link>
-          <Link to="/emp-assign">
+          <Link to="/assign-to-emp">
           <ListItem>
             <ListItemPrefix>
               <PlusIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Assign Employees
+            Assign to Employees
           </ListItem>
           </Link>
+        
           <ListItem>
             <ListItemPrefix>
               <Cog6ToothIcon className="h-5 w-5" />

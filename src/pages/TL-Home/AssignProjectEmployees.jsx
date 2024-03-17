@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-// import { useAuth } from '../../components/Controllers/AuthContext';
 
 function AssignProjectEmployees() {
   const [assignedPart, setAssignedPart] = useState('');
   const [assignedPerson, setAssignedPerson] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-  // const { token } = useAuth();
+   const token = localStorage.getItem('TlToken');
   const { id } = useParams(); 
   console.log(id);
 
-  const createTeam = async () => {
+  const AssignToEmp = async () => {
     try {
       const response = await axios.post(
         `http://127.0.0.1:8001/teamleadapi/assignedprojects/${id}/assign_to_emp/`, 
@@ -48,7 +47,7 @@ function AssignProjectEmployees() {
   const handleRegister = async (e) => {
     e.preventDefault();
     setErrorMessage('');
-    await createTeam();
+    await AssignToEmp();
   };
 
   return (

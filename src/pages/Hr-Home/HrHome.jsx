@@ -86,6 +86,14 @@ const HrHome = () => {
               View Teams
             </ListItem>
           </Link>
+          <Link to='/assigned-projects'>
+            <ListItem>
+              <ListItemPrefix>
+                <EyeIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Assigned Projects
+            </ListItem>
+          </Link>
           <Link to='hr-inbox'>
             <ListItem >
               <ListItemPrefix>

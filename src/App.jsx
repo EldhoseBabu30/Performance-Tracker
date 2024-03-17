@@ -13,7 +13,7 @@ import EmpRegister from "./pages/Register/EmpRegister";
 import ProjectRegister from "./pages/Register/ProjectRegister";
 import HrProjectDetails from "./pages/Project/HrProjectDetails";
 import TLProjectDetails from "./pages/Project/TLProjectDetails";
-import ProjectStatusReport from "./pages/TL-Home/EmployeeAssign";
+// import ProjectStatusReport from "./pages/TL-Home/EmployeeAssign";
 import Login from "./pages/Login/Login";
 import TLLoginPage from "./pages/Login/TLLoginPage";
 import EmployeeLogin from "./pages/Login/EmployeeLogin";
@@ -24,6 +24,7 @@ import ViewTeams from "./pages/Hr-Home/ViewTeams";
 import ProjectAssign from "./pages/TL-Home/ProjectAssign";
 import AssignProjectEmployees from "./pages/TL-Home/AssignProjectEmployees";
 import HrInbox from "./pages/Hr-Home/HrInbox";
+import AssignedProjects from "./pages/Hr-Home/AssignedProjects";
 
 const App = () => {
   const [projectData, setProjectData] = useState([]);
@@ -60,13 +61,15 @@ const App = () => {
           {/* Pass the updateRequests function to HrInbox */}
           <Route path="/hr-home/hr-inbox" element={<HrInbox updateRequests={updateRequests} />} />
           <Route path="/tl-project-details" element={<TLProjectDetails updateRequests={updateRequests} />} />
-          <Route path="/emp-assign" element={<ProjectStatusReport />} />
+          {/* <Route path="/emp-assign" element={<ProjectStatusReport />} /> */}
           <Route path="/team-create" element={<TeamCreation />} />
           <Route path="/view-employees" element={<ViewEmployees />} />
           <Route path="/view-team" element={<ViewTeam />} />
           <Route path="/view-teams" element={<ViewTeams />} />
           <Route path="/project-assign" element={<ProjectAssign />} />
-          <Route path="/tl-home/assign_to_emp/:id" element={<AssignProjectEmployees />} />
+          <Route path="/assign-to-emp" element={<AssignProjectEmployees />} />
+          <Route path="/assigned-projects" element={<AssignedProjects />} />
+     
         </Routes>
       </BrowserRouter>
     </div>
