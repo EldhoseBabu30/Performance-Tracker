@@ -105,7 +105,7 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
                     <td className="py-3 px-4 border whitespace-nowrap">
                     <div className="flex space-x-4">
                       <button className="">
-                        Assign
+                        Assign Project
                       </button>
                     </div>
 
