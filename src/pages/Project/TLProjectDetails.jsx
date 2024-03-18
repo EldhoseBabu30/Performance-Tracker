@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
   const token = localStorage.getItem('TlToken');
   const [projectData, setProjectData] = useState([]);
   const [requests, setRequests] = useState([]);
+  const [formData, setFormData] = useState([{
+    id: ''
+
+  }]);
 
   const [selectedProject, setSelectedProject] = useState(() => {
     return localStorage.getItem('selectedProject') || null;
@@ -53,6 +58,11 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
     console.log(`Request for project ${projectId} sent to HR inbox by ${teamLeadName}`);
   };
 
+  const handleAssign = (projectId) => {
+    setFormData({ id: projectId });
+
+  };
+
   return (
     <div className="mt-8 h-96 overflow-y-auto">
       <h1 className="text-2xl font-semibold mb-4">Registered Projects</h1>
@@ -84,10 +94,9 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
                         type="button"
                         onClick={() => handleSelectProject(project.id)}
                         disabled={selectedProject !== null && selectedProject !== project.id}
-                        className={`flex justify-center items-center w-full py-2 px-4 border rounded-md shadow-sm text-sm font-medium ${
-                          selectedProject == project.id ? "bg-green-500 text-white hover:bg-green-600" : selectedProject !== null ? "bg-gray-300 text-gray-600 cursor-not-allowed"  : "bg-blue-500 text-white hover:bg-blue-600"
-                        }`}
-                        
+                        className={`flex justify-center items-center w-full py-2 px-4 border rounded-md shadow-sm text-sm font-medium ${selectedProject == project.id ? "bg-green-500 text-white hover:bg-green-600" : selectedProject !== null ? "bg-gray-300 text-gray-600 cursor-not-allowed" : "bg-blue-500 text-white hover:bg-blue-600"
+                          }`}
+
                       >
                         {selectedProject == project.id ? "Selected" : "Select"}
                       </button>
@@ -101,12 +110,16 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
                         </button>
                       )}
                     </div>
-                    </td>
-                    <td className="py-3 px-4 border whitespace-nowrap">
+                  </td>
+                  <td className="py-3 px-4 border whitespace-nowrap">
                     <div className="flex space-x-4">
-                      <button className="">
-                        Assign Project
-                      </button>
+                      <Link to={`/project-assign/${project.id}`}>
+                        <button onClick={() => handleAssign(project.id)}
+                          type="button" className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                          Assign
+                        </button>
+                      </Link>
+
                     </div>
 
                   </td>

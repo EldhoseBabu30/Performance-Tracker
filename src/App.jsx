@@ -30,6 +30,7 @@ import TaskUpdateLists from "./pages/Emp-Home/TaskUpdateLists";
 import UpdateTask from "./pages/Emp-Home/UpdateTask";
 import TaskChart from "./pages/Emp-Home/TaskChart";
 import CreateTaskChart from "./pages/Emp-Home/CreateTaskChart";
+import AssignedProject from "./pages/TL-Home/AssignedProject";
 
 
 const App = () => {
@@ -72,7 +73,7 @@ const App = () => {
           <Route path="/view-employees" element={<ViewEmployees />} />
           <Route path="/view-team" element={<ViewTeam />} />
           <Route path="/view-teams" element={<ViewTeams />} />
-          <Route path="/project-assign" element={<ProjectAssign />} />
+          <Route path="/project-assign/:projectId" element={<ProjectAssign />} />
           <Route path="/assign-to-emp" element={<AssignProjectEmployees />} />
           <Route path="/assigned-projects" element={<AssignedProjects />} />
           <Route path="/emp-team" element={<EmpTeam />} />
@@ -81,6 +82,8 @@ const App = () => {
           <Route path="/create-task-chart" element={<CreateTaskChart />} />
           <Route path="/task-chart" element={<TaskChart />} />
           <Route path="/task-updates" element={<UpdateTask />} />
+          <Route path="/assigned-project" element={<AssignedProject />} />
+
           
          
      
