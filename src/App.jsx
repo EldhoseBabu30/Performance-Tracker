@@ -13,7 +13,6 @@ import EmpRegister from "./pages/Register/EmpRegister";
 import ProjectRegister from "./pages/Register/ProjectRegister";
 import HrProjectDetails from "./pages/Project/HrProjectDetails";
 import TLProjectDetails from "./pages/Project/TLProjectDetails";
-// import ProjectStatusReport from "./pages/TL-Home/EmployeeAssign";
 import Login from "./pages/Login/Login";
 import TLLoginPage from "./pages/Login/TLLoginPage";
 import EmployeeLogin from "./pages/Login/EmployeeLogin";
@@ -25,6 +24,13 @@ import ProjectAssign from "./pages/TL-Home/ProjectAssign";
 import AssignProjectEmployees from "./pages/TL-Home/AssignProjectEmployees";
 import HrInbox from "./pages/Hr-Home/HrInbox";
 import AssignedProjects from "./pages/Hr-Home/AssignedProjects";
+import ProjectOfTeams from "./pages/Emp-Home/ProjectOfTeams";
+import EmpTeam from "./pages/Emp-Home/EmpTeam";
+import TaskUpdateLists from "./pages/Emp-Home/TaskUpdateLists";
+import UpdateTask from "./pages/Emp-Home/UpdateTask";
+import TaskChart from "./pages/Emp-Home/TaskChart";
+import CreateTaskChart from "./pages/Emp-Home/CreateTaskChart";
+
 
 const App = () => {
   const [projectData, setProjectData] = useState([]);
@@ -69,6 +75,14 @@ const App = () => {
           <Route path="/project-assign" element={<ProjectAssign />} />
           <Route path="/assign-to-emp" element={<AssignProjectEmployees />} />
           <Route path="/assigned-projects" element={<AssignedProjects />} />
+          <Route path="/emp-team" element={<EmpTeam />} />
+          <Route path="/project-of-teams" element={<ProjectOfTeams />} />
+          <Route path="/task-update-lists" element={<TaskUpdateLists />} />
+          <Route path="/create-task-chart" element={<CreateTaskChart />} />
+          <Route path="/task-chart" element={<TaskChart />} />
+          <Route path="/task-updates" element={<UpdateTask />} />
+          
+         
      
         </Routes>
       </BrowserRouter>

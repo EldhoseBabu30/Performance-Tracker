@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-// import { useAuth } from '../../components/Controllers/AuthContext';
 
 const EmployeeLogin = () => {
   const [username, setUserName] = useState('');
@@ -23,7 +22,7 @@ const EmployeeLogin = () => {
         }
       });
       console.log(response);
-      localStorage.setItem('Emp-token', response.data.token)
+      localStorage.setItem('Emp-token',response.data.token)
 
       
       if(response.status === 200){

@@ -42,7 +42,7 @@ const ViewTeam = () => {
                   <th className="py-3 px-4 border-b border-gray-300">Team Lead Name</th>
                   <th className="py-3 px-4 border-b border-gray-300">Team Name</th>
                   <th className="py-3 px-4 border-b border-gray-300">Is Approved</th>
-                  <th className="py-3 px-4 border-b border-gray-300">Members Id</th>
+                  <th className="py-3 px-4 border-b border-gray-300">Members</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">

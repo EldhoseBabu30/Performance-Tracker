@@ -39,9 +39,9 @@ const AssignedProjects = ( ) => {
             <thead className="bg-gray-200">
               <tr>
                 <th className="py-3 px-4 border-b border-gray-300">Id</th>
-                <th className="py-3 px-4 border-b border-gray-300">Project Id</th>
-                <th className="py-3 px-4 border-b border-gray-300">Team Lead Id</th>
-                <th className="py-3 px-4 border-b border-gray-300">Team Id</th>
+                <th className="py-3 px-4 border-b border-gray-300">Project</th>
+                <th className="py-3 px-4 border-b border-gray-300">Team Lead</th>
+                <th className="py-3 px-4 border-b border-gray-300">Team Name</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
