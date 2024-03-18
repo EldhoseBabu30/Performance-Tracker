@@ -31,7 +31,7 @@ const ProjectOfTeams = () => {
   console.log("token", token);
   console.log(teamProjects);
 
-  const handleCreate = async (projectId) => {
+  const handleCreate = async () => {
     try {
       const response = await axios.post(
         `http://127.0.0.1:8001/empapi/projectdetail/${formData.id}/taskchart_add/`,
@@ -48,6 +48,13 @@ const ProjectOfTeams = () => {
       console.error("Error creating project task:", error);
     }
   };
+  handleCreate();
+
+  const handleCreateButtonClick = (projectId) => {
+    setFormData({ id: projectId }); 
+    
+  };
+
 
   return (
     <div className="mt-8 h-96 overflow-y-auto">
@@ -88,7 +95,7 @@ const ProjectOfTeams = () => {
                     </td>
                     <td className="py-3 px-4 border whitespace-nowrap">
                       <button
-                        onClick={() => handleCreate(project.id)}
+                        onClick={() => handleCreateButtonClick(project.id)}
                         className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded"
                       >
                         Create

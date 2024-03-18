@@ -21,6 +21,8 @@ const ProjectRegister = ({ projectData, setProjectData }) => {
       const response = await registerProject(formData);
       if (response && response.data) {
         setProjectData([...projectData, response.data]); 
+        // Redirect to ProjectAssign page with project ID in URL
+        navigate(`/project-assign/${response.data.id}`);
       }
       Swal.fire({
         icon: "success",
@@ -28,7 +30,6 @@ const ProjectRegister = ({ projectData, setProjectData }) => {
         showConfirmButton: false,
         timer: 1500
       });
-      navigate("/hr-project-details");
     } catch (error) {
       console.error("Project registration failed:", error);
       if (error.response && error.response.data && error.response.data.detail === "Authentication credentials were not provided.") {
@@ -75,7 +76,6 @@ const ProjectRegister = ({ projectData, setProjectData }) => {
       }
     }
   };
-
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md border border-gray-300">
       <h1 className="text-2xl font-semibold mb-6">Project Registration</h1>

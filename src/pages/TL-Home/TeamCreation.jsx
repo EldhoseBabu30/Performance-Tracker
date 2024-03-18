@@ -9,6 +9,7 @@ function TeamCreation() {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const token = localStorage.getItem('TlToken');
+  
 
   const createTeam = async () => {
     try {
@@ -67,7 +68,7 @@ function TeamCreation() {
         <form onSubmit={handleRegister} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-900">
-              Name
+             Team Name
             </label>
             <input
               value={name}
@@ -79,7 +80,7 @@ function TeamCreation() {
           </div>
           <div>
             <label htmlFor="employees" className="block text-sm font-medium text-gray-900">
-              Employees (Separate by commas)
+              Employees Id
             </label>
             <input
               value={members.join(',')}

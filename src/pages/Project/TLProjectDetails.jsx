@@ -66,7 +66,8 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
                 <th className="py-3 px-4 border-b border-gray-300">Project Description</th>
                 <th className="py-3 px-4 border-b border-gray-300">Due Date</th>
                 <th className="py-3 px-4 border-b border-gray-300">Project Status</th>
-                <th className="py-3 px-4 border-b border-gray-300">Actions</th>
+                <th className="py-3 px-4 border-b border-gray-300">Project Selection</th>
+                <th className="py-3 px-4 border-b border-gray-300">Assign Project</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -100,6 +101,14 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
                         </button>
                       )}
                     </div>
+                    </td>
+                    <td className="py-3 px-4 border whitespace-nowrap">
+                    <div className="flex space-x-4">
+                      <button className="">
+                        Assign
+                      </button>
+                    </div>
+
                   </td>
                 </tr>
               ))}

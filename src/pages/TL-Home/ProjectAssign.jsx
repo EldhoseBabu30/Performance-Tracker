@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom'; // Import useParams
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
@@ -9,14 +9,15 @@ function ProjectAssign() {
   const [team, setTeam] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const { projectId } = useParams(); // Retrieve projectId from URL params
 
- 
   const token = localStorage.getItem('TlToken');
+  console.log(projectId);
 
   const createTeam = async () => {
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8001/teamleadapi/projects/20/project_assign/',
+        `http://127.0.0.1:8001/teamleadapi/projects/${projectId}/project_assign/`, // Use projectId in the URL
         {
           project,
           teamlead,
@@ -55,7 +56,7 @@ function ProjectAssign() {
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">Create a Team</h2>
+        <h2 className="text-2xl font-bold text-gray-900 text-center mb-6">Assign Project</h2>
         <form onSubmit={handleAssign} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-900">
