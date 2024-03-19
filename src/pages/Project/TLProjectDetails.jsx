@@ -35,28 +35,28 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
     fetchProjectDetails();
   }, [token]);
 
-  const handleSelectProject = (projectId) => {
-    setSelectedProject(projectId);
-    localStorage.setItem('selectedProject', projectId);
-    sendRequestToHR(projectId);
-  };
+  // const handleSelectProject = (projectId) => {
+  //   setSelectedProject(projectId);
+  //   localStorage.setItem('selectedProject', projectId);
+  //   sendRequestToHR(projectId);
+  // };
 
-  const handleRemoveSelected = () => {
-    setSelectedProject(null);
-    localStorage.removeItem('selectedProject');
-    // Remove the selected project from hrRequests
-    const updatedRequests = requests.filter(request => request.projectId !== selectedProject);
-    localStorage.setItem('hrRequests', JSON.stringify(updatedRequests));
-    // Call updateRequests to update requests in HrInbox
-    updateRequests(updatedRequests);
-  };
-  const sendRequestToHR = (projectId) => {
-    const requests = JSON.parse(localStorage.getItem('hrRequests')) || [];
-    const selectedProject = projectData.find(project => project.id === projectId);
-    requests.push({ projectId, projectName: selectedProject.topic, teamLeadName });
-    localStorage.setItem('hrRequests', JSON.stringify(requests));
-    console.log(`Request for project ${projectId} sent to HR inbox by ${teamLeadName}`);
-  };
+  // const handleRemoveSelected = () => {
+  //   setSelectedProject(null);
+  //   localStorage.removeItem('selectedProject');
+  //   // Remove the selected project from hrRequests
+  //   const updatedRequests = requests.filter(request => request.projectId !== selectedProject);
+  //   localStorage.setItem('hrRequests', JSON.stringify(updatedRequests));
+  //   // Call updateRequests to update requests in HrInbox
+  //   updateRequests(updatedRequests);
+  // };
+  // const sendRequestToHR = (projectId) => {
+  //   const requests = JSON.parse(localStorage.getItem('hrRequests')) || [];
+  //   const selectedProject = projectData.find(project => project.id === projectId);
+  //   requests.push({ projectId, projectName: selectedProject.topic, teamLeadName });
+  //   localStorage.setItem('hrRequests', JSON.stringify(requests));
+  //   console.log(`Request for project ${projectId} sent to HR inbox by ${teamLeadName}`);
+  // };
 
   const handleAssign = (projectId) => {
     setFormData({ id: projectId });
@@ -76,7 +76,7 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
                 <th className="py-3 px-4 border-b border-gray-300">Project Description</th>
                 <th className="py-3 px-4 border-b border-gray-300">Due Date</th>
                 <th className="py-3 px-4 border-b border-gray-300">Project Status</th>
-                <th className="py-3 px-4 border-b border-gray-300">Project Selection</th>
+                {/* <th className="py-3 px-4 border-b border-gray-300">Project Selection</th> */}
                 <th className="py-3 px-4 border-b border-gray-300">Assign Project</th>
               </tr>
             </thead>
@@ -88,7 +88,7 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
                   <td className="py-3 px-4 border whitespace-nowrap">{project.description}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{project.end_date}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{project.project_status}</td>
-                  <td className="py-3 px-4 border whitespace-nowrap">
+                  {/* <td className="py-3 px-4 border whitespace-nowrap">
                     <div className="flex space-x-4">
                       <button
                         type="button"
@@ -110,7 +110,7 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
                         </button>
                       )}
                     </div>
-                  </td>
+                  </td> */}
                   <td className="py-3 px-4 border whitespace-nowrap">
                     <div className="flex space-x-4">
                       <Link to={`/project-assign/${project.id}`}>

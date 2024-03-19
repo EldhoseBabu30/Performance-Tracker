@@ -38,6 +38,8 @@ const HrInbox = ({ updateRequests }) => {
     }
   };
   handleAccept();
+
+  
   
 
     console.log(formData.id);
