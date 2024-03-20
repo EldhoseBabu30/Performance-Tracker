@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const AssignedProject = ( ) => {
+const AssignedProject = () => {
   
   const [assignedProject, setAssignedProject] = useState([]);
   const token = localStorage.getItem('TlToken');
-  const [formData, setFormData] = useState([
-    {
-      id: "",
-    },
-  ]);
-
-  
-
 
   useEffect(() => {
     const fetchAssignedProjectDetail = async () => {
@@ -34,11 +26,10 @@ const AssignedProject = ( ) => {
     fetchAssignedProjectDetail();
   }, [token]);
 
-
-  const handleMarkComplete = async () => {
+  const handleMarkComplete = async (projectId) => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8001/teamleadapi/assignedprojects/${formData.id}/project_completed/`,
+        `http://127.0.0.1:8001/teamleadapi/assignedprojects/${projectId}/project_completed/`,
         {},
         {
           headers: {
@@ -48,19 +39,23 @@ const AssignedProject = ( ) => {
       );
 
       if (response.status === 200) {
-        alert("Assign successful");
-        window.location.reload();
+        alert("Assignment marked as complete");
+        const updatedProjects = assignedProject.map(project => {
+          if (project.id === projectId) {
+            return { ...project, status: 'completed' };
+          }
+          return project;
+        });
+        setAssignedProject(updatedProjects);
       }
     } catch (error) {
-      console.error("Failed to fetch project details:", error);
+      console.error("Failed to mark project as complete:", error);
     }
   };
-  handleMarkComplete();
 
-
-
-  const handleComplete = (projectId) => {
-    setFormData({ id: projectId });
+  const isCompleted = (projectId) => {
+    const project = assignedProject.find(p => p.id === projectId);
+    return project && project.status === 'completed';
   };
 
   console.log(assignedProject);
@@ -89,21 +84,18 @@ const AssignedProject = ( ) => {
                   <td className="py-3 px-4 border whitespace-nowrap">{assigned.teamlead}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{assigned.team}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">
-                    <div className="flex space-x-4">
-                     
+                    {isCompleted(assigned.id) ? (
+                      <span className="text-green-600">Completed</span>
+                    ) : (
                       <button
-                        onClick={() => handleComplete(assigned.id)}
+                        onClick={() => handleMarkComplete(assigned.id)}
                         type="button"
-                        class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                        className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                       >
                         Complete
                       </button>
-
-                  
-                    </div>
+                    )}
                   </td>
-
-                 
                 </tr>
               ))}
             </tbody>

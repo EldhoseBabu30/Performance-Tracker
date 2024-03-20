@@ -1,29 +1,22 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-} from "@material-tailwind/react";
-import { useNavigate } from 'react-router-dom';
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, TextField } from "@mui/material";
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
 function Performance() {
   const [member, setMember] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // State to manage loading state
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate();
-  const token = localStorage.getItem('TlToken');
-  const [open, setOpen] = React.useState(false);
- 
-  const handleOpen = () => setOpen(!open);
+  const [open, setOpen] = useState(false);
+  const [performanceData, setPerformanceData] = useState(null);
+  const token = localStorage.getItem('HRtoken')
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const PerformanceAnalyze = async () => {
     try {
-      setIsLoading(true); // Set loading state to true when starting analysis
+      setIsLoading(true);
       const response = await axios.post(
         'http://127.0.0.1:8001/hrapi/performancetrack/',
         { member },
@@ -31,13 +24,8 @@ function Performance() {
       );
 
       if (response.status === 200) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Creation Successful',
-          text: 'You have successfully Created.',
-        }).then(() => {
-          navigate('/tl-home');
-        });
+        setPerformanceData(response.data);
+        handleOpen(); // Open modal after loading
       } else {
         setErrorMessage('Creation failed');
       }
@@ -45,19 +33,15 @@ function Performance() {
       console.error('Creation error:', error);
       setErrorMessage(error.message || 'Creation failed');
     } finally {
-      setIsLoading(false); // Set loading state back to false after analysis completes
+      setIsLoading(false);
     }
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setErrorMessage('');
-    setIsLoading(true); // Set loading state to true when button is clicked
-    // Simulate loading for 3 seconds
-    setTimeout(async () => {
-      await PerformanceAnalyze();
-      setIsLoading(false); // Set loading state back to false after 3 seconds
-    }, 2000);
+    setIsLoading(true);
+    await PerformanceAnalyze();
   };
 
   return (
@@ -69,17 +53,17 @@ function Performance() {
             <label htmlFor="employees" className="block text-sm font-medium text-gray-900">
               Employee Id
             </label>
-            <input
+            <TextField
               value={member}
               onChange={(e) => setMember(e.target.value)}
               type="text"
               required
-              className="block w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              fullWidth
+              variant="outlined"
             />
           </div>
-          <div className="flex justify-center items-center">
-            {/* Conditional rendering based on isLoading state */}
-            {isLoading && (
+          {isLoading && (
+            <div className="flex justify-center items-center">
               <div role="status">
                 <svg aria-hidden="true" className="w-8 h-8 text-gray-200 animate-spin fill-purple-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -87,45 +71,32 @@ function Performance() {
                 </svg>
                 <span className="sr-only">Loading...</span>
               </div>
-            )}
-          </div>
-          <button
-          onClick={handleOpen}
+            </div>
+          )}
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Analyze Performance</DialogTitle>
+            <DialogContent>
+              {performanceData && (
+                <DialogContentText>
+                  ID: {performanceData.id}<br/>
+                  HR: {performanceData.hr}<br/>
+                  Performance: {performanceData.performance}<br/>
+                  Employee: {performanceData.employee}<br/>
+                </DialogContentText>
+              )}
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Close</Button>
+            </DialogActions>
+          </Dialog>
+          <Button
             type="submit"
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            variant="contained"
+            color="primary"
+            fullWidth
           >
             {isLoading ? 'Loading...' : 'Track'}
-          </button>
-          <Dialog
-  open={open}
-  handler={handleOpen}
-  animate={{
-    mount: { scale: 1, y: 0 },
-    unmount: { scale: 0.9, y: -100 },
-  }}
-  className="border border-gray-300 rounded-lg shadow-lg w-auto h-auto" // Adjust width as needed
->
-  <DialogHeader className="bg-indigo-500 text-white">Its a simple dialog.</DialogHeader>
-  <DialogBody className="p-4">
-    The key to more success is to have a lot of pillows. Put it this way,
-    it took me twenty-five years to get these plants, twenty-five years of
-    blood, sweat, and tears, and I&apos;m never giving up, I&apos;m just
-    getting started. I&apos;m up to something. Fan luv.
-  </DialogBody>
-  <DialogFooter className=" p-4">
-    <Button
-      variant="text"
-     color='red'
-      onClick={handleOpen}
-      className="mr-2"
-    >
-      Cancel
-    </Button>
-   
-  </DialogFooter>
-</Dialog>
-
-
+          </Button>
         </form>
       </div>
     </div>
