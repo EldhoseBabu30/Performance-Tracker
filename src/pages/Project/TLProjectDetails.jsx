@@ -3,16 +3,17 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
-  const token = localStorage.getItem('TlToken');
+  const token = localStorage.getItem("TlToken");
   const [projectData, setProjectData] = useState([]);
-  const [requests, setRequests] = useState([]);
-  const [formData, setFormData] = useState([{
-    id: ''
-
-  }]);
+  // const [requests, setRequests] = useState([]);
+  const [formData, setFormData] = useState([
+    {
+      id: "",
+    },
+  ]);
 
   const [selectedProject, setSelectedProject] = useState(() => {
-    return localStorage.getItem('selectedProject') || null;
+    return localStorage.getItem("selectedProject") || null;
   });
 
   useEffect(() => {
@@ -34,6 +35,28 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
 
     fetchProjectDetails();
   }, [token]);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8001/teamleadapi/projects/${formData.id}/project_assign/`,
+        {},
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        alert("Assign successful");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Failed to fetch project details:", error);
+    }
+  };
+  handleSubmit();
 
   // const handleSelectProject = (projectId) => {
   //   setSelectedProject(projectId);
@@ -60,7 +83,6 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
 
   const handleAssign = (projectId) => {
     setFormData({ id: projectId });
-
   };
 
   return (
@@ -71,23 +93,43 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
           <table className="min-w-full bg-white rounded-md shadow-md">
             <thead className="bg-gray-200">
               <tr>
-                <th className="py-3 px-4 border-b border-gray-300">Project Id</th>
-                <th className="py-3 px-4 border-b border-gray-300">Project Title</th>
-                <th className="py-3 px-4 border-b border-gray-300">Project Description</th>
+                <th className="py-3 px-4 border-b border-gray-300">
+                  Project Id
+                </th>
+                <th className="py-3 px-4 border-b border-gray-300">
+                  Project Title
+                </th>
+                <th className="py-3 px-4 border-b border-gray-300">
+                  Project Description
+                </th>
                 <th className="py-3 px-4 border-b border-gray-300">Due Date</th>
-                <th className="py-3 px-4 border-b border-gray-300">Project Status</th>
+                <th className="py-3 px-4 border-b border-gray-300">
+                  Project Status
+                </th>
                 {/* <th className="py-3 px-4 border-b border-gray-300">Project Selection</th> */}
-                <th className="py-3 px-4 border-b border-gray-300">Assign Project</th>
+                <th className="py-3 px-4 border-b border-gray-300">
+                  Assign Project
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {projectData.map((project, index) => (
                 <tr key={index}>
-                  <td className="py-3 px-4 border whitespace-nowrap">{project.id}</td>
-                  <td className="py-3 px-4 border whitespace-nowrap">{project.topic}</td>
-                  <td className="py-3 px-4 border whitespace-nowrap">{project.description}</td>
-                  <td className="py-3 px-4 border whitespace-nowrap">{project.end_date}</td>
-                  <td className="py-3 px-4 border whitespace-nowrap">{project.project_status}</td>
+                  <td className="py-3 px-4 border whitespace-nowrap">
+                    {project.id}
+                  </td>
+                  <td className="py-3 px-4 border whitespace-nowrap">
+                    {project.topic}
+                  </td>
+                  <td className="py-3 px-4 border whitespace-nowrap">
+                    {project.description}
+                  </td>
+                  <td className="py-3 px-4 border whitespace-nowrap">
+                    {project.end_date}
+                  </td>
+                  <td className="py-3 px-4 border whitespace-nowrap">
+                    {project.project_status}
+                  </td>
                   {/* <td className="py-3 px-4 border whitespace-nowrap">
                     <div className="flex space-x-4">
                       <button
@@ -113,15 +155,19 @@ const TLProjectDetails = ({ teamLeadName, updateRequests }) => {
                   </td> */}
                   <td className="py-3 px-4 border whitespace-nowrap">
                     <div className="flex space-x-4">
-                      <Link to={`/project-assign/${project.id}`}>
-                        <button onClick={() => handleAssign(project.id)}
-                          type="button" className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-                          Assign
-                        </button>
-                      </Link>
+                      {/* <Link to={`/project-assign/${project.id}`}> */}
+                      <button
+                        onClick={() => handleAssign(project.id)}
+                        type="button"
+                        className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                      >
+                        {project.project_status === "pending"
+                          ? "Assign"
+                          : "Assigned"}
+                      </button>
 
+                      {/* </Link> */}
                     </div>
-
                   </td>
                 </tr>
               ))}

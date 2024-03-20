@@ -20,7 +20,7 @@ import TeamCreation from "./pages/TL-Home/TeamCreation";
 import ViewEmployees from "./pages/TL-Home/ViewEmployees";
 import ViewTeam from "./pages/TL-Home/ViewTeam";
 import ViewTeams from "./pages/Hr-Home/ViewTeams";
-import ProjectAssign from "./pages/TL-Home/ProjectAssign";
+// import ProjectAssign from "./pages/TL-Home/ProjectAssign";
 import AssignProjectEmployees from "./pages/TL-Home/AssignProjectEmployees";
 import HrInbox from "./pages/Hr-Home/HrInbox";
 import AssignedProjects from "./pages/Hr-Home/AssignedProjects";
@@ -31,6 +31,9 @@ import UpdateTask from "./pages/Emp-Home/UpdateTask";
 import TaskChart from "./pages/Emp-Home/TaskChart";
 import CreateTaskChart from "./pages/Emp-Home/CreateTaskChart";
 import AssignedProject from "./pages/TL-Home/AssignedProject";
+import Performance from "./pages/Hr-Home/Performance";
+
+
 
 
 const App = () => {
@@ -73,7 +76,7 @@ const App = () => {
           <Route path="/view-employees" element={<ViewEmployees />} />
           <Route path="/view-team" element={<ViewTeam />} />
           <Route path="/view-teams" element={<ViewTeams />} />
-          <Route path="/project-assign/:projectId" element={<ProjectAssign />} />
+          {/* <Route path="/project-assign/:projectId" element={<ProjectAssign />} /> */}
           <Route path="/assign-to-emp" element={<AssignProjectEmployees />} />
           <Route path="/assigned-projects" element={<AssignedProjects />} />
           <Route path="/emp-team" element={<EmpTeam />} />
@@ -83,6 +86,7 @@ const App = () => {
           <Route path="/task-chart" element={<TaskChart />} />
           <Route path="/task-updates" element={<UpdateTask />} />
           <Route path="/assigned-project" element={<AssignedProject />} />
+          <Route path="/performance" element={<Performance />} />
 
           
          
