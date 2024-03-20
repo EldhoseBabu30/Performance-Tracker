@@ -11,7 +11,7 @@ import {
 const ProjectOfTeams = () => {
   const [teamProjects, setTeamProjects] = useState([]);
   const [error, setError] = useState(null);
-  const [formData, setFormData] = useState({ id: '' });
+  const [formData, setFormData] = useState({ id: "" });
   const token = localStorage.getItem("Emp-token");
 
   useEffect(() => {
@@ -35,28 +35,35 @@ const ProjectOfTeams = () => {
     fetchTeamProjects();
   }, []);
 
+  const handleCreateButtonClick = (projectId) => {
+    setFormData({ id: projectId });
+    handleCreate(); 
+  };
+
   const handleCreate = async () => {
     try {
       const response = await axios.post(
         `http://127.0.0.1:8001/empapi/projectdetail/${formData.id}/taskchart_add/`,
-        formData, 
+        formData,
         {
           headers: {
             Authorization: `Token ${token}`,
           },
+      
         }
       );
       console.log("API Response:", response.data);
-     
     } catch (error) {
       console.error("Error creating project task:", error);
     }
   };
-  
-  const handleCreateButtonClick = (projectId) => {
-    setFormData({ id: projectId }); 
-    handleCreate(); // Call handleCreate here to avoid infinite loop
-  };
+
+ 
+
+
+console.log(formData.id);
+
+
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -65,19 +72,25 @@ const ProjectOfTeams = () => {
         <div className="grid gap-6">
           {teamProjects.length > 0 ? (
             teamProjects.map((project, index) => (
-              <Card key={index} className="w-full border-4 border-gray-300 rounded-lg shadow-xl">
+              <Card
+                key={index}
+                className="w-full border-4 border-gray-300 rounded-lg shadow-xl"
+              >
                 <CardBody>
                   <Typography variant="h5" color="blue-gray" className="mb-2">
                     Project of Team
                   </Typography>
                   <Typography>
-                    <span className="font-semibold">Project Id:</span> {project.id}
+                    <span className="font-semibold">Project Id:</span>{" "}
+                    {project.id}
                   </Typography>
                   <Typography>
-                    <span className="font-semibold">Team Lead:</span> {project.teamlead}
+                    <span className="font-semibold">Team Lead:</span>{" "}
+                    {project.teamlead}
                   </Typography>
                   <Typography>
-                    <span className="font-semibold">Project:</span> {project.project}
+                    <span className="font-semibold">Project:</span>{" "}
+                    {project.project}
                   </Typography>
                   <Typography>
                     <span className="font-semibold">Team:</span> {project.team}
@@ -90,8 +103,9 @@ const ProjectOfTeams = () => {
                     size="lg"
                     ripple="light"
                     onClick={() => handleCreateButtonClick(project.id)}
+                    className="w-40 h-12"
                   >
-                    Create Task
+                    Create Task Chart
                   </Button>
                 </CardFooter>
               </Card>

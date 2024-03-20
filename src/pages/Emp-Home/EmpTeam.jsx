@@ -1,5 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
+
 
 
 
@@ -29,40 +37,56 @@ const EmpTeam = () => {
 
     }, []); 
   return (
-    <div className="mt-8 h-96 overflow-y-auto">
-    <h1 className="text-2xl font-semibold mb-4">Employees</h1>
-    {empTeam.length > 0 ? (
-   <div className="relative">
-   <div className="overflow-x-auto">
-     <table className="min-w-full bg-white rounded-md shadow-md">
-       <thead className="bg-gray-200 sticky top-0">
-         <tr>
-           <th className="py-3 px-4 border-b border-gray-300">Id</th>
-           <th className="py-3 px-4 border-b border-gray-300">Team Lead</th>
-           <th className="py-3 px-4 border-b border-gray-300">Members</th>
-           <th className="py-3 px-4 border-b border-gray-300">Team Name</th>
-           <th className="py-3 px-4 border-b border-gray-300">Is Approved</th>
-         </tr>
-       </thead>
-       <tbody className="divide-y divide-gray-200">
-         {empTeam.map((team, index) => (
-           <tr key={index}>
-             <td className="py-3 px-4 border whitespace-nowrap">{team.id}</td>
-             <td className="py-3 px-4 border whitespace-nowrap">{team.teamlead}</td>
-             <td className="py-3 px-4 border whitespace-nowrap">{team.members.join(", ")}</td>
-             <td className="py-3 px-4 border whitespace-nowrap">{team.name}</td>
-             <td className="py-3 px-4 border whitespace-nowrap">{team.phoneno}</td>
-             <td className="py-3 px-4 border whitespace-nowrap">{team.is_approved? 'Yes' : 'No'}</td>                
-           </tr>
-         ))}
-       </tbody>
-     </table>
-   </div>
- </div>
-    ) : (
-      <p className="mt-4">No Team found.</p>
-    )}
-  </div>
+<div className="mt-8 overflow-y-auto flex justify-center items-center">
+    <div>
+        {empTeam.length > 0 ? (
+            <div className="relative">
+                <div className="overflow-x-auto">
+                    {empTeam.map((team, index) => (
+                        <Card
+                            key={index}
+                            className="max-w-xl mx-auto border-2 border-gray-300 rounded-lg shadow-xl p-6 bg-white"
+                        >
+                            <CardBody>
+                                <Typography variant="h5" color="blue-gray" className="mb-4 text-center font-semibold">
+                                    Project of Team
+                                </Typography>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <Typography className="font-semibold">Project Id:</Typography>
+                                        <Typography>{team.id}</Typography>
+                                    </div>
+                                    <div>
+                                        <Typography className="font-semibold">Team Lead:</Typography>
+                                        <Typography>{team.teamlead}</Typography>
+                                    </div>
+                                    <div>
+                                        <Typography className="font-semibold">Project:</Typography>
+                                        <Typography>{team.members.join(',')}</Typography>
+                                    </div>
+                                    <div>
+                                        <Typography className="font-semibold">Team Name:</Typography>
+                                        <Typography>{team.name}</Typography>
+                                    </div>
+                                    <div>
+                                        <Typography className="font-semibold">Is Approved:</Typography>
+                                        <Typography>{team.is_approved ? 'Yes' : 'No'}</Typography>
+                                    </div>
+                                </div>
+                            </CardBody>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+        ) : (
+            <p className="mt-4 text-center">No Team found.</p>
+        )}
+    </div>
+</div>
+
+
+
+
   
   )
 }
