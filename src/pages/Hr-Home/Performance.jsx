@@ -3,13 +3,13 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogConten
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-function Performance() {
+const Performance = () => {
   const [member, setMember] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [open, setOpen] = useState(false);
-  const [performanceData, setPerformanceData] = useState(null);
-  const token = localStorage.getItem('HRtoken')
+  const [performanceData, setPerformanceData] = useState(null); // Changed initial value to null
+  const token = localStorage.getItem('HRtoken');
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -24,8 +24,9 @@ function Performance() {
       );
 
       if (response.status === 200) {
+        console.log('API Response:', response.data); // Log API response
         setPerformanceData(response.data);
-        handleOpen(); // Open modal after loading
+        handleOpen(); 
       } else {
         setErrorMessage('Creation failed');
       }

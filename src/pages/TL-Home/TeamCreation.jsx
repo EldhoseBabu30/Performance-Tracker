@@ -27,7 +27,6 @@ function TeamCreation() {
       );
 
       if (response.status === 201) {
-        // Extract relevant information from the response
         const { id: teamId, teamlead: teamLeadId } = response.data;
         
         const hrRequests = JSON.parse(localStorage.getItem('hrRequests')) || [];

@@ -150,54 +150,12 @@ const EmployeeHome = () => {
         </List>
       </Card>
 
-      {/* Content */}
-      <div className="flex flex-col flex-grow">
-        <div className="flex justify-center items-center h-1/6">
-          <h3 className="text-3xl font-medium leading-tight text-center text-primary">
-            Welcome, {name}
-          </h3>
-        </div>
+      
 
-        {/* Cards container */}
-        <div className="flex justify-center items-start h-5/6 px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full px-4">
-            {/* Card 1 */}
-            <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <div className="p-6">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  Update Tasks
-                </h5>
-                <p className="font-normal text-gray-700 dark:text-gray-400">
-                  Here are the biggest enterprise technology acquisitions of
-                  2021 so far, in reverse chronological order.
-                </p>
-                <Link to="/task-updates">
-                  <button
-                    type="button"
-                    className="mt-4 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 text-white font-medium rounded-lg text-sm flex items-center px-6 py-2.5"
-                  >
-                    <span>Update</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                      />
-                    </svg>
-                  </button>
-                </Link>
-              </div>
-            </div>
+       
 
             {/* Card 2 */}
-            <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            {/* <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
               <div className="p-6">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                   Create Task Chart
@@ -229,11 +187,10 @@ const EmployeeHome = () => {
                   </button>
                 </Link>
               </div>
-            </div>
+            </div> */}
           
-          </div>
-        </div>
-      </div>
+          
+    
     </div>
   );
 };

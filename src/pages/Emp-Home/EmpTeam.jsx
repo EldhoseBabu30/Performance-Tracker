@@ -49,7 +49,7 @@ const EmpTeam = () => {
                         >
                             <CardBody>
                                 <Typography variant="h5" color="blue-gray" className="mb-4 text-center font-semibold">
-                                    Project of Team
+                                    My Team
                                 </Typography>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>

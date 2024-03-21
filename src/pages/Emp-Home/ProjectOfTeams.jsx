@@ -68,47 +68,69 @@ console.log(formData.id);
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="mt-8 max-w-lg w-full overflow-y-auto">
-        <h1 className="text-2xl font-semibold mb-4 text-center">Projects</h1>
         <div className="grid gap-6">
           {teamProjects.length > 0 ? (
             teamProjects.map((project, index) => (
-              <Card
-                key={index}
-                className="w-full border-4 border-gray-300 rounded-lg shadow-xl"
-              >
-                <CardBody>
-                  <Typography variant="h5" color="blue-gray" className="mb-2">
-                    Project of Team
-                  </Typography>
-                  <Typography>
-                    <span className="font-semibold">Project Id:</span>{" "}
-                    {project.id}
-                  </Typography>
-                  <Typography>
-                    <span className="font-semibold">Team Lead:</span>{" "}
-                    {project.teamlead}
-                  </Typography>
-                  <Typography>
-                    <span className="font-semibold">Project:</span>{" "}
-                    {project.project}
-                  </Typography>
-                  <Typography>
-                    <span className="font-semibold">Team:</span> {project.team}
-                  </Typography>
-                </CardBody>
-                <CardFooter>
-                  <Button
-                    color="blue"
-                    buttonType="link"
-                    size="lg"
-                    ripple="light"
-                    onClick={() => handleCreateButtonClick(project.id)}
-                    className="w-40 h-12"
-                  >
-                    Create Task Chart
-                  </Button>
-                </CardFooter>
-              </Card>
+<Card
+  key={index}
+  className="w-full border-4 border-gray-300 rounded-lg shadow-xl"
+>
+  <CardBody>
+    <h1 className="text-2xl mt-4 font-semibold text-center">Projects</h1>
+
+    <Typography variant="h5" color="blue-gray" className="mb-2">
+      Project of Team
+    </Typography>
+    <Typography>
+      <span className="font-semibold">Project Id:</span>{" "}
+      {project.id}
+    </Typography>
+    <Typography>
+      <span className="font-semibold">Team Lead:</span>{" "}
+      {project.teamlead}
+    </Typography>
+    <Typography>
+      <span className="font-semibold">Project:</span>{" "}
+      {project.project}
+    </Typography>
+    <Typography className="mb-4">
+      <span className="font-semibold">Team Name:</span> {project.team}
+    </Typography>
+    <hr className="my-4" /> {/* Added Tailwind class for margin-y */}
+    <h1 className="text-2xl font-semibold mb-4 text-center">Project Details</h1>
+    {/* Iterate over project_details array */}
+    {project.project_details.map((detail, detailIndex) => (
+      <div key={detailIndex}>
+        <Typography className="mt-4">
+          <span className="font-semibold">Id:</span> {detail.id}
+        </Typography>
+        <Typography>
+          <span className="font-semibold">Assigned Person:</span> {detail.assigned_person}
+        </Typography>
+        <Typography>
+          <span className="font-semibold">Assigned Part:</span> {detail.assigned_part}
+        </Typography>
+        <Typography>
+          <span className="font-semibold">Status:</span> {detail.status}
+        </Typography>
+      </div>
+    ))}
+  </CardBody>
+
+  <CardFooter>
+    <Button
+      color="blue"
+      buttonType="link"
+      size="lg"
+      ripple="light"
+      onClick={() => handleCreateButtonClick(project.id)}
+      className="w-40 h-12"
+    >
+      Create Task Chart
+    </Button>
+  </CardFooter>
+</Card>
+
             ))
           ) : (
             <p className="mt-4 text-center">No team projects found.</p>
