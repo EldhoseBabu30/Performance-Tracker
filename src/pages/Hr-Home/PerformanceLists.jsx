@@ -1,64 +1,83 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { PieChart, Pie, Cell } from "recharts";
+import { Paper, Typography } from "@mui/material";
 
 const PerformanceLists = () => {
   const [performanceData, setPerformanceData] = useState([]);
-  
+
   useEffect(() => {
-    const token = localStorage.getItem("HRtoken"); 
+    const token = localStorage.getItem("HRtoken");
 
     const fetchPerformanceDetails = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8001/hrapi/Performance/', {
-          headers: {
-            'Authorization': `Token ${token}`, 
+        const response = await axios.get(
+          "http://127.0.0.1:8001/hrapi/Performance/",
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+            },
           }
-        });
+        );
         setPerformanceData(response.data);
-       
       } catch (error) {
-        console.error("Failed to fetch team details:", error);
+        console.error("Failed to fetch performance details:", error);
       }
     };
 
-    if (token) { 
-        fetchPerformanceDetails();
+    if (token) {
+      fetchPerformanceDetails();
     }
   }, []);
 
   return (
-    <div className="mt-8 h-96 overflow-y-auto">
-      <h1 className="text-2xl font-semibold mb-4">Performance of Employees</h1>
+    <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
       {performanceData.length > 0 ? (
-        <div className="relative">
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white rounded-md shadow-md">
-              <thead className="bg-gray-200 sticky top-0">
-                <tr>
-                  <th className="py-3 px-4 border-b border-gray-300">Id</th>
-                  <th className="py-3 px-4 border-b border-gray-300">HR  </th>
-                  <th className="py-3 px-4 border-b border-gray-300">Employee</th>
-                  <th className="py-3 px-4 border-b border-gray-300">Performance</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {performanceData.map((performance, index) => (
-                  <tr key={index}>
-                    <td className="py-3 px-4 border whitespace-nowrap">{performance.id}</td>
-                    <td className="py-3 px-4 border whitespace-nowrap">{performance.hr}</td>
-                    <td className="py-3 px-4 border whitespace-nowrap">{performance.employee}</td>
-                    <td className="py-3 px-4 border whitespace-nowrap">{performance.performance}</td>   
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        performanceData.map((performance, index) => (
+          <Paper key={index} elevation={3} className="p-4">
+            <Typography variant="h6" gutterBottom>
+              Performance Details
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Employee ID: {performance.id}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              HR: {performance.hr}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Employee: {performance.employee}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Performance: {performance.performance}
+            </Typography>
+            <div className="mt-4">
+              <PieChart width={400} height={400}>
+                <Pie
+                  data={[
+                    { name: "Performance", value: performance.performance },
+                    { name: "Other", value: 100 - performance.performance },
+                  ]}
+                  dataKey="value"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  fill="#8884d8"
+                  label
+                >
+                  {[
+                    { fill: "#FF6384" },
+                    { fill: "#36A2EB" },
+                  ].map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </div>
+          </Paper>
+        ))
       ) : (
-        <p className="mt-4">No Teams.</p>
+        <p className="mt-4">No Performance Data.</p>
       )}
-      {/* Pass the team lead name as a prop to ProjectDetails component */}
-  
     </div>
   );
 };

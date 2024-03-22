@@ -11,23 +11,21 @@ const Login = () => {
       navigate("/hr-login");
     } else if (role === "Team Lead") {
       navigate("/tl-login");
-    }
-    else if (role === 'Employee'){
-      navigate("/emp-login")
+    } else if (role === "Employee") {
+      navigate("/emp-login");
     }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="bg-gray-200 p-16 rounded-lg text-center w-96">
-        {/* Adjusted width using w-96, you can change this value */}
-        <h1 className="text-3xl font-bold mb-6">Select a Role</h1>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white rounded-lg shadow-lg p-8 w-96">
+        <h1 className="text-3xl font-bold mb-6 text-center">Select a Role</h1>
 
-        <div className="flex flex-col">
+        <div className="space-y-4">
           <button
             onClick={() => handleButtonClick("HR")}
-            className={`w-full p-8 mb-8 bg-blue-500 text-white rounded ${
-              selectedRole === "HR" && "bg-blue-700"
+            className={`w-full p-4 rounded-md font-semibold text-gray-500 hover:text-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 border border-gray-300 hover:border-gray-500  ${
+              selectedRole === "HR" && "border-2 border-gray-700" // Selected state outline
             }`}
           >
             HR
@@ -35,16 +33,17 @@ const Login = () => {
 
           <button
             onClick={() => handleButtonClick("Team Lead")}
-            className={`w-full mb-8 p-8 bg-green-500 text-white rounded ${
-              selectedRole === "Team Lead" && "bg-green-700"
+            className={`w-full p-4 rounded-md font-semibold text-gray-500 hover:text-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 border border-gray-300 hover:border-gray-500  ${
+              selectedRole === "Team Lead" && "border-2 border-gray-700" // Selected state outline
             }`}
           >
             Team Lead
           </button>
+
           <button
             onClick={() => handleButtonClick("Employee")}
-            className={`w-full p-8 bg-red-500 text-white rounded ${
-              selectedRole === "Employee" && "bg-red-700"
+            className={`w-full p-4 rounded-md font-semibold text-gray-500 hover:text-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 border border-gray-300 hover:border-gray-500  ${
+              selectedRole === "Employee" && "border-2 border-gray-700" // Selected state outline
             }`}
           >
             Employee
@@ -52,8 +51,8 @@ const Login = () => {
         </div>
 
         {selectedRole && (
-          <div className="mt-8">
-            <p className="text-lg font-semibold">
+          <div className="mt-6">
+            <p className="text-lg font-semibold text-center">
               You selected: {selectedRole}
             </p>
           </div>

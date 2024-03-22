@@ -54,76 +54,75 @@ const TeamLeadHome = () => {
       </button>
 
       {/* Sidebar */}
-      <Card
-        className={`w-64 p-4 shadow-xl shadow-blue-gray-900/5 ${isSidebarOpen ? "block" : "hidden"}`}
-      >
-        <div className="mb-2 p-4">
-          <Typography variant="h5" color="blue-gray">Sidebar Content</Typography>
-        </div>
-        <List>
-          <ListItem>
-            <ListItemPrefix>
-              <PresentationChartBarIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Dashboard
-          </ListItem>
-          <Link to="/view-employees">
-          <ListItem>
-            <ListItemPrefix>
-              <EyeIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            View Employees
-          </ListItem>
-          </Link>
-          <Link to='hr-inbox'>
-         
-          </Link>
-          <Link to="/assign-to-emp">
-          <ListItem>
-            <ListItemPrefix>
-              <PlusIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Assign to Employees
-          </ListItem>
-          </Link>
-          <Link to="/assigned-project">
-          <ListItem>
-            <ListItemPrefix>
-              <EyeIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Assigned Project
-          </ListItem>
-          </Link>
-        
-          <ListItem>
-            <ListItemPrefix>
-              <Cog6ToothIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Settings
-          </ListItem>
-          <ListItem >
-            <ListItemPrefix>
-              <InboxIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Inbox
-            <ListItemSuffix>
-              <Chip
-                value="14"
-                size="sm"
-                variant="ghost"
-                color="blue-gray"
-                className="rounded-full"
-              />
-            </ListItemSuffix>
-          </ListItem>
-          <ListItem>
-            <ListItemPrefix>
-              <PowerIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Log Out
-          </ListItem>
-        </List>
-      </Card>
+      <Card  className={`w-64 p-4 shadow-xl shadow-blue-gray-900/5 transition-width ease-in-out duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+  <div className="mb-2 p-4">
+    <Typography variant="h5" color="blue-gray">Sidebar Content</Typography>
+  </div>
+  <List>
+    <ListItem className="hover:bg-blue-100 transition-colors">
+      <ListItemPrefix>
+        <PresentationChartBarIcon className="h-5 w-5" />
+      </ListItemPrefix>
+      Dashboard
+    </ListItem>
+    <Link to="/view-employees" className="hover:bg-blue-100 transition-colors">
+      <ListItem>
+        <ListItemPrefix>
+          <EyeIcon className="h-5 w-5" />
+        </ListItemPrefix>
+        View Employees
+      </ListItem>
+    </Link>
+    <Link to='/hr-inbox' className="hover:bg-blue-100 transition-colors">
+      <ListItem>
+        <ListItemPrefix>
+          <InboxIcon className="h-5 w-5" />
+        </ListItemPrefix>
+        Inbox
+        <ListItemSuffix>
+          <Chip
+            value="14"
+            size="sm"
+            variant="ghost"
+            color="blue-gray"
+            className="rounded-full"
+          />
+        </ListItemSuffix>
+      </ListItem>
+    </Link>
+    <Link to="/assign-to-emp" className="hover:bg-blue-100 transition-colors">
+      <ListItem>
+        <ListItemPrefix>
+          <PlusIcon className="h-5 w-5" />
+        </ListItemPrefix>
+        Assign to Employees
+      </ListItem>
+    </Link>
+    <Link to="/assigned-project" className="hover:bg-blue-100 transition-colors">
+      <ListItem>
+        <ListItemPrefix>
+          <EyeIcon className="h-5 w-5" />
+        </ListItemPrefix>
+        Assigned Project
+      </ListItem>
+    </Link>
+    <ListItem className="hover:bg-blue-100 transition-colors">
+      <ListItemPrefix>
+        <Cog6ToothIcon className="h-5 w-5" />
+      </ListItemPrefix>
+      Settings
+    </ListItem>
+    <ListItem className="hover:bg-blue-100 transition-colors">
+      <ListItemPrefix>
+        <PowerIcon className="h-5 w-5" />
+      </ListItemPrefix>
+      Log Out
+    </ListItem>
+  </List>
+</Card>
+
+
+
 
       <div className="flex flex-col flex-grow">
     <div className="flex justify-center items-center h-1/6">
@@ -138,14 +137,14 @@ const TeamLeadHome = () => {
           <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Update Project Status
+                Task Chart  List 
               </h5>
               <p className="font-normal text-gray-700 dark:text-gray-400">
                 Here are the biggest enterprise technology acquisitions of 2021
                 so far, in reverse chronological order.
               </p>
 
-              <Link to="/update-project">
+              <Link to="/task-chart-list">
                 <button
                   type="button"
                   className="mt-4 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 text-white font-medium rounded-lg text-sm flex items-center px-6 py-2.5"

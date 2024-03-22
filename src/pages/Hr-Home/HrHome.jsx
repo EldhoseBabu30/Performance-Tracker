@@ -58,75 +58,75 @@ const HrHome = () => {
 
       {/* Sidebar */}
       <Card
-        className={`w-64 p-4 shadow-xl shadow-blue-gray-900/5 ${isSidebarOpen ? "block" : "hidden"}`}
-      >
-        <div className="mb-2 p-4">
-          <Typography variant="h5" color="blue-gray">Sidebar Content</Typography>
-        </div>
-        <List>
-          <ListItem>
-            <ListItemPrefix>
-              <PresentationChartBarIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Dashboard
-          </ListItem>
-          <Link to='/hr-project-details'>
-            <ListItem>
-              <ListItemPrefix>
-                <EyeIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              View Project Details
-            </ListItem>
-          </Link>
-          <Link to='/view-teams'>
-            <ListItem>
-              <ListItemPrefix>
-                <EyeIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              View Teams
-            </ListItem>
-          </Link>
-          <Link to='/assigned-projects'>
-            <ListItem>
-              <ListItemPrefix>
-                <EyeIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Assigned Projects
-            </ListItem>
-          </Link>
-          <Link to='/performance-lists'>
-            <ListItem>
-              <ListItemPrefix>
-                <EyeIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Performance Lists
-            </ListItem>
-          </Link>
-          <Link to='hr-inbox'>
-            <ListItem >
-              <ListItemPrefix>
-                <InboxIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Inbox
-              <ListItemSuffix>
-                <Chip
-                  value={requestsCount} // Pass the count of requests
-                  size="sm"
-                  variant="ghost"
-                  color="blue-gray"
-                  className="flex items-center justify-center rounded-full w-6 h-6 bg-red-500 text-white text-xs mx-1"
-                />
-              </ListItemSuffix>
-            </ListItem>
-          </Link>
-          <ListItem>
-            <ListItemPrefix>
-              <PowerIcon className="h-5 w-5" />
-            </ListItemPrefix>
-            Log Out
-          </ListItem>
-        </List>
-      </Card>
+  className={`w-64 p-4 shadow-xl shadow-blue-gray-900/5 transition-width ease-in-out duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+  <div className="mb-2 p-4">
+    <Typography variant="h5" color="blue-gray">Sidebar Content</Typography>
+  </div>
+  <List>
+    <ListItem className="hover:bg-blue-100">
+      <ListItemPrefix>
+        <PresentationChartBarIcon className="h-5 w-5" />
+      </ListItemPrefix>
+      Dashboard
+    </ListItem>
+    <Link to='/hr-project-details' className="hover:bg-blue-100 transition-colors">
+      <ListItem>
+        <ListItemPrefix>
+          <EyeIcon className="h-5 w-5" />
+        </ListItemPrefix>
+        View Project Details
+      </ListItem>
+    </Link>
+    <Link to='/view-teams' className="hover:bg-blue-100 transition-colors">
+      <ListItem>
+        <ListItemPrefix>
+          <EyeIcon className="h-5 w-5" />
+        </ListItemPrefix>
+        View Teams
+      </ListItem>
+    </Link>
+    <Link to='/assigned-projects' className="hover:bg-blue-100 transition-colors">
+      <ListItem>
+        <ListItemPrefix>
+          <EyeIcon className="h-5 w-5" />
+        </ListItemPrefix>
+        Assigned Projects
+      </ListItem>
+    </Link>
+    <Link to='/performance-lists' className="hover:bg-blue-100 transition-colors">
+      <ListItem>
+        <ListItemPrefix>
+          <EyeIcon className="h-5 w-5" />
+        </ListItemPrefix>
+        Performance Lists
+      </ListItem>
+    </Link>
+    <Link to='hr-inbox' className="hover:bg-blue-100 transition-colors">
+      <ListItem>
+        <ListItemPrefix>
+          <InboxIcon className="h-5 w-5" />
+        </ListItemPrefix>
+        Inbox
+        <ListItemSuffix>
+          <Chip
+            value={requestsCount} // Pass the count of requests
+            size="sm"
+            variant="ghost"
+            color="blue-gray"
+            className="flex items-center justify-center rounded-full w-6 h-6 bg-red-500 text-white text-xs mx-1 "
+          />
+        </ListItemSuffix>
+      </ListItem>
+    </Link>
+    <ListItem className="hover:bg-blue-100 transition-colors">
+      <ListItemPrefix>
+        <PowerIcon className="h-5 w-5" />
+      </ListItemPrefix>
+      Log Out
+    </ListItem>
+  </List>
+</Card>
+
 
       {/* Content */}
       <div className="flex flex-col flex-grow">

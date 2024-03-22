@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 const Performance = () => {
-  const [member, setMember] = useState('');
+  const [employee, setEmployee] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [open, setOpen] = useState(false);
@@ -19,7 +19,7 @@ const Performance = () => {
       setIsLoading(true);
       const response = await axios.post(
         'http://127.0.0.1:8001/hrapi/performancetrack/',
-        { member },
+        { employee },
         { headers: { Authorization: `Token ${token}` } }
       );
 
@@ -55,8 +55,8 @@ const Performance = () => {
               Employee Id
             </label>
             <TextField
-              value={member}
-              onChange={(e) => setMember(e.target.value)}
+              value={employee}
+              onChange={(e) => setEmployee(e.target.value)}
               type="text"
               required
               fullWidth

@@ -33,6 +33,7 @@ import CreateTaskChart from "./pages/Emp-Home/CreateTaskChart";
 import AssignedProject from "./pages/TL-Home/AssignedProject";
 import Performance from "./pages/Hr-Home/Performance";
 import PerformanceLists from "./pages/Hr-Home/PerformanceLists";
+import TaskChartList from "./pages/TL-Home/TaskChartList";
 
 
 
@@ -89,6 +90,7 @@ const App = () => {
           <Route path="/assigned-project" element={<AssignedProject />} />
           <Route path="/performance" element={<Performance />} />
           <Route path="/performance-lists" element={<PerformanceLists />} />
+          <Route path="/task-chart-list" element={<TaskChartList />} />
 
           
          
