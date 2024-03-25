@@ -90,14 +90,14 @@ const TeamLeadHome = () => {
         </ListItemSuffix>
       </ListItem>
     </Link>
-    <Link to="/assign-to-emp" className="hover:bg-blue-100 transition-colors">
+    {/* <Link to="/assign-to-emp" className="hover:bg-blue-100 transition-colors">
       <ListItem>
         <ListItemPrefix>
           <PlusIcon className="h-5 w-5" />
         </ListItemPrefix>
         Assign to Employees
       </ListItem>
-    </Link>
+    </Link> */}
     <Link to="/assigned-project" className="hover:bg-blue-100 transition-colors">
       <ListItem>
         <ListItemPrefix>

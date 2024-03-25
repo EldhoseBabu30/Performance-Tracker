@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 const AssignedProject = () => {
   
@@ -26,7 +28,7 @@ const AssignedProject = () => {
     fetchAssignedProjectDetail();
   }, [token]);
 
-  const handleMarkComplete = async (projectId) => {
+  const handleAssignToEmp = async (projectId) => {
     try {
       const response = await axios.post(
         `http://127.0.0.1:8001/teamleadapi/assignedprojects/${projectId}/project_completed/`,
@@ -73,7 +75,9 @@ const AssignedProject = () => {
                 <th className="py-3 px-4 border-b border-gray-300">Project</th>
                 <th className="py-3 px-4 border-b border-gray-300">Team Lead</th>
                 <th className="py-3 px-4 border-b border-gray-300">Team Name</th>
+                <th className="py-3 px-4 border-b border-gray-300">Assigned to Employees</th>
                 <th className="py-3 px-4 border-b border-gray-300">Status</th>
+              
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -83,12 +87,20 @@ const AssignedProject = () => {
                   <td className="py-3 px-4 border whitespace-nowrap">{assigned.project}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{assigned.teamlead}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{assigned.team}</td>
+                  <td>
+                  <Link to={`/assign-to-emp/${assigned.id}`}>
+  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Assign to Employees
+  </button>
+
+</Link>
+</td>
                   <td className="py-3 px-4 border whitespace-nowrap">
                     {isCompleted(assigned.id) ? (
                       <span className="text-green-600">Completed</span>
                     ) : (
                       <button
-                        onClick={() => handleMarkComplete(assigned.id)}
+                        onClick={() => handleAssignToEmp(assigned.id)}
                         type="button"
                         className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                       >

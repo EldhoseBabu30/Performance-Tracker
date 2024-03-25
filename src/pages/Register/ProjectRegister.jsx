@@ -22,7 +22,7 @@ const ProjectRegister = ({ projectData, setProjectData }) => {
       if (response && response.data) {
         setProjectData([...projectData, response.data]); 
         // Redirect to ProjectAssign page with project ID in URL
-        navigate(`/project-assign/${response.data.id}`);
+       
       }
       Swal.fire({
         icon: "success",
@@ -30,6 +30,7 @@ const ProjectRegister = ({ projectData, setProjectData }) => {
         showConfirmButton: false,
         timer: 1500
       });
+      navigate(`/hr-home`); 
     } catch (error) {
       console.error("Project registration failed:", error);
       if (error.response && error.response.data && error.response.data.detail === "Authentication credentials were not provided.") {

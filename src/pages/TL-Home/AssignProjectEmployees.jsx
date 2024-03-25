@@ -4,8 +4,8 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 function AssignProjectEmployees() {
-  const [assignedPart, setAssignedPart] = useState('');
-  const [assignedPerson, setAssignedPerson] = useState('');
+  const [assigned_part, setAssignedPart] = useState('');
+  const [assigned_person, setAssignedPerson] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
    const token = localStorage.getItem('TlToken');
@@ -15,22 +15,27 @@ function AssignProjectEmployees() {
   const AssignToEmp = async () => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8001/teamleadapi/assignedprojects/${id}/assign_to_emp/`, 
+        `http://127.0.0.1:8001/teamleadapi/assignedprojects/${id}/assign_to_emp/`,
+
         {
-          assignedPart,
-          assignedPerson
+          assigned_part,
+          assigned_person
         },
         {
           headers: {
             Authorization: `Token ${token}`, 
           },
         }
+        
+
+
       );
+
   
       if (response.status === 200) {
         Swal.fire({
           icon: 'success',
-          title: 'Creation Successful',
+          title: 'Assignation Successful',
           text: 'You have successfully Created.',
         }).then(() => {
           navigate('/tl-home');
@@ -60,7 +65,7 @@ function AssignProjectEmployees() {
               Assigned Part
             </label>
             <input
-              value={assignedPart}
+              value={assigned_part}
               onChange={(e) => setAssignedPart(e.target.value)}
               type="text"
               required
@@ -72,7 +77,7 @@ function AssignProjectEmployees() {
               Assigned to
             </label>
             <input
-              value={assignedPerson}
+              value={assigned_person}
               onChange={(e) => setAssignedPerson(e.target.value)}
               type="text"
               required

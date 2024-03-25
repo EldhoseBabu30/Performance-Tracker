@@ -10,7 +10,7 @@ function UpdateTask() {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const token = localStorage.getItem('Emp-token');
-  const { id } = useParams(); // Get the task ID from URL params
+  const { id } = useParams(); 
 
   useEffect(() => {
     const fetchTaskDetails = async () => {
@@ -50,7 +50,7 @@ function UpdateTask() {
           title: 'Updated Successfully',
           text: 'You have successfully updated the task.',
         }).then(() => {
-          navigate('/task-update-lists');
+          navigate('/task-chart');
         });
       } else {
         setErrorMessage('Update failed');

@@ -93,14 +93,14 @@ const EmployeeHome = () => {
         Project of Team
       </ListItem>
     </Link>
-    <Link to="/task-update-lists" className="hover:bg-blue-100 transition-colors">
+    {/* <Link to="/task-update-lists" className="hover:bg-blue-100 transition-colors">
       <ListItem>
         <ListItemPrefix>
           <EyeIcon className="h-5 w-5" />
         </ListItemPrefix>
         Task Update List
       </ListItem>
-    </Link>
+    </Link> */}
     <Link to="/task-chart" className="hover:bg-blue-100 transition-colors">
       <ListItem>
         <ListItemPrefix>

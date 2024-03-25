@@ -21,11 +21,11 @@ const HrHome = () => {
   const name = localStorage.getItem("userName");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const navigate = useNavigate();
-  const [requestsCount, setRequestsCount] = useState(0); // State to hold the count of requests
+  const [requestsCount, setRequestsCount] = useState(0); 
 
   useEffect(() => {
     const storedRequests = JSON.parse(localStorage.getItem('hrRequests')) || [];
-    setRequestsCount(storedRequests.length); // Update the count of requests
+    setRequestsCount(storedRequests.length); 
   }, []);
 
   const handleRegisterClick = () => {
@@ -38,7 +38,6 @@ const HrHome = () => {
 
   return (
     <div className="flex flex-row h-screen">
-      {/* Toggle button for sidebar */}
       <button onClick={toggleSidebar} className="text-gray-500 fixed top-4 left-4 z-50">
         <svg
           xmlns="http://www.w3.org/2000/svg"

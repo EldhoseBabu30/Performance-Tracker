@@ -17,7 +17,8 @@ const TaskChartList = () => {
             },
           }
         );
-        setTaskUpdates(response.data); 
+        console.log(response)
+        setTaskUpdates(response); 
       } catch (error) {
         setError(error);
         console.log("error to fetch teams");
