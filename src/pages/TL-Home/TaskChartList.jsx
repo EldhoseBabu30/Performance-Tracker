@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 const TaskChartList = () => {
   const [taskUpdates, setTaskUpdates] = useState([]);
   const [error, setError] = useState(null);
-  const token = localStorage.getItem("Emp-token");
+  const token = localStorage.getItem("TlToken");
 
   useEffect(() => {
     const fetchTaskUpdates = async () => {
@@ -18,7 +18,7 @@ const TaskChartList = () => {
           }
         );
         console.log(response)
-        setTaskUpdates(response); 
+        setTaskUpdates(response.data); 
       } catch (error) {
         setError(error);
         console.log("error to fetch teams");
@@ -42,6 +42,7 @@ const TaskChartList = () => {
                 <th className="py-3 px-4 border-b border-gray-300">Project Name</th>
                 <th className="py-3 px-4 border-b border-gray-300">Project Lead</th>
                 <th className="py-3 px-4 border-b border-gray-300">Assigned Part</th>
+                <th className="py-3 px-4 border-b border-gray-300">Status</th>
                 <th className="py-3 px-4 border-b border-gray-300">Assigned Person</th>
                 <th className="py-3 px-4 border-b border-gray-300">Start Date</th>
                 <th className="py-3 px-4 border-b border-gray-300">End Date</th>
@@ -55,6 +56,7 @@ const TaskChartList = () => {
                   <td className="py-3 px-4 border whitespace-nowrap">{task.project_detail.projectassigned}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{task.project_detail.teamlead}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{task.project_detail.assigned_part}</td>
+                  <td className="py-3 px-4 border whitespace-nowrap">{task.project_detail.status}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{task.assigned_person}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{task.start_date}</td>
                   <td className="py-3 px-4 border whitespace-nowrap">{task.end_date}</td>

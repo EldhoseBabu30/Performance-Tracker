@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+
 const HrInbox = ({ updateRequests }) => {
   const [requests, setRequests] = useState([]);
   const [formData, setFormData] = useState([{

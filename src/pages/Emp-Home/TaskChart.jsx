@@ -104,6 +104,7 @@ const TaskChart = () => {
             <tbody>
               {taskChart.map((task, index) => (
                 <tr key={index}>
+                  
                   <td className="border border-gray-300 px-4 py-2">
                     {task.id}
                   </td>
@@ -122,7 +123,6 @@ const TaskChart = () => {
                   <td className="border border-gray-300 px-4 py-2">
                     <Link to={`/update-tasks/${task.id}`}>
                       {" "}
-                      {/* Include the task ID in the URL */}
                       <button
                         type="button"
                         className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

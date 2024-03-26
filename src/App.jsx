@@ -33,6 +33,7 @@ import AssignedProject from "./pages/TL-Home/AssignedProject";
 import Performance from "./pages/Hr-Home/Performance";
 import PerformanceLists from "./pages/Hr-Home/PerformanceLists";
 import TaskChartList from "./pages/TL-Home/TaskChartList";
+// import UpdatedTasks from "./pages/TL-Home/UpdatedTasks";
 
 
 
@@ -89,6 +90,7 @@ const App = () => {
           <Route path="/performance" element={<Performance />} />
           <Route path="/performance-lists" element={<PerformanceLists />} />
           <Route path="/task-chart-list" element={<TaskChartList />} />
+          {/* <Route path="/updated-tasks" element={<UpdatedTasks />} /> */}
 
           
          
